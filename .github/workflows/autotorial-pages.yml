@@ -2,13 +2,6 @@ name: Publish Autotorial to GitHub Pages
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/autotorial-pages.yml"
-      - "lessons/**"
-      - "lib/autotorial"
-      - "lib/autotorial/**"
 
 permissions:
   contents: read
