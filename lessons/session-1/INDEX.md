@@ -110,6 +110,12 @@ items:
   detail: .deb · .rpm · VSCodium
 ```
 
+```exercise
+id: check-download
+type: checkpoint
+prompt: Ya descargué Visual Studio Code (o ya lo tenía)
+explanation: ¡Listo! Sigue con la instalación.
+```
 
 ### 4. Instálalo y ábrelo
 
@@ -145,6 +151,12 @@ items:
   - Ábrelo desde el menú de aplicaciones
 ```
 
+```exercise
+id: check-install
+type: checkpoint
+prompt: Ya instalé y abrí Visual Studio Code
+explanation: ¡Perfecto! Ahora instalaremos tu agente.
+```
 
 ### 5. Instala tu agente
 
@@ -163,6 +175,12 @@ items:
   detail: Agente de programación de OpenAI
 ```
 
+```exercise
+id: check-extension
+type: checkpoint
+prompt: Ya instalé la extensión e inicié sesión
+explanation: ¡Bien! Falta abrir la carpeta de trabajo.
+```
 
 ### 6. Abre una carpeta nueva
 
@@ -177,6 +195,12 @@ items:
   label: mis-videojuegos
 ```
 
+```exercise
+id: check-folder
+type: checkpoint
+prompt: Ya abrí la carpeta mis-videojuegos
+explanation: ¡Excelente! Ahora abre el chat del agente.
+```
 
 ### 7. Abre el chat del agente
 
@@ -191,6 +215,12 @@ items:
   label: mis-videojuegos
 ```
 
+```exercise
+id: check-chat
+type: checkpoint
+prompt: Ya tengo abierto el chat del agente
+explanation: ¡Listo para pedirle la aplicación!
+```
 
 ### 8. Una biblioteca de videojuegos
 
@@ -465,6 +495,13 @@ explanation: Copiar no ejecuta nada. Solo marcas «Acepto» si estás de acuerdo
   al agente.
 ```
 
+```exercise
+id: check-sent
+type: checkpoint
+prompt: Ya copié el prompt y se lo envié al agente
+explanation: ¡Enviado! Veamos qué hace el agente.
+```
+
 ### 14. El agente construye la aplicación
 
 Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Al final te da la dirección para abrirla. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.
@@ -492,6 +529,13 @@ choices:
 - Cierras el editor
 answer: 0
 explanation: 'Puede pedir permisos para instalar o ejecutar cosas: léelos antes de aceptar.'
+```
+
+```exercise
+id: check-built
+type: checkpoint
+prompt: El agente ya terminó de construir la aplicación
+explanation: ¡Ya tienes una aplicación! Vamos a probarla.
 ```
 
 ### 15. Verifica la aplicación
@@ -543,6 +587,13 @@ choices:
 - Se ejecuta sola al copiar el prompt
 answer: 1
 explanation: Si no está corriendo, pídeselo al agente, por ejemplo «Ejecuta la aplicación y dame la dirección».
+```
+
+```exercise
+id: check-opened
+type: checkpoint
+prompt: Ya abrí la aplicación en el navegador y la probé
+explanation: ¡Muy bien! Ahora haremos un cambio.
 ```
 
 ### 16. Tu primer cambio
@@ -602,6 +653,13 @@ choices:
 - Leyendo todo el código
 answer: 1
 explanation: Siempre se comprueba el resultado en el navegador.
+```
+
+```exercise
+id: check-change
+type: checkpoint
+prompt: Ya le pedí un cambio al agente y lo comprobé en el navegador
+explanation: ¡Lo lograste! Ya programaste con IA.
 ```
 
 ### 17. De una carpeta vacía a una aplicación
