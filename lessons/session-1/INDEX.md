@@ -1,5 +1,5 @@
 ---
-title: "Lección 1: Primer contacto con el computador para programar"
+title: "Lección 1: Primer contacto"
 courseTitle: "Aprende a\nProgramar con IA"
 language: es
 objectives:
@@ -84,8 +84,8 @@ type: multiple-choice
 prompt: ¿Qué ventaja nos da usar una aplicación web en el navegador?
 choices:
   - Entramos escribiendo una dirección, sin instalarla en el computador
-  - Funciona sin ninguna dirección
-  - Necesita instalar Docker primero
+  - Hay que instalarla antes en cada computador
+  - Solo funciona si descargamos un archivo
 answer: 0
 explanation: Con solo escribir una dirección ya estamos dentro de la aplicación, sin instalar nada.
 ```
@@ -200,6 +200,25 @@ Vamos a crear una biblioteca de videojuegos con portadas, búsqueda y favoritos.
 id: game-library
 type: visual
 visual: app-preview
+cards:
+- label: Commander Keen 4
+  detail: '1991'
+  image: keen.jpg
+- label: Another World
+  detail: '1991'
+  image: another-world.png
+- label: Prince of Persia
+  detail: '1989'
+  image: prince-of-persia.jpg
+- label: Prince of Persia 2
+  detail: '1993'
+  image: prince-of-persia-2.jpg
+- label: Super Mario World
+  detail: '1990'
+  image: super-mario-world.png
+- label: Simon the Sorcerer 2
+  detail: '1995'
+  image: simon-2.png
 items:
 - icon: 👤
   label: Usuario
@@ -216,6 +235,19 @@ Una aplicación web moderna tiene varios componentes. El frontend, o cliente, es
 id: concept-frontend
 type: visual
 visual: frontend
+cards:
+- label: Commander Keen 4
+  detail: '1991'
+  image: keen.jpg
+- label: Another World
+  detail: '1991'
+  image: another-world.png
+- label: Prince of Persia
+  detail: '1989'
+  image: prince-of-persia.jpg
+- label: Prince of Persia 2
+  detail: '1993'
+  image: prince-of-persia-2.jpg
 items:
   - icon: 🔍
     label: Búsqueda
@@ -292,15 +324,19 @@ items:
   - label: Commander Keen 4
     icon: 🎮
     detail: '1991'
+    image: keen.jpg
   - label: Another World
     icon: 🎮
     detail: '1991'
+    image: another-world.png
   - label: Prince of Persia
     icon: 🎮
     detail: '1989'
+    image: prince-of-persia.jpg
   - label: Super Mario World
     icon: 🎮
     detail: '1990'
+    image: super-mario-world.png
 ```
 
 ```exercise
@@ -466,6 +502,25 @@ Ya tenemos una aplicación, y el agente la dejó corriendo. Tú solo abre el nav
 id: verify-app
 type: visual
 visual: app-preview
+cards:
+- label: Commander Keen 4
+  detail: '1991'
+  image: keen.jpg
+- label: Another World
+  detail: '1991'
+  image: another-world.png
+- label: Prince of Persia
+  detail: '1989'
+  image: prince-of-persia.jpg
+- label: Prince of Persia 2
+  detail: '1993'
+  image: prince-of-persia-2.jpg
+- label: Super Mario World
+  detail: '1990'
+  image: super-mario-world.png
+- label: Simon the Sorcerer 2
+  detail: '1995'
+  image: simon-2.png
 items:
 - icon: 👤
   label: Usuario
@@ -568,6 +623,11 @@ items:
   label: Aplicación que funciona
 ```
 
+
+## Notas del autor
+
+- Las portadas de `assets/` son las carátulas oficiales de cada juego (de Wikipedia, uso ilustrativo). Se copian a la página al producir la lección.
+- La portada de Commander Keen 4 es la de la colección «Goodbye, Galaxy!», que incluye ese episodio.
 
 ## Entregables de AutoTorial
 
