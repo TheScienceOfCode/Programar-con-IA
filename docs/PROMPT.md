@@ -7,3 +7,5 @@ Respeta el contenido y la intención pedagógica. Produce los materiales audiovi
 Prioriza las demostraciones visuales, una narración natural y una experiencia sencilla para principiantes. No agregues explicaciones técnicas que no estén previstas en el guión.
 
 Al finalizar, publica el resultado utilizando el mecanismo de publicación existente de AutoTorial y verifica que los videos, las interacciones y los botones para copiar los prompts funcionen.
+
+Voz: produce siempre con `.autotorial/autotorial produce session-1 --voice kokoro --speaker em_alex` (comando `kokoro` en `~/.local/bin`, acento de España; `KOKORO_LANG=es-419` para latinoamericano). Nunca uses `--voice auto`: puede caer en espeak.
