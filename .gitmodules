@@ -1,0 +1,4 @@
+[submodule "lib/autotorial"]
+	path = lib/autotorial
+	url = https://github.com/equilaterus/autotorial
+	branch = dev
