@@ -13,737 +13,561 @@ prerequisites:
 # Lección 1 — Primer contacto con el computador para programar
 
 **Proyecto:** Aprende a Programar con IA  
-**Formato:** video guiado + pasos interactivos  
+**Formato:** video guiado, una pantalla por parte, con su pregunta y botón Continuar  
 **Público:** principiantes absolutos  
-**Objetivo:** construir y modificar una biblioteca de videojuegos utilizando un agente de IA.
+**Principio pedagógico:** primero construir algo útil; después aprender a entenderlo y dominarlo.
 
-## Instrucciones para AutoTorial
+Este archivo es la única fuente de la lección. Cada `###` bajo **Partes** es una pantalla: el texto es la narración que se escucha, el bloque `scene` define lo que se ve y los bloques `exercise` son sus preguntas o prácticas.
 
-Produce esta lección utilizando el flujo existente de AutoTorial. Usa capturas reales, animaciones sencillas y narración breve. Evita explicaciones técnicas innecesarias.
-
-## Guion
-
-Cada sección es una pantalla: video corto, una pregunta y el botón **Continuar**.
+## Partes
 
 ### 1. De una idea a una aplicación
 
-**Visual:** computador antiguo → idea → agentes → aplicación terminada.
-
-**Narración:**
-
 Los computadores han ampliado nuestra capacidad de calcular, recordar y resolver problemas. Ahora la inteligencia artificial nos permite ir más allá: podemos describir una idea y trabajar con agentes capaces de escribir programas, encontrar errores y proponer soluciones. Incluso podemos tener varios agentes trabajando en diferentes tareas. No son infalibles, pero multiplican lo que podemos crear. Vamos a probarlo.
 
-**Pregunta:** ¿Qué papel tiene la inteligencia artificial en este curso?
+```scene
+id: why-ai
+type: visual
+visual: timeline
+items:
+- icon: 🖥️
+  label: Los computadores
+  detail: calculan y recuerdan
+- icon: ✍️
+  label: Describes una idea
+  detail: con tus palabras
+- icon: 🤖
+  label: Agentes de IA
+  detail: escriben y corrigen
+- icon: 🎮
+  label: Aplicación terminada
+  detail: tú la compruebas
+```
+
+```exercise
+id: quiz-why-ai
+type: multiple-choice
+prompt: ¿Qué papel tiene la inteligencia artificial en este curso?
+choices:
+- Reemplaza por completo a la persona, que ya no debe revisar nada
+- Trabaja como agente que escribe y corrige programas, y tú compruebas el resultado
+- Sirve únicamente para buscar información en internet
+answer: 1
+explanation: 'Los agentes multiplican lo que podemos crear, pero no son infalibles: siempre comprobamos
+  el resultado.'
+```
 
 ### 2. Descarga Visual Studio Code
 
-**Visual:** navegador en code.visualstudio.com/download con los botones de Windows, macOS y Linux.
-
-**Narración:**
-
 Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium. Entra a code punto visual studio punto com, barra download, y elige tu sistema: Windows, macOS o Linux.
 
-**Pregunta:** ¿De dónde descargas Visual Studio Code?
+```scene
+id: download-editor
+type: visual
+visual: browser-download
+items:
+- icon: 🪟
+  label: Windows
+  detail: Instalador .exe
+- icon: 🍎
+  label: macOS
+  detail: Archivo .zip
+- icon: 🐧
+  label: Linux
+  detail: .deb · .rpm · VSCodium
+```
+
 
 ### 3. Instálalo y ábrelo
 
-**Visual:** pasos de instalación por sistema operativo (Windows, macOS, Linux).
-
-**Narración:**
-
 Ahora instálalo. En Windows, abre el instalador y pulsa Siguiente hasta terminar. En macOS, abre el archivo descargado y arrastra Visual Studio Code a la carpeta Aplicaciones. En Linux, instala el paquete: con apt en Ubuntu y Debian, o con dnf en Fedora. Cuando termine, ábrelo. Si ya lo tienes, salta este paso.
 
-**Pregunta:** ¿Cómo instalas Visual Studio Code en macOS?
+```scene
+id: install-editor
+type: visual
+visual: installer
+items:
+- icon: 🪟
+  label: Windows
+  steps:
+  - Abre VSCodeUserSetup.exe
+  - Acepta y pulsa Siguiente
+  - Pulsa Instalar
+  - Marca «Ejecutar» y Finalizar
+- icon: 🍎
+  label: macOS
+  steps:
+  - Abre el .zip descargado
+  - Arrastra VS Code a Aplicaciones
+  - Ábrelo desde Launchpad
+  - Pulsa «Abrir» si macOS lo pide
+- icon: 🐧
+  label: Linux
+  steps:
+  - Descarga el .deb (Ubuntu/Debian) o el .rpm (Fedora)
+  - 'Doble clic en el archivo: se abre «Instalar software»'
+  - 'O por terminal, en la carpeta de descargas:'
+  - $ sudo apt install ./archivo.deb
+  - $ sudo dnf install ./archivo.rpm
+  - Ábrelo desde el menú de aplicaciones
+```
+
 
 ### 4. Instala tu agente
 
-**Visual:** panel de Extensiones: buscar, instalar e iniciar sesión.
-
-**Narración:**
-
 Abre el panel de extensiones, con el icono de cuadritos o con Control, Shift y X. Busca Claude Code o Codex y pulsa Instalar. Cuando termine, inicia sesión con tu cuenta.
 
-**Pregunta:** ¿Dónde buscas Codex o Claude Code dentro del editor?
+```scene
+id: install-extension
+type: visual
+visual: extensions
+items:
+- icon: 🟠
+  label: Claude Code
+  detail: Agente de programación de Anthropic
+- icon: ⚫
+  label: Codex
+  detail: Agente de programación de OpenAI
+```
+
 
 ### 5. Abre una carpeta nueva
 
-**Visual:** pantalla de bienvenida → ventana Abrir carpeta → Nueva carpeta → confiar en los autores.
-
-**Narración:**
-
 Ahora abre una carpeta de trabajo. En la pantalla de bienvenida pulsa Abrir carpeta. En la ventana que aparece, usa el botón Nueva carpeta, llámala mis-videojuegos y ábrela. Si el editor pregunta si confías en los autores, responde que sí. Ahí construiremos nuestra aplicación.
 
-**Pregunta:** ¿Cómo creas la carpeta mis-videojuegos?
+```scene
+id: open-folder
+type: visual
+visual: open-folder
+items:
+- icon: 📂
+  label: mis-videojuegos
+```
+
 
 ### 6. Abre el chat del agente
 
-**Visual:** icono del agente y panel de chat dentro del editor.
-
-**Narración:**
-
 Ahora abre el chat del agente. En Claude Code, pulsa su icono, arriba a la derecha del editor. En Codex, usa su icono en la barra lateral. Se abrirá un panel con una caja para escribirle: ahí pegaremos nuestro mensaje.
 
-**Pregunta:** ¿Dónde le escribes al agente?
+```scene
+id: open-chat
+type: visual
+visual: open-chat
+items:
+- icon: 📂
+  label: mis-videojuegos
+```
+
 
 ### 7. Una biblioteca de videojuegos
 
-**Visual:** catálogo inspirado en Steam, favoritos y cambio de usuario.
-
-**Narración:**
-
 Vamos a crear una biblioteca de videojuegos con portadas, búsqueda y favoritos. Tendremos usuarios normales y un administrador que podrá agregar, editar y eliminar juegos. También podremos cambiar de usuario con un clic.
 
-**Pregunta:** ¿Qué puede hacer el administrador de la biblioteca?
+```scene
+id: game-library
+type: visual
+visual: app-preview
+items:
+- icon: 👤
+  label: Usuario
+- icon: 🛡️
+  label: Administrador
+```
 
-### 8. Cuatro conceptos rápidos
 
-**Visual:** React ↔ ASP.NET Core ↔ SQLite, con Docker alrededor.
+### 8. ¿Qué es un navegador?
 
-**Narración:**
+Antes, una pregunta: ¿qué es un navegador? Es el programa que nos permite acceder a internet y ver páginas, imágenes y videos. Y es muy importante, porque nos permite usar aplicaciones sin instalarlas en nuestra máquina: basta escribir una dirección y ya estamos dentro de una aplicación web.
 
-El frontend es lo que vemos y utilizamos en el navegador. Lo construiremos con React. El backend gestiona las acciones y los datos. Usaremos ASP.NET Core. SQLite guardará nuestra información, mientras Docker nos permitirá ejecutar la aplicación en contenedores. No necesitas memorizarlo todavía.
+```scene
+id: browser-intro
+type: visual
+visual: browser-page
+steps:
+  - una-direccion.com
+items:
+  - icon: 📄
+    label: Páginas
+  - icon: 🖼️
+    label: Imágenes
+  - icon: 🎬
+    label: Videos
+  - icon: 🎮
+    label: Aplicaciones web
+```
 
-**Pregunta:** ¿Qué tecnología guarda la información de la aplicación?
+```exercise
+id: quiz-browser
+type: multiple-choice
+prompt: ¿Qué ventaja nos da usar una aplicación web en el navegador?
+choices:
+  - Entramos escribiendo una dirección, sin instalarla en el computador
+  - Funciona sin ninguna dirección
+  - Necesita instalar Docker primero
+answer: 0
+explanation: Con solo escribir una dirección ya estamos dentro de la aplicación, sin instalar nada.
+```
 
-### 9. Autoriza, copia y envía
+### 9. Frontend: lo que ves
 
-**Visual:** casilla «Acepto», botón «Copiar prompt» y envío al chat.
+Una aplicación web moderna tiene varios componentes. El frontend, o cliente, es lo que vemos directamente en el navegador: los botones y los formularios con los que interactuamos. Lo construiremos con React.
 
-**Narración:**
+```scene
+id: concept-frontend
+type: visual
+visual: stack
+focus: 0
+items:
+  - icon: 🖥️
+    label: Frontend
+    detail: React · lo que ves
+  - icon: ⚙️
+    label: Backend
+    detail: ASP.NET Core · recibe peticiones
+  - icon: 🗄️
+    label: Base de datos
+    detail: SQLite · guarda la información
+  - icon: 🐳
+    label: Docker
+    detail: ejecuta todo en contenedores
+```
+
+### 10. Backend: quien recibe las peticiones
+
+El backend, o servidor, es el encargado de recibir las peticiones del navegador. Por ejemplo: muéstrame la información, modifícame este campo, guárdame esto, bórrame aquello. Recibe la petición, hace las validaciones y ejecuta las acciones. Usaremos ASP.NET Core.
+
+```scene
+id: concept-backend
+type: visual
+visual: stack
+focus: 1
+steps:
+  - Muéstrame la información
+  - Modifica este campo
+  - Guarda esto
+  - Borra aquello
+items:
+  - icon: 🖥️
+    label: Frontend
+    detail: React · lo que ves
+  - icon: ⚙️
+    label: Backend
+    detail: ASP.NET Core · recibe peticiones
+  - icon: 🗄️
+    label: Base de datos
+    detail: SQLite · guarda la información
+  - icon: 🐳
+    label: Docker
+    detail: ejecuta todo en contenedores
+```
+
+```exercise
+id: quiz-backend
+type: multiple-choice
+prompt: Pides «borra este juego» en el navegador. ¿Quién valida la petición y ejecuta la acción?
+choices:
+  - El frontend, que solo muestra los botones
+  - El backend
+  - Docker
+answer: 1
+explanation: El backend recibe la petición, hace las validaciones y ejecuta la acción.
+```
+
+### 11. Base de datos: donde se guarda
+
+La base de datos es la que usa el backend para persistir, es decir, guardar la información como tal. Usaremos SQLite.
+
+```scene
+id: concept-database
+type: visual
+visual: stack
+focus: 2
+items:
+  - icon: 🖥️
+    label: Frontend
+    detail: React · lo que ves
+  - icon: ⚙️
+    label: Backend
+    detail: ASP.NET Core · recibe peticiones
+  - icon: 🗄️
+    label: Base de datos
+    detail: SQLite · guarda la información
+  - icon: 🐳
+    label: Docker
+    detail: ejecuta todo en contenedores
+```
+
+```exercise
+id: quiz-database
+type: multiple-choice
+prompt: Si el backend no guardara nada en la base de datos, ¿qué pasaría?
+choices:
+  - Los juegos y favoritos se perderían al reiniciar
+  - La aplicación se vería distinta
+  - Docker dejaría de funcionar
+answer: 0
+explanation: Persistir significa guardar la información para que siga ahí cuando reiniciamos.
+```
+
+### 12. Docker: la caja que lo contiene
+
+Además usaremos Docker, que nos permite ejecutar la aplicación en contenedores, sin tener que instalar cosas directamente en nuestra máquina. Un contenedor reúne toda nuestra aplicación y sus dependencias, y funciona igual en cualquier computador, sin importar el sistema operativo. Así no tenemos que instalar nada y, además, podremos llevar la aplicación a cualquier lado.
+
+```scene
+id: concept-docker
+type: visual
+visual: stack
+focus: 3
+items:
+  - icon: 🖥️
+    label: Frontend
+    detail: React · lo que ves
+  - icon: ⚙️
+    label: Backend
+    detail: ASP.NET Core · recibe peticiones
+  - icon: 🗄️
+    label: Base de datos
+    detail: SQLite · guarda la información
+  - icon: 🐳
+    label: Docker
+    detail: ejecuta todo en contenedores
+```
+
+```exercise
+id: quiz-docker
+type: multiple-choice
+prompt: ¿Qué ventaja nos da Docker?
+choices:
+  - Ejecutar la aplicación sin instalar todo en el computador, y llevarla a cualquier lado
+  - Hacer más bonitos los botones
+  - Guardar los datos en la nube
+answer: 0
+explanation: El contenedor trae la aplicación y sus dependencias, y funciona igual en cualquier sistema operativo.
+```
+
+### 13. Autoriza, copia y envía
 
 Vamos a pedirle al agente que construya la aplicación y prepare todo lo necesario para ejecutarla. Eso puede incluir instalar programas en tu computador. Lee la autorización y, si estás de acuerdo, marca Acepto, copia el mensaje y envíalo.
 
-**Pregunta:** ¿Qué ocurre al copiar el prompt?
+```scene
+id: authorize-prompt
+type: visual
+visual: prompt-flow
+items:
+- icon: ☑️
+  label: 1. Acepto
+- icon: 📋
+  label: 2. Copiar
+- icon: 💬
+  label: 3. Pegar y enviar
+```
 
-### 10. El agente construye la aplicación
+```exercise
+id: authorize-and-copy
+type: authorization
+prompt: Permiso para instalar software
+notice: Este mensaje autoriza al agente a instalar y configurar las herramientas necesarias para ejecutar
+  el proyecto, incluido Docker. Estas operaciones pueden modificar la configuración de tu computador y
+  requerir permisos de administrador o reiniciar el sistema.
+consentLabel: Acepto y autorizo estas instalaciones y configuraciones para este proyecto.
+buttonLabel: Copiar prompt completo
+copyText: |-
+  Quiero que construyas una biblioteca web de videojuegos. Soy principiante: haz el trabajo y explícame lo esencial con palabras sencillas.
 
-**Visual:** chat del agente y terminal con docker compose up.
+  Tecnologías: React.js (frontend), ASP.NET Core con C# (backend), SQLite (datos) y Docker Compose para ejecutarlo.
 
-**Narración:**
+  Funcionalidades:
+  - Catálogo con portada, título, año, género, plataforma y descripción, con búsqueda y filtros.
+  - Cuentas de demostración y botón Cambiar usuario para entrar con un clic.
+  - Administrador: agregar, editar y eliminar videojuegos.
+  - Usuario normal: explorar y marcar favoritos, sin editar el catálogo.
+  - Validar los permisos también en el backend.
+  - Conservar datos y favoritos al reiniciar.
 
-Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.
+  Diseño: inspirado en Steam, tonos azules oscuros, portadas y adaptación a pantallas pequeñas.
 
-**Pregunta:** Mientras el agente trabaja, ¿qué haces si te pide permisos?
+  Videojuegos iniciales:
+  - Commander Keen 4: Secret of the Oracle (1991).
+  - Another World (1991).
+  - Prince of Persia (1989).
+  - Prince of Persia 2: The Shadow and the Flame (1993).
+  - Super Mario World (1990).
+  - Simon the Sorcerer 2 (1995).
 
-### 11. Verifica la aplicación
+  Utiliza portadas reales de fuentes accesibles o imágenes de reemplazo.
 
-**Visual:** la aplicación funcionando y la lista de pruebas.
+  Instalación:
+  Te autorizo a instalar y configurar las dependencias necesarias, incluido Docker y sus componentes.
+  Detecta mi sistema operativo e instala lo que falte, sin limitarte a darme instrucciones. Si necesitas permisos de administrador o reiniciar, solicítame intervenir.
+  No borres archivos personales ni realices cambios ajenos al proyecto.
+  Trabaja en la carpeta actual, ejecuta la aplicación con Docker y dame la dirección para abrirla.
 
-**Narración:**
+  Verificación:
+  Antes de terminar, abre la aplicación en un navegador y comprueba que realmente funciona. Haz clic en los botones, cambia de usuario, agrega y edita videojuegos y prueba las funciones principales.
+  Si algo falla, corrígelo y vuelve a comprobar. Si no puedes controlar el navegador, indícalo y guíame para verificar la aplicación.
 
-Ya tenemos una aplicación. Ahora debemos comprobarla: abrirla, utilizar sus botones, cambiar de usuario y probar sus funciones. Si algo falla, le pedimos al agente que lo corrija.
+  Al terminar, explícame brevemente qué construiste y cómo iniciar y detener la aplicación.
 
-**Pregunta:** ¿Qué haces cuando algo de la aplicación no funciona?
+  Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostración son solo para uso educativo local.
+explanation: El prompt quedó copiado. Pégalo en el chat del agente; copiarlo no ejecuta ninguna instalación.
+```
 
-### 12. Tu primer cambio
+```exercise
+id: quiz-authorize-prompt
+type: multiple-choice
+prompt: ¿Qué ocurre al copiar el prompt?
+choices:
+- Se instala todo automáticamente en ese momento
+- 'No se ejecuta nada: el agente actúa solo cuando tú lo envías, y el sistema aún puede pedir permisos'
+- El computador se reinicia
+answer: 1
+explanation: Copiar no ejecuta nada. Solo marcas «Acepto» si estás de acuerdo y luego envías el mensaje
+  al agente.
+```
 
-**Visual:** tres ejercicios seleccionables con instrucciones copiables.
+### 14. El agente construye la aplicación
 
-**Narración:**
+Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Al final te da la dirección para abrirla. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.
+
+```scene
+id: agent-builds
+type: visual
+visual: agent-work
+steps:
+- Detecté tu sistema operativo
+- Instalé Docker y sus componentes
+- Escribí el backend y el frontend
+- Ejecuté la aplicación con Docker
+- La probé en el navegador
+- 'Te di la dirección: http://localhost:3000'
+```
+
+```exercise
+id: quiz-agent-builds
+type: multiple-choice
+prompt: Mientras el agente trabaja, ¿qué haces si te pide permisos?
+choices:
+- Los lees y aceptas solo si estás de acuerdo
+- Los aceptas sin leer
+- Cierras el editor
+answer: 0
+explanation: 'Puede pedir permisos para instalar o ejecutar cosas: léelos antes de aceptar.'
+```
+
+### 15. Verifica la aplicación
+
+Ya tenemos una aplicación, y el agente la dejó corriendo. Tú solo abre el navegador y escribe la dirección que te dio, por ejemplo localhost dos puntos tres mil. Ahora comprueba la aplicación: usa sus botones, cambia de usuario y prueba sus funciones. Si algo falla, díselo al agente para que lo corrija. Y si la aplicación no está corriendo, también se lo puedes pedir: dile que la ejecute y te dé la dirección.
+
+```scene
+id: verify-app
+type: visual
+visual: app-preview
+items:
+- icon: 👤
+  label: Usuario
+- icon: 🛡️
+  label: Administrador
+steps:
+- Abre el navegador
+- Escribe la dirección que te dio el agente
+- Prueba los botones y cambia de usuario
+- '💡 ¿No está corriendo? Díselo al agente: «Ejecuta la aplicación y dame la dirección»'
+```
+
+```exercise
+id: quiz-verify-app
+type: multiple-choice
+prompt: ¿Quién ejecuta la aplicación?
+choices:
+- Tú, instalando cada herramienta a mano
+- El agente la ejecuta y te da la dirección; tú solo abres el navegador
+- Se ejecuta sola al copiar el prompt
+answer: 1
+explanation: Si no está corriendo, pídeselo al agente, por ejemplo «Ejecuta la aplicación y dame la dirección».
+```
+
+### 16. Tu primer cambio
 
 Ahora te toca a ti. Elige un cambio, pídeselo al agente y comprueba el resultado en el navegador.
 
-**Pregunta:** ¿Cómo compruebas que tu primer cambio quedó bien?
+```scene
+id: first-change
+type: visual
+visual: choices
+items:
+- icon: 🌗
+  label: Colores
+  detail: Agrega un botón para cambiar entre tema claro y oscuro
+- icon: ⭐
+  label: Puntuación
+  detail: Permite puntuar los videojuegos de una a cinco estrellas
+- icon: 🔀
+  label: Orden
+  detail: Permite ordenar por título, año o género
+```
 
-### 13. De una carpeta vacía a una aplicación
+```exercise
+id: change-colors
+type: prompt-copy
+prompt: 'Opción 1: colores'
+copyText: Agrega un botón para cambiar entre tema claro y oscuro y recuerda mi preferencia. Comprueba
+  el cambio en el navegador y corrige cualquier problema que encuentres.
+explanation: Instrucción copiada. Pégala en el chat del agente y comprueba ambos temas.
+```
 
-**Visual:** carpeta vacía → aplicación que funciona.
+```exercise
+id: change-rating
+type: prompt-copy
+prompt: 'Opción 2: puntuación'
+copyText: Permite que cada usuario puntúe los videojuegos de una a cinco estrellas. Conserva las puntuaciones
+  al reiniciar y comprueba el cambio en el navegador.
+explanation: Instrucción copiada. Pégala en el chat del agente y prueba varias puntuaciones.
+```
 
-**Narración:**
+```exercise
+id: change-order
+type: prompt-copy
+prompt: 'Opción 3: orden'
+copyText: Permite ordenar los videojuegos por título, año o género. Comprueba cada opción en el navegador
+  y corrige cualquier problema que encuentres.
+explanation: Instrucción copiada. Pégala en el chat del agente y prueba los tres criterios.
+```
+
+```exercise
+id: quiz-first-change
+type: multiple-choice
+prompt: ¿Cómo compruebas que tu primer cambio quedó bien?
+choices:
+- Confiando en que el agente no se equivoca
+- Abriendo la aplicación en el navegador y probando el cambio
+- Leyendo todo el código
+answer: 1
+explanation: Siempre se comprueba el resultado en el navegador.
+```
+
+### 17. De una carpeta vacía a una aplicación
 
 Empezamos con una carpeta vacía y terminamos con una aplicación que funciona. Todavía no entendemos todo su código. En las siguientes lecciones aprenderemos a comprenderlo y a tomar mejores decisiones al trabajar con inteligencia artificial.
 
-**Pregunta:** ¿Qué aprenderemos en las siguientes lecciones?
+```scene
+id: closing
+type: visual
+visual: timeline
+items:
+- icon: 📂
+  label: Carpeta vacía
+- icon: 💬
+  label: Un prompt
+- icon: 🤖
+  label: El agente construye
+- icon: ✅
+  label: Aplicación que funciona
+```
 
----
-
-## Autorización antes de copiar el prompt
-
-**Título:** Permiso para instalar software
-
-**Aviso:**
-
-Este mensaje autoriza al agente a instalar y configurar las herramientas necesarias para ejecutar el proyecto, incluido Docker.
-
-Estas operaciones pueden modificar la configuración de tu computador y requerir permisos de administrador o reiniciar el sistema.
-
-**Casilla (desmarcada inicialmente):**
-
-«Acepto y autorizo estas instalaciones y configuraciones para este proyecto».
-
-El botón **Copiar prompt** solo se habilita después de aceptar. Copiar el texto no lo ejecuta ni sustituye las aprobaciones que solicite el sistema operativo.
-
-## Prompt completo para el estudiante
-
-Quiero que construyas una biblioteca web de videojuegos. Soy principiante: haz el trabajo y explícame lo esencial con palabras sencillas.
-
-**Tecnologías:** React.js (frontend), ASP.NET Core con C# (backend), SQLite (datos) y Docker Compose para ejecutarlo.
-
-**Funcionalidades:**
-
-- Catálogo con portada, título, año, género, plataforma y descripción, con búsqueda y filtros.
-- Cuentas de demostración y botón **Cambiar usuario** para entrar con un clic.
-- Administrador: agregar, editar y eliminar videojuegos.
-- Usuario normal: explorar y marcar favoritos, sin editar el catálogo.
-- Validar los permisos también en el backend.
-- Conservar datos y favoritos al reiniciar.
-
-**Diseño:** inspirado en Steam, tonos azules oscuros, portadas y adaptación a pantallas pequeñas.
-
-**Videojuegos iniciales:**
-
-- Commander Keen 4: Secret of the Oracle (1991).
-- Another World (1991).
-- Prince of Persia (1989).
-- Prince of Persia 2: The Shadow and the Flame (1993).
-- Super Mario World (1990).
-- Simon the Sorcerer 2 (1995).
-
-Utiliza portadas reales de fuentes accesibles o imágenes de reemplazo.
-
-**Instalación:**
-
-Te autorizo a instalar y configurar las dependencias necesarias, incluido Docker y sus componentes.
-
-Detecta mi sistema operativo e instala lo que falte, sin limitarte a darme instrucciones. Si necesitas permisos de administrador o reiniciar, solicítame intervenir.
-
-No borres archivos personales ni realices cambios ajenos al proyecto.
-
-Trabaja en la carpeta actual, ejecuta la aplicación con Docker y dame la dirección para abrirla.
-
-**Verificación:**
-
-Antes de terminar, abre la aplicación en un navegador y comprueba que realmente funciona. Haz clic en los botones, cambia de usuario, agrega y edita videojuegos y prueba las funciones principales.
-
-Si algo falla, corrígelo y vuelve a comprobar. Si no puedes controlar el navegador, indícalo y guíame para verificar la aplicación.
-
-Al terminar, explícame brevemente qué construiste y cómo iniciar y detener la aplicación.
-
-Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostración son solo para uso educativo local.
-
----
 
 ## Entregables de AutoTorial
 
 - Lección audiovisual e interactiva con instrucciones para Windows, macOS y Linux.
 - Autorización obligatoria antes de copiar el prompt.
-- Demostración real de construcción, funcionamiento y corrección de errores.
 - Tres ejercicios con instrucciones copiables.
-- Publicación utilizando el flujo existente de AutoTorial.
-- Comprobación de reproducción de videos y funcionamiento de botones.
-
-**Principio pedagógico:** primero construir algo útil; después aprender a entenderlo y dominarlo.
-
-```autotorial
-{
-  "scenes": [
-    {
-      "id": "why-ai",
-      "type": "visual",
-      "visual": "timeline",
-      "title": "De una idea a una aplicación",
-      "items": [
-        {
-          "icon": "🖥️",
-          "label": "Los computadores",
-          "detail": "calculan y recuerdan"
-        },
-        {
-          "icon": "✍️",
-          "label": "Describes una idea",
-          "detail": "con tus palabras"
-        },
-        {
-          "icon": "🤖",
-          "label": "Agentes de IA",
-          "detail": "escriben y corrigen"
-        },
-        {
-          "icon": "🎮",
-          "label": "Aplicación terminada",
-          "detail": "tú la compruebas"
-        }
-      ],
-      "narration": "Los computadores han ampliado nuestra capacidad de calcular, recordar y resolver problemas. Ahora la inteligencia artificial nos permite ir más allá: podemos describir una idea y trabajar con agentes capaces de escribir programas, encontrar errores y proponer soluciones. Incluso podemos tener varios agentes trabajando en diferentes tareas. No son infalibles, pero multiplican lo que podemos crear. Vamos a probarlo."
-    },
-    {
-      "id": "download-editor",
-      "type": "visual",
-      "visual": "browser-download",
-      "title": "Descarga Visual Studio Code",
-      "items": [
-        {
-          "icon": "🪟",
-          "label": "Windows",
-          "detail": "Instalador .exe"
-        },
-        {
-          "icon": "🍎",
-          "label": "macOS",
-          "detail": "Archivo .zip"
-        },
-        {
-          "icon": "🐧",
-          "label": "Linux",
-          "detail": ".deb · .rpm · VSCodium"
-        }
-      ],
-      "narration": "Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium. Entra a code punto visual studio punto com, barra download, y elige tu sistema: Windows, macOS o Linux."
-    },
-    {
-      "id": "install-editor",
-      "type": "visual",
-      "visual": "installer",
-      "title": "Instálalo y ábrelo",
-      "items": [
-        {
-          "icon": "🪟",
-          "label": "Windows",
-          "steps": [
-            "Abre VSCodeUserSetup.exe",
-            "Acepta y pulsa Siguiente",
-            "Pulsa Instalar",
-            "Marca «Ejecutar» y Finalizar"
-          ]
-        },
-        {
-          "icon": "🍎",
-          "label": "macOS",
-          "steps": [
-            "Abre el .zip descargado",
-            "Arrastra VS Code a Aplicaciones",
-            "Ábrelo desde Launchpad",
-            "Pulsa «Abrir» si macOS lo pide"
-          ]
-        },
-        {
-          "icon": "🐧",
-          "label": "Linux",
-          "steps": [
-            "Descarga el .deb (Ubuntu/Debian) o el .rpm (Fedora)",
-            "Doble clic en el archivo: se abre «Instalar software»",
-            "O por terminal, en la carpeta de descargas:",
-            "$ sudo apt install ./archivo.deb",
-            "$ sudo dnf install ./archivo.rpm",
-            "Ábrelo desde el menú de aplicaciones"
-          ]
-        }
-      ],
-      "narration": "Ahora instálalo. En Windows, abre el instalador y pulsa Siguiente hasta terminar. En macOS, abre el archivo descargado y arrastra Visual Studio Code a la carpeta Aplicaciones. En Linux, instala el paquete: con apt en Ubuntu y Debian, o con dnf en Fedora. Cuando termine, ábrelo. Si ya lo tienes, salta este paso."
-    },
-    {
-      "id": "install-extension",
-      "type": "visual",
-      "visual": "extensions",
-      "title": "Instala tu agente",
-      "items": [
-        {
-          "icon": "🟠",
-          "label": "Claude Code",
-          "detail": "Agente de programación de Anthropic"
-        },
-        {
-          "icon": "⚫",
-          "label": "Codex",
-          "detail": "Agente de programación de OpenAI"
-        }
-      ],
-      "narration": "Abre el panel de extensiones, con el icono de cuadritos o con Control, Shift y X. Busca Claude Code o Codex y pulsa Instalar. Cuando termine, inicia sesión con tu cuenta."
-    },
-    {
-      "id": "open-folder",
-      "type": "visual",
-      "visual": "open-folder",
-      "title": "Abre una carpeta nueva",
-      "items": [
-        {
-          "icon": "📂",
-          "label": "mis-videojuegos"
-        }
-      ],
-      "narration": "Ahora abre una carpeta de trabajo. En la pantalla de bienvenida pulsa Abrir carpeta. En la ventana que aparece, usa el botón Nueva carpeta, llámala mis-videojuegos y ábrela. Si el editor pregunta si confías en los autores, responde que sí. Ahí construiremos nuestra aplicación."
-    },
-    {
-      "id": "open-chat",
-      "type": "visual",
-      "visual": "open-chat",
-      "title": "Abre el chat del agente",
-      "items": [
-        {
-          "icon": "📂",
-          "label": "mis-videojuegos"
-        }
-      ],
-      "narration": "Ahora abre el chat del agente. En Claude Code, pulsa su icono, arriba a la derecha del editor. En Codex, usa su icono en la barra lateral. Se abrirá un panel con una caja para escribirle: ahí pegaremos nuestro mensaje."
-    },
-    {
-      "id": "game-library",
-      "type": "visual",
-      "visual": "app-preview",
-      "title": "Una biblioteca de videojuegos",
-      "items": [
-        {
-          "icon": "👤",
-          "label": "Usuario"
-        },
-        {
-          "icon": "🛡️",
-          "label": "Administrador"
-        }
-      ],
-      "narration": "Vamos a crear una biblioteca de videojuegos con portadas, búsqueda y favoritos. Tendremos usuarios normales y un administrador que podrá agregar, editar y eliminar juegos. También podremos cambiar de usuario con un clic."
-    },
-    {
-      "id": "four-concepts",
-      "type": "diagram",
-      "title": "Cuatro conceptos rápidos",
-      "nodes": [
-        {
-          "id": "frontend",
-          "label": "React · lo que ves"
-        },
-        {
-          "id": "backend",
-          "label": "ASP.NET Core · acciones"
-        },
-        {
-          "id": "data",
-          "label": "SQLite · datos"
-        },
-        {
-          "id": "containers",
-          "label": "Docker · ejecución"
-        }
-      ],
-      "edges": [
-        [
-          "frontend",
-          "backend"
-        ],
-        [
-          "backend",
-          "data"
-        ],
-        [
-          "containers",
-          "frontend"
-        ]
-      ],
-      "narration": "El frontend es lo que vemos y utilizamos en el navegador. Lo construiremos con React. El backend gestiona las acciones y los datos. Usaremos ASP.NET Core. SQLite guardará nuestra información, mientras Docker nos permitirá ejecutar la aplicación en contenedores. No necesitas memorizarlo todavía."
-    },
-    {
-      "id": "authorize-prompt",
-      "type": "visual",
-      "visual": "prompt-flow",
-      "title": "Autoriza, copia y envía",
-      "items": [
-        {
-          "icon": "☑️",
-          "label": "1. Acepto"
-        },
-        {
-          "icon": "📋",
-          "label": "2. Copiar"
-        },
-        {
-          "icon": "💬",
-          "label": "3. Pegar y enviar"
-        }
-      ],
-      "narration": "Vamos a pedirle al agente que construya la aplicación y prepare todo lo necesario para ejecutarla. Eso puede incluir instalar programas en tu computador. Lee la autorización y, si estás de acuerdo, marca Acepto, copia el mensaje y envíalo."
-    },
-    {
-      "id": "agent-builds",
-      "type": "visual",
-      "visual": "agent-work",
-      "title": "El agente construye la aplicación",
-      "steps": [
-        "Detecté tu sistema operativo",
-        "Instalé Docker y sus componentes",
-        "Escribí el backend y el frontend",
-        "Ejecuté la aplicación con Docker",
-        "La probé en el navegador"
-      ],
-      "narration": "Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo."
-    },
-    {
-      "id": "verify-app",
-      "type": "visual",
-      "visual": "app-preview",
-      "title": "Verifica la aplicación",
-      "items": [
-        {
-          "icon": "👤",
-          "label": "Usuario"
-        },
-        {
-          "icon": "🛡️",
-          "label": "Administrador"
-        }
-      ],
-      "steps": [
-        "Abre la aplicación",
-        "Cambia de usuario",
-        "Marca favoritos",
-        "Agrega, edita y elimina"
-      ],
-      "narration": "Ya tenemos una aplicación. Ahora debemos comprobarla: abrirla, utilizar sus botones, cambiar de usuario y probar sus funciones. Si algo falla, le pedimos al agente que lo corrija."
-    },
-    {
-      "id": "first-change",
-      "type": "visual",
-      "visual": "choices",
-      "title": "Tu primer cambio",
-      "items": [
-        {
-          "icon": "🌗",
-          "label": "Colores",
-          "detail": "Agrega un botón para cambiar entre tema claro y oscuro"
-        },
-        {
-          "icon": "⭐",
-          "label": "Puntuación",
-          "detail": "Permite puntuar los videojuegos de una a cinco estrellas"
-        },
-        {
-          "icon": "🔀",
-          "label": "Orden",
-          "detail": "Permite ordenar por título, año o género"
-        }
-      ],
-      "narration": "Ahora te toca a ti. Elige un cambio, pídeselo al agente y comprueba el resultado en el navegador."
-    },
-    {
-      "id": "closing",
-      "type": "visual",
-      "visual": "timeline",
-      "title": "De una carpeta vacía a una aplicación",
-      "items": [
-        {
-          "icon": "📂",
-          "label": "Carpeta vacía"
-        },
-        {
-          "icon": "💬",
-          "label": "Un prompt"
-        },
-        {
-          "icon": "🤖",
-          "label": "El agente construye"
-        },
-        {
-          "icon": "✅",
-          "label": "Aplicación que funciona"
-        }
-      ],
-      "narration": "Empezamos con una carpeta vacía y terminamos con una aplicación que funciona. Todavía no entendemos todo su código. En las siguientes lecciones aprenderemos a comprenderlo y a tomar mejores decisiones al trabajar con inteligencia artificial."
-    }
-  ],
-  "exercises": [
-    {
-      "id": "quiz-why-ai",
-      "type": "multiple-choice",
-      "afterScene": "why-ai",
-      "prompt": "¿Qué papel tiene la inteligencia artificial en este curso?",
-      "choices": [
-        "Reemplaza por completo a la persona, que ya no debe revisar nada",
-        "Trabaja como agente que escribe y corrige programas, y tú compruebas el resultado",
-        "Sirve únicamente para buscar información en internet"
-      ],
-      "answer": 1,
-      "explanation": "Los agentes multiplican lo que podemos crear, pero no son infalibles: siempre comprobamos el resultado."
-    },
-    {
-      "id": "quiz-download-editor",
-      "type": "multiple-choice",
-      "afterScene": "download-editor",
-      "prompt": "¿De dónde descargas Visual Studio Code?",
-      "choices": [
-        "De un correo que te envía el agente",
-        "De code.visualstudio.com/download",
-        "De la carpeta mis-videojuegos"
-      ],
-      "answer": 1,
-      "explanation": "El instalador oficial está en code.visualstudio.com/download; en Linux también puedes usar VSCodium."
-    },
-    {
-      "id": "quiz-install-editor",
-      "type": "multiple-choice",
-      "afterScene": "install-editor",
-      "prompt": "¿Cómo instalas Visual Studio Code en macOS?",
-      "choices": [
-        "Arrastrándolo a la carpeta Aplicaciones",
-        "Escribiendo sudo dnf install",
-        "Ejecutando docker compose up"
-      ],
-      "answer": 0,
-      "explanation": "En macOS se abre el archivo descargado y se arrastra la aplicación a Aplicaciones."
-    },
-    {
-      "id": "quiz-install-extension",
-      "type": "multiple-choice",
-      "afterScene": "install-extension",
-      "prompt": "¿Dónde buscas Codex o Claude Code dentro del editor?",
-      "choices": [
-        "En el panel de Extensiones (Ctrl+Shift+X)",
-        "En el menú Archivo → Guardar",
-        "En el navegador de la aplicación"
-      ],
-      "answer": 0,
-      "explanation": "Se instalan desde el panel de Extensiones y luego inicias sesión con tu cuenta."
-    },
-    {
-      "id": "quiz-open-folder",
-      "type": "multiple-choice",
-      "afterScene": "open-folder",
-      "prompt": "¿Cómo creas la carpeta mis-videojuegos?",
-      "choices": [
-        "Con el botón Nueva carpeta de la ventana Abrir carpeta",
-        "Escribiendo sudo mkdir en el chat",
-        "Se crea sola al instalar la extensión"
-      ],
-      "answer": 0,
-      "explanation": "VS Code abre la ventana de tu sistema: ahí usas Nueva carpeta, le pones el nombre y pulsas Abrir."
-    },
-    {
-      "id": "quiz-open-chat",
-      "type": "multiple-choice",
-      "afterScene": "open-chat",
-      "prompt": "¿Dónde le escribes al agente?",
-      "choices": [
-        "En un panel de chat que se abre dentro del editor",
-        "En el navegador, en localhost:3000",
-        "En la terminal de Docker"
-      ],
-      "answer": 0,
-      "explanation": "El chat del agente es un panel dentro del editor, con una caja para escribirle."
-    },
-    {
-      "id": "quiz-game-library",
-      "type": "multiple-choice",
-      "afterScene": "game-library",
-      "prompt": "¿Qué puede hacer el administrador de la biblioteca?",
-      "choices": [
-        "Solo marcar favoritos",
-        "Agregar, editar y eliminar videojuegos",
-        "Únicamente cambiar de usuario"
-      ],
-      "answer": 1,
-      "explanation": "El administrador gestiona el catálogo; los usuarios normales exploran y guardan favoritos."
-    },
-    {
-      "id": "quiz-four-concepts",
-      "type": "multiple-choice",
-      "afterScene": "four-concepts",
-      "prompt": "¿Qué tecnología guarda la información de la aplicación?",
-      "choices": [
-        "React",
-        "Docker",
-        "SQLite"
-      ],
-      "answer": 2,
-      "explanation": "SQLite guarda los datos. React construye lo que ves, ASP.NET Core gestiona las acciones y Docker ejecuta la aplicación."
-    },
-    {
-      "id": "authorize-and-copy",
-      "type": "authorization",
-      "afterScene": "authorize-prompt",
-      "prompt": "Permiso para instalar software",
-      "notice": "Este mensaje autoriza al agente a instalar y configurar las herramientas necesarias para ejecutar el proyecto, incluido Docker. Estas operaciones pueden modificar la configuración de tu computador y requerir permisos de administrador o reiniciar el sistema.",
-      "consentLabel": "Acepto y autorizo estas instalaciones y configuraciones para este proyecto.",
-      "buttonLabel": "Copiar prompt completo",
-      "copyText": "Quiero que construyas una biblioteca web de videojuegos. Soy principiante: haz el trabajo y explícame lo esencial con palabras sencillas.\n\nTecnologías: React.js (frontend), ASP.NET Core con C# (backend), SQLite (datos) y Docker Compose para ejecutarlo.\n\nFuncionalidades:\n- Catálogo con portada, título, año, género, plataforma y descripción, con búsqueda y filtros.\n- Cuentas de demostración y botón Cambiar usuario para entrar con un clic.\n- Administrador: agregar, editar y eliminar videojuegos.\n- Usuario normal: explorar y marcar favoritos, sin editar el catálogo.\n- Validar los permisos también en el backend.\n- Conservar datos y favoritos al reiniciar.\n\nDiseño: inspirado en Steam, tonos azules oscuros, portadas y adaptación a pantallas pequeñas.\n\nVideojuegos iniciales:\n- Commander Keen 4: Secret of the Oracle (1991).\n- Another World (1991).\n- Prince of Persia (1989).\n- Prince of Persia 2: The Shadow and the Flame (1993).\n- Super Mario World (1990).\n- Simon the Sorcerer 2 (1995).\n\nUtiliza portadas reales de fuentes accesibles o imágenes de reemplazo.\n\nInstalación:\nTe autorizo a instalar y configurar las dependencias necesarias, incluido Docker y sus componentes.\nDetecta mi sistema operativo e instala lo que falte, sin limitarte a darme instrucciones. Si necesitas permisos de administrador o reiniciar, solicítame intervenir.\nNo borres archivos personales ni realices cambios ajenos al proyecto.\nTrabaja en la carpeta actual, ejecuta la aplicación con Docker y dame la dirección para abrirla.\n\nVerificación:\nAntes de terminar, abre la aplicación en un navegador y comprueba que realmente funciona. Haz clic en los botones, cambia de usuario, agrega y edita videojuegos y prueba las funciones principales.\nSi algo falla, corrígelo y vuelve a comprobar. Si no puedes controlar el navegador, indícalo y guíame para verificar la aplicación.\n\nAl terminar, explícame brevemente qué construiste y cómo iniciar y detener la aplicación.\n\nToma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostración son solo para uso educativo local.",
-      "explanation": "El prompt quedó copiado. Pégalo en el chat del agente; copiarlo no ejecuta ninguna instalación."
-    },
-    {
-      "id": "quiz-authorize-prompt",
-      "type": "multiple-choice",
-      "afterScene": "authorize-prompt",
-      "prompt": "¿Qué ocurre al copiar el prompt?",
-      "choices": [
-        "Se instala todo automáticamente en ese momento",
-        "No se ejecuta nada: el agente actúa solo cuando tú lo envías, y el sistema aún puede pedir permisos",
-        "El computador se reinicia"
-      ],
-      "answer": 1,
-      "explanation": "Copiar no ejecuta nada. Solo marcas «Acepto» si estás de acuerdo y luego envías el mensaje al agente."
-    },
-    {
-      "id": "quiz-agent-builds",
-      "type": "multiple-choice",
-      "afterScene": "agent-builds",
-      "prompt": "Mientras el agente trabaja, ¿qué haces si te pide permisos?",
-      "choices": [
-        "Los lees y aceptas solo si estás de acuerdo",
-        "Los aceptas sin leer",
-        "Cierras el editor"
-      ],
-      "answer": 0,
-      "explanation": "Puede pedir permisos para instalar o ejecutar cosas: léelos antes de aceptar."
-    },
-    {
-      "id": "quiz-verify-app",
-      "type": "multiple-choice",
-      "afterScene": "verify-app",
-      "prompt": "¿Qué haces cuando algo de la aplicación no funciona?",
-      "choices": [
-        "Lo ignoras y sigues",
-        "Se lo pides al agente para que lo corrija y vuelves a comprobar",
-        "Borras la carpeta y empiezas de nuevo"
-      ],
-      "answer": 1,
-      "explanation": "Si algo falla, le pedimos al agente que lo corrija y comprobamos otra vez."
-    },
-    {
-      "id": "change-colors",
-      "type": "prompt-copy",
-      "afterScene": "first-change",
-      "prompt": "Opción 1: colores",
-      "copyText": "Agrega un botón para cambiar entre tema claro y oscuro y recuerda mi preferencia. Comprueba el cambio en el navegador y corrige cualquier problema que encuentres.",
-      "explanation": "Instrucción copiada. Pégala en el chat del agente y comprueba ambos temas."
-    },
-    {
-      "id": "change-rating",
-      "type": "prompt-copy",
-      "afterScene": "first-change",
-      "prompt": "Opción 2: puntuación",
-      "copyText": "Permite que cada usuario puntúe los videojuegos de una a cinco estrellas. Conserva las puntuaciones al reiniciar y comprueba el cambio en el navegador.",
-      "explanation": "Instrucción copiada. Pégala en el chat del agente y prueba varias puntuaciones."
-    },
-    {
-      "id": "change-order",
-      "type": "prompt-copy",
-      "afterScene": "first-change",
-      "prompt": "Opción 3: orden",
-      "copyText": "Permite ordenar los videojuegos por título, año o género. Comprueba cada opción en el navegador y corrige cualquier problema que encuentres.",
-      "explanation": "Instrucción copiada. Pégala en el chat del agente y prueba los tres criterios."
-    },
-    {
-      "id": "quiz-first-change",
-      "type": "multiple-choice",
-      "afterScene": "first-change",
-      "prompt": "¿Cómo compruebas que tu primer cambio quedó bien?",
-      "choices": [
-        "Confiando en que el agente no se equivoca",
-        "Abriendo la aplicación en el navegador y probando el cambio",
-        "Leyendo todo el código"
-      ],
-      "answer": 1,
-      "explanation": "Siempre se comprueba el resultado en el navegador."
-    },
-    {
-      "id": "quiz-closing",
-      "type": "multiple-choice",
-      "afterScene": "closing",
-      "prompt": "¿Qué aprenderemos en las siguientes lecciones?",
-      "choices": [
-        "A comprender el código y a tomar mejores decisiones con inteligencia artificial",
-        "A instalar otro editor",
-        "A no volver a usar agentes"
-      ],
-      "answer": 0,
-      "explanation": "Empezamos construyendo; ahora toca entender lo construido."
-    }
-  ]
-}
-```
+- Publicación con `.autotorial/deploy-pages` y verificación de videos, interacciones y botones de copiar.
