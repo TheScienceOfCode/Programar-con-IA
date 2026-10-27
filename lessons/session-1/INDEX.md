@@ -1,5 +1,5 @@
 ---
-title: "Lección 0: Primer contacto con el computador para programar"
+title: "Lección 1: Primer contacto con el computador para programar"
 courseTitle: "Aprende a\nProgramar con IA"
 language: es
 objectives:
@@ -10,7 +10,7 @@ prerequisites:
   - Ninguno
 ---
 
-# Lección 0 — Primer contacto con el computador para programar
+# Lección 1 — Primer contacto con el computador para programar
 
 **Proyecto:** Aprende a Programar con IA  
 **Formato:** video guiado + pasos interactivos  
@@ -23,125 +23,137 @@ Produce esta lección utilizando el flujo existente de AutoTorial. Usa capturas 
 
 ## Guion
 
-### 1. ¿Por qué aprender a programar con IA?
+Cada sección es una pantalla: video corto, una pregunta y el botón **Continuar**.
 
-**Visual:** computador antiguo → editor moderno → agentes trabajando → aplicación terminada.
+### 1. De una idea a una aplicación
 
-**Narración:**
-
-Los computadores han ampliado nuestra capacidad de calcular, recordar y resolver problemas.
-
-Ahora la inteligencia artificial nos permite ir más allá: podemos describir una idea y trabajar con agentes capaces de escribir programas, encontrar errores y proponer soluciones.
-
-Incluso podemos tener varios agentes trabajando en diferentes tareas. No son infalibles, pero multiplican lo que podemos crear.
-
-Vamos a probarlo.
-
-### 2. Preparar el editor
-
-**Visual:** selector de Windows, macOS y Linux. Demostración de instalación o apertura.
+**Visual:** computador antiguo → idea → agentes → aplicación terminada.
 
 **Narración:**
 
-Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium.
+Los computadores han ampliado nuestra capacidad de calcular, recordar y resolver problemas. Ahora la inteligencia artificial nos permite ir más allá: podemos describir una idea y trabajar con agentes capaces de escribir programas, encontrar errores y proponer soluciones. Incluso podemos tener varios agentes trabajando en diferentes tareas. No son infalibles, pero multiplican lo que podemos crear. Vamos a probarlo.
 
-Entra a code.visualstudio.com/download y elige tu sistema: Windows, macOS o Linux.
+**Pregunta:** ¿Qué papel tiene la inteligencia artificial en este curso?
 
-Ahora instálalo. En Windows, abre el instalador y pulsa Siguiente hasta terminar. En macOS, arrastra Visual Studio Code a Aplicaciones. En Linux, instala el paquete con apt (Ubuntu/Debian) o dnf (Fedora). Cuando termine, ábrelo. Si ya lo tienes, salta este paso.
+### 2. Descarga Visual Studio Code
 
-**Enlaces:**
-- VS Code: https://code.visualstudio.com/download
-- VSCodium: https://vscodium.com/
-
-**Notas:** incluir «Ya lo tengo» para saltar este paso. En Linux, adaptar la instalación a la distribución.
-
-### 3. Conectar nuestro agente
-
-**Visual:** abrir Extensiones, instalar Codex o Claude Code, iniciar sesión y abrir el chat. Crear la carpeta `mis-videojuegos`.
+**Visual:** navegador en code.visualstudio.com/download con los botones de Windows, macOS y Linux.
 
 **Narración:**
 
-Abre el panel de extensiones (Ctrl+Shift+X), busca Codex o Claude Code, pulsa Instalar e inicia sesión.
+Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium. Entra a code punto visual studio punto com, barra download, y elige tu sistema: Windows, macOS o Linux.
 
-Ahora crea una carpeta llamada `mis-videojuegos` y ábrela desde Archivo → Abrir carpeta. Ahí construiremos nuestra aplicación. Abre el chat del agente: ya está listo para escribirle.
+**Pregunta:** ¿De dónde descargas Visual Studio Code?
 
-**Nota:** verificar que la extensión funcione en el editor mostrado, especialmente en VSCodium.
+### 3. Instálalo y ábrelo
 
-### 4. ¿Qué vamos a construir?
-
-**Visual:** catálogo de videojuegos inspirado en Steam, favoritos y cambio de usuario.
+**Visual:** pasos de instalación por sistema operativo (Windows, macOS, Linux).
 
 **Narración:**
 
-Vamos a crear una biblioteca de videojuegos con portadas, búsqueda y favoritos.
+Ahora instálalo. En Windows, abre el instalador y pulsa Siguiente hasta terminar. En macOS, abre el archivo descargado y arrastra Visual Studio Code a la carpeta Aplicaciones. En Linux, instala el paquete: con apt en Ubuntu y Debian, o con dnf en Fedora. Cuando termine, ábrelo. Si ya lo tienes, salta este paso.
 
-Tendremos usuarios normales y un administrador que podrá agregar, editar y eliminar juegos. También podremos cambiar de usuario con un clic.
+**Pregunta:** ¿Cómo instalas Visual Studio Code en macOS?
 
-### 5. Cuatro conceptos rápidos
+### 4. Instala tu agente
 
-**Visual:** React ↔ ASP.NET Core ↔ SQLite. Docker alrededor de la aplicación.
-
-**Narración:**
-
-El frontend es lo que vemos y utilizamos en el navegador. Lo construiremos con React.
-
-El backend gestiona las acciones y los datos. Usaremos ASP.NET Core.
-
-SQLite guardará nuestra información, mientras Docker nos permitirá ejecutar la aplicación en contenedores.
-
-No necesitas memorizarlo todavía.
-
-### 6. Autorizar y enviar el prompt
-
-**Visual:** aviso de autorización, casilla «Acepto» y botón «Copiar prompt».
+**Visual:** panel de Extensiones: buscar, instalar e iniciar sesión.
 
 **Narración:**
 
-Vamos a pedirle al agente que construya la aplicación y prepare todo lo necesario para ejecutarla.
+Abre el panel de extensiones, con el icono de cuadritos o con Control, Shift y X. Busca Claude Code o Codex y pulsa Instalar. Cuando termine, inicia sesión con tu cuenta.
 
-Eso puede incluir instalar programas en tu computador. Lee la autorización y, si estás de acuerdo, marca «Acepto», copia el mensaje y envíalo.
+**Pregunta:** ¿Dónde buscas Codex o Claude Code dentro del editor?
 
-### 7. El agente construye la aplicación
+### 5. Abre una carpeta nueva
 
-**Visual:** chat del agente y terminal con `docker compose up`.
+**Visual:** pantalla de bienvenida → ventana Abrir carpeta → Nueva carpeta → confiar en los autores.
+
+**Narración:**
+
+Ahora abre una carpeta de trabajo. En la pantalla de bienvenida pulsa Abrir carpeta. En la ventana que aparece, usa el botón Nueva carpeta, llámala mis-videojuegos y ábrela. Si el editor pregunta si confías en los autores, responde que sí. Ahí construiremos nuestra aplicación.
+
+**Pregunta:** ¿Cómo creas la carpeta mis-videojuegos?
+
+### 6. Abre el chat del agente
+
+**Visual:** icono del agente y panel de chat dentro del editor.
+
+**Narración:**
+
+Ahora abre el chat del agente. En Claude Code, pulsa su icono, arriba a la derecha del editor. En Codex, usa su icono en la barra lateral. Se abrirá un panel con una caja para escribirle: ahí pegaremos nuestro mensaje.
+
+**Pregunta:** ¿Dónde le escribes al agente?
+
+### 7. Una biblioteca de videojuegos
+
+**Visual:** catálogo inspirado en Steam, favoritos y cambio de usuario.
+
+**Narración:**
+
+Vamos a crear una biblioteca de videojuegos con portadas, búsqueda y favoritos. Tendremos usuarios normales y un administrador que podrá agregar, editar y eliminar juegos. También podremos cambiar de usuario con un clic.
+
+**Pregunta:** ¿Qué puede hacer el administrador de la biblioteca?
+
+### 8. Cuatro conceptos rápidos
+
+**Visual:** React ↔ ASP.NET Core ↔ SQLite, con Docker alrededor.
+
+**Narración:**
+
+El frontend es lo que vemos y utilizamos en el navegador. Lo construiremos con React. El backend gestiona las acciones y los datos. Usaremos ASP.NET Core. SQLite guardará nuestra información, mientras Docker nos permitirá ejecutar la aplicación en contenedores. No necesitas memorizarlo todavía.
+
+**Pregunta:** ¿Qué tecnología guarda la información de la aplicación?
+
+### 9. Autoriza, copia y envía
+
+**Visual:** casilla «Acepto», botón «Copiar prompt» y envío al chat.
+
+**Narración:**
+
+Vamos a pedirle al agente que construya la aplicación y prepare todo lo necesario para ejecutarla. Eso puede incluir instalar programas en tu computador. Lee la autorización y, si estás de acuerdo, marca Acepto, copia el mensaje y envíalo.
+
+**Pregunta:** ¿Qué ocurre al copiar el prompt?
+
+### 10. El agente construye la aplicación
+
+**Visual:** chat del agente y terminal con docker compose up.
 
 **Narración:**
 
 Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.
 
-### 8. Verificar nuestra aplicación
+**Pregunta:** Mientras el agente trabaja, ¿qué haces si te pide permisos?
 
-**Visual:** grabación real del agente construyendo el proyecto y de la aplicación funcionando en el navegador.
+### 11. Verifica la aplicación
+
+**Visual:** la aplicación funcionando y la lista de pruebas.
 
 **Narración:**
 
-Ya tenemos una aplicación. Ahora debemos comprobarla: abrirla, utilizar sus botones, cambiar de usuario y probar sus funciones.
+Ya tenemos una aplicación. Ahora debemos comprobarla: abrirla, utilizar sus botones, cambiar de usuario y probar sus funciones. Si algo falla, le pedimos al agente que lo corrija.
 
-Si algo falla, le pedimos al agente que lo corrija.
+**Pregunta:** ¿Qué haces cuando algo de la aplicación no funciona?
 
-### 9. Tu primer cambio
+### 12. Tu primer cambio
 
 **Visual:** tres ejercicios seleccionables con instrucciones copiables.
-
-**Opciones:**
-
-- **Colores:** «Agrega un botón para cambiar entre tema claro y oscuro y recuerda mi preferencia».
-- **Puntuación:** «Permite que cada usuario puntúe los videojuegos de una a cinco estrellas».
-- **Orden:** «Permite ordenar los videojuegos por título, año o género».
 
 **Narración:**
 
 Ahora te toca a ti. Elige un cambio, pídeselo al agente y comprueba el resultado en el navegador.
 
-### 10. Cierre
+**Pregunta:** ¿Cómo compruebas que tu primer cambio quedó bien?
 
-**Visual:** editor y aplicación terminada.
+### 13. De una carpeta vacía a una aplicación
+
+**Visual:** carpeta vacía → aplicación que funciona.
 
 **Narración:**
 
-Empezamos con una carpeta vacía y terminamos con una aplicación que funciona.
+Empezamos con una carpeta vacía y terminamos con una aplicación que funciona. Todavía no entendemos todo su código. En las siguientes lecciones aprenderemos a comprenderlo y a tomar mejores decisiones al trabajar con inteligencia artificial.
 
-Todavía no entendemos todo su código. En las siguientes lecciones aprenderemos a comprenderlo y a tomar mejores decisiones al trabajar con inteligencia artificial.
+**Pregunta:** ¿Qué aprenderemos en las siguientes lecciones?
 
 ---
 
@@ -308,8 +320,11 @@ Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostra
           "icon": "🐧",
           "label": "Linux",
           "steps": [
-            "$ sudo apt install ./code_*.deb",
-            "$ sudo dnf install ./code-*.rpm",
+            "Descarga el .deb (Ubuntu/Debian) o el .rpm (Fedora)",
+            "Doble clic en el archivo: se abre «Instalar software»",
+            "O por terminal, en la carpeta de descargas:",
+            "$ sudo apt install ./archivo.deb",
+            "$ sudo dnf install ./archivo.rpm",
             "Ábrelo desde el menú de aplicaciones"
           ]
         }
@@ -325,28 +340,41 @@ Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostra
         {
           "icon": "🟠",
           "label": "Claude Code",
-          "detail": "Anthropic"
+          "detail": "Agente de programación de Anthropic"
         },
         {
           "icon": "⚫",
           "label": "Codex",
-          "detail": "OpenAI"
+          "detail": "Agente de programación de OpenAI"
         }
       ],
-      "narration": "Abre el panel de extensiones, con el icono de cuadritos o con Control, Shift y X. Busca Codex o Claude Code y pulsa Instalar. Después inicia sesión con tu cuenta."
+      "narration": "Abre el panel de extensiones, con el icono de cuadritos o con Control, Shift y X. Busca Claude Code o Codex y pulsa Instalar. Cuando termine, inicia sesión con tu cuenta."
     },
     {
       "id": "open-folder",
       "type": "visual",
       "visual": "open-folder",
-      "title": "Abre tu carpeta de trabajo",
+      "title": "Abre una carpeta nueva",
       "items": [
         {
           "icon": "📂",
           "label": "mis-videojuegos"
         }
       ],
-      "narration": "Ahora crea una carpeta llamada mis-videojuegos y ábrela desde el menú Archivo, Abrir carpeta. Ahí construiremos nuestra aplicación. Abre el chat del agente: ya está listo para escribirle."
+      "narration": "Ahora abre una carpeta de trabajo. En la pantalla de bienvenida pulsa Abrir carpeta. En la ventana que aparece, usa el botón Nueva carpeta, llámala mis-videojuegos y ábrela. Si el editor pregunta si confías en los autores, responde que sí. Ahí construiremos nuestra aplicación."
+    },
+    {
+      "id": "open-chat",
+      "type": "visual",
+      "visual": "open-chat",
+      "title": "Abre el chat del agente",
+      "items": [
+        {
+          "icon": "📂",
+          "label": "mis-videojuegos"
+        }
+      ],
+      "narration": "Ahora abre el chat del agente. En Claude Code, pulsa su icono, arriba a la derecha del editor. En Codex, usa su icono en la barra lateral. Se abrirá un panel con una caja para escribirle: ahí pegaremos nuestro mensaje."
     },
     {
       "id": "game-library",
@@ -568,14 +596,27 @@ Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostra
       "id": "quiz-open-folder",
       "type": "multiple-choice",
       "afterScene": "open-folder",
-      "prompt": "¿Qué carpeta abres para construir la aplicación?",
+      "prompt": "¿Cómo creas la carpeta mis-videojuegos?",
       "choices": [
-        "Documentos",
-        "Descargas",
-        "mis-videojuegos"
+        "Con el botón Nueva carpeta de la ventana Abrir carpeta",
+        "Escribiendo sudo mkdir en el chat",
+        "Se crea sola al instalar la extensión"
       ],
-      "answer": 2,
-      "explanation": "Ahí construiremos la aplicación: en Archivo → Abrir carpeta eliges mis-videojuegos."
+      "answer": 0,
+      "explanation": "VS Code abre la ventana de tu sistema: ahí usas Nueva carpeta, le pones el nombre y pulsas Abrir."
+    },
+    {
+      "id": "quiz-open-chat",
+      "type": "multiple-choice",
+      "afterScene": "open-chat",
+      "prompt": "¿Dónde le escribes al agente?",
+      "choices": [
+        "En un panel de chat que se abre dentro del editor",
+        "En el navegador, en localhost:3000",
+        "En la terminal de Docker"
+      ],
+      "answer": 0,
+      "explanation": "El chat del agente es un panel dentro del editor, con una caja para escribirle."
     },
     {
       "id": "quiz-game-library",
