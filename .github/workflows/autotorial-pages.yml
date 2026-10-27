@@ -31,13 +31,29 @@ jobs:
           cache-dependency-path: lib/autotorial/package-lock.json
       - run: npm ci --prefix lib/autotorial
       - run: npm run build --prefix lib/autotorial
-      - name: Produce every lesson with free local TTS
+      - name: Install the verified Spanish Piper voice
         run: |
-          sudo apt-get update
-          sudo apt-get install -y espeak-ng
+          python3 -m venv "$RUNNER_TEMP/autotorial-piper"
+          "$RUNNER_TEMP/autotorial-piper/bin/python" -m pip install 'piper-tts==1.8.0'
+          mkdir -p "$RUNNER_TEMP/autotorial-piper/voices"
+          "$RUNNER_TEMP/autotorial-piper/bin/python" -m piper.download_voices \
+            --download-dir "$RUNNER_TEMP/autotorial-piper/voices" \
+            es_MX-claude-high
+      - name: Produce every lesson with Spanish narration
+        env:
+          PIPER_BIN: ${{ runner.temp }}/autotorial-piper/bin/piper
+          PIPER_MODEL: ${{ runner.temp }}/autotorial-piper/voices/es_MX-claude-high.onnx
+        run: |
           for lesson in lessons/*/INDEX.md; do
             slug="$(basename "$(dirname "$lesson")")"
-            node lib/autotorial/dist/cli.js produce "$slug" --host "$GITHUB_WORKSPACE"
+            node lib/autotorial/dist/cli.js produce "$slug" --host "$GITHUB_WORKSPACE" --voice piper
+          done
+      - name: Render every lesson to MP4
+        run: |
+          browser="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          for lesson in lessons/*/INDEX.md; do
+            slug="$(basename "$(dirname "$lesson")")"
+            REMOTION_BROWSER_EXECUTABLE="$browser" node lib/autotorial/dist/cli.js render "$slug" --host "$GITHUB_WORKSPACE" --format mp4
           done
       - run: node lib/autotorial/dist/cli.js publish --host "$GITHUB_WORKSPACE" --base "./"
       - uses: actions/configure-pages@v5
