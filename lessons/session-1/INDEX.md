@@ -366,44 +366,37 @@ explanation: 'El backend siempre valida antes de ejecutar: no basta con ocultar 
 
 #### Base de datos: donde se guarda
 
-La base de datos es la que usa el backend para persistir, es decir, guardar la información como tal. Usaremos SQLite.
+La base de datos es donde el backend guarda la información de forma permanente; es decir, la persiste. Si marcamos un favorito, el backend lo escribe en la base de datos. Aunque apaguemos la aplicación, el dato sigue guardado; y al volver a encenderla, el backend lo lee y lo muestra. Usaremos SQLite.
 
 ```scene
 id: concept-database
 type: visual
 visual: database
 steps:
-  - Reinicias la aplicación
-  - Los datos siguen ahí
+- Guardar|Marcas un favorito y el backend lo escribe en la base de datos
+- Apagar|Apagas la aplicación, pero los datos siguen guardados en la base de datos
+- 'Volver a abrir|La enciendes de nuevo: el backend lee la base de datos y el favorito sigue ahí'
 items:
-  - label: Commander Keen 4
-    icon: 🎮
-    detail: '1991'
-    image: keen.jpg
-  - label: Another World
-    icon: 🎮
-    detail: '1991'
-    image: another-world.png
-  - label: Prince of Persia
-    icon: 🎮
-    detail: '1989'
-    image: prince-of-persia.jpg
-  - label: Super Mario World
-    icon: 🎮
-    detail: '1990'
-    image: super-mario-world.png
+- label: Commander Keen 4
+  icon: 🎮
+  detail: '1991'
+  image: keen.jpg
+- label: Another World
+  icon: 🎮
+  detail: '1991'
+  image: another-world.png
 ```
 
 ```exercise
 id: quiz-database
 type: multiple-choice
-prompt: Si el backend no guardara nada en la base de datos, ¿qué pasaría?
+prompt: Apagas la aplicación y la vuelves a encender. ¿Por qué tus favoritos siguen ahí?
 choices:
-  - Los juegos y favoritos se perderían al reiniciar
-  - La aplicación se vería distinta
-  - Docker dejaría de funcionar
+- Porque el backend los guardó en la base de datos, que los conserva aunque la aplicación esté apagada
+- Porque el navegador los recuerda siempre
+- Porque Docker los vuelve a crear al iniciar
 answer: 0
-explanation: Persistir significa guardar la información para que siga ahí cuando reiniciamos.
+explanation: Guardar de forma permanente se llama persistir. La base de datos conserva la información fuera de la aplicación.
 ```
 
 #### Docker: la caja que lo contiene
