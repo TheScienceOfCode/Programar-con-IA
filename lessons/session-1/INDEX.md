@@ -17,7 +17,7 @@ prerequisites:
 **Público:** principiantes absolutos  
 **Principio pedagógico:** primero construir algo útil; después aprender a entenderlo y dominarlo.
 
-Este archivo es la única fuente de la lección. Cada `###` bajo **Partes** es una pantalla: el texto es la narración que se escucha, el bloque `scene` define lo que se ve y los bloques `exercise` son sus preguntas o prácticas.
+Este archivo es la única fuente de la lección. Cada `###` bajo **Partes** es una pantalla. Si trata un solo tema, el texto es la narración que se escucha, el bloque `scene` define lo que se ve y los bloques `exercise` son sus preguntas o prácticas. Si agrupa varios temas, cada `####` es una escena (con su texto y su `scene`) que se reproduce en el mismo video, y las preguntas quedan juntas al final de la pantalla.
 
 ## Partes
 
@@ -222,7 +222,9 @@ prompt: Ya tengo abierto el chat del agente
 explanation: ¡Listo para pedirle la aplicación!
 ```
 
-### 8. Una biblioteca de videojuegos
+### 8. Qué vamos a construir
+
+#### Una biblioteca de videojuegos
 
 Vamos a crear una biblioteca de videojuegos con portadas, búsqueda y favoritos. Tendremos usuarios normales y un administrador que podrá agregar, editar y eliminar juegos. También podremos cambiar de usuario con un clic.
 
@@ -256,8 +258,19 @@ items:
   label: Administrador
 ```
 
+```exercise
+id: quiz-library
+type: multiple-choice
+prompt: En la biblioteca, ¿qué puede hacer el administrador que un usuario normal no puede?
+choices:
+- Agregar, editar y eliminar videojuegos
+- Marcar favoritos
+- Buscar juegos y cambiar de usuario
+answer: 0
+explanation: El usuario normal explora y guarda favoritos; solo el administrador gestiona el catálogo.
+```
 
-### 9. Frontend: lo que ves
+#### Frontend: lo que ves
 
 Una aplicación web moderna tiene varios componentes. El frontend, o cliente, es lo que vemos directamente en el navegador: los botones y los formularios con los que interactuamos. Lo construiremos con React.
 
@@ -302,7 +315,7 @@ answer: 0
 explanation: El frontend, o cliente, es la parte que vemos y con la que interactuamos. Lo construiremos con React.
 ```
 
-### 10. Backend: quien recibe las peticiones
+#### Backend: quien recibe las peticiones
 
 El backend, o servidor, es el encargado de recibir las peticiones del navegador. Por ejemplo: muéstrame la información, modifícame este campo, guárdame esto, bórrame aquello. Recibe la petición, hace las validaciones y ejecuta las acciones. Usaremos ASP.NET Core.
 
@@ -339,7 +352,19 @@ answer: 1
 explanation: El backend recibe la petición, hace las validaciones y ejecuta la acción.
 ```
 
-### 11. Base de datos: donde se guarda
+```exercise
+id: quiz-backend-validates
+type: multiple-choice
+prompt: Un usuario normal intenta eliminar un juego. ¿Qué debe hacer el backend?
+choices:
+- Ejecutarlo, porque el botón estaba visible
+- Validar la petición y rechazarla, porque no tiene permiso
+- Pedirle a Docker que lo decida
+answer: 1
+explanation: 'El backend siempre valida antes de ejecutar: no basta con ocultar el botón en el navegador.'
+```
+
+#### Base de datos: donde se guarda
 
 La base de datos es la que usa el backend para persistir, es decir, guardar la información como tal. Usaremos SQLite.
 
@@ -381,7 +406,7 @@ answer: 0
 explanation: Persistir significa guardar la información para que siga ahí cuando reiniciamos.
 ```
 
-### 12. Docker: la caja que lo contiene
+#### Docker: la caja que lo contiene
 
 Además usaremos Docker, que nos permite ejecutar la aplicación en contenedores, sin tener que instalar cosas directamente en nuestra máquina. Un contenedor reúne toda nuestra aplicación y sus dependencias, y funciona igual en cualquier computador, sin importar el sistema operativo. Así no tenemos que instalar nada y, además, podremos llevar la aplicación a cualquier lado.
 
@@ -415,9 +440,106 @@ answer: 0
 explanation: El contenedor trae la aplicación y sus dependencias, y funciona igual en cualquier sistema operativo.
 ```
 
-### 13. Autoriza, copia y envía
+### 9. Autoriza, copia y envía
 
-Vamos a pedirle al agente que construya la aplicación y prepare todo lo necesario para ejecutarla. Eso puede incluir instalar programas en tu computador. Lee la autorización y, si estás de acuerdo, marca Acepto, copia el mensaje y envíalo.
+#### ¿Qué es un prompt?
+
+Ahora vamos a pedirle al agente que construya la aplicación. Lo haremos con un prompt: un mensaje en lenguaje natural que le enviamos al agente en el chat de VS Code. El agente lo interpreta y construye lo que describimos.
+
+```scene
+id: what-is-prompt
+type: visual
+visual: timeline
+items:
+- icon: ✍️
+  label: Describes lo que quieres
+  detail: en lenguaje natural
+- icon: 📝
+  label: El prompt
+  detail: un mensaje de texto
+- icon: 🤖
+  label: El agente en VS Code
+  detail: lo interpreta
+- icon: 🎮
+  label: Construye la aplicación
+  detail: lo que describiste
+```
+
+```exercise
+id: quiz-what-is-prompt
+type: multiple-choice
+prompt: ¿Qué es un prompt?
+choices:
+- Un programa que instalamos en el computador
+- Un mensaje en lenguaje natural que le enviamos al agente para que lo interprete y construya lo que describimos
+- Una carpeta donde el agente guarda los archivos
+answer: 1
+explanation: El prompt describe en lenguaje natural lo que queremos; el agente lo interpreta y lo construye.
+```
+
+#### Cómo está armado nuestro prompt
+
+Revisa y lee el prompt, para que veas cómo se puede hacer. El prompt puede ser de muchas formas, tener más o menos detalle: depende de cada caso y de cuánto quieras dejar abierto para la IA. En nuestro caso vamos a definir qué queremos que construya la IA, con qué tecnologías y qué funcionalidades. Y, muy importante, le decimos a la IA misma cómo debe verificar que su trabajo realmente funciona: le pedimos que ejecute lo que construyó y que haga clics como un usuario real, para comprobar que la aplicación está correctamente implementada.
+
+```scene
+id: prompt-anatomy
+type: visual
+visual: prompt-anatomy
+focus: 3
+items:
+- icon: 🎯
+  label: Qué construir
+  detail: Una biblioteca web de videojuegos
+- icon: 🧰
+  label: Con qué tecnologías
+  detail: React, ASP.NET Core, SQLite y Docker Compose
+- icon: ✅
+  label: Qué funcionalidades
+  detail: Catálogo, favoritos, cambio de usuario y administrador
+- icon: 🔎
+  label: Cómo verificar
+  detail: Ejecuta la aplicación y haz clics como un usuario real
+```
+
+```exercise
+id: quiz-validation
+type: multiple-choice
+prompt: ¿Por qué le pedimos a la IA que ejecute la aplicación y haga clics como un usuario real?
+choices:
+- Para que el prompt quede más corto
+- Para que compruebe por sí misma que lo que construyó realmente funciona
+- Para que la aplicación se vea más bonita
+answer: 1
+explanation: Código que parece correcto puede fallar al usarlo. Pedirle que lo ejecute y lo pruebe como un usuario real es la mejor forma de verificar que funciona.
+```
+
+```exercise
+id: quiz-less-detail
+type: multiple-choice
+prompt: Si le damos al agente un prompt con menos detalle, ¿qué suele pasar?
+choices:
+- La IA decide por su cuenta lo que falta, y el resultado puede alejarse de lo que querías
+- Siempre construye exactamente lo que imaginabas
+- No puede construir nada
+answer: 0
+explanation: Menos detalle deja más decisiones abiertas a la IA. Puede servir para explorar, pero el resultado puede ser distinto a lo que esperabas.
+```
+
+```exercise
+id: quiz-more-detail
+type: multiple-choice
+prompt: ¿Qué ganamos al dar más detalle en el prompt?
+choices:
+- Más control sobre el resultado, a cambio de dejar menos libertad a la IA
+- Que la IA ya no necesite verificar su trabajo
+- Que el prompt sea mejor en cualquier caso, sin importar lo que busquemos
+answer: 0
+explanation: Más detalle da más control, pero también te obliga a decidir más. Cuánto dejar abierto depende de cada caso.
+```
+
+#### Autoriza, copia y envía
+
+Lee la autorización: el prompt le pide al agente que instale programas en tu computador. Si estás de acuerdo, marca Acepto, copia el prompt, pégalo en el chat del agente en VS Code y envíalo.
 
 ```scene
 id: authorize-prompt
@@ -427,9 +549,9 @@ items:
 - icon: ☑️
   label: 1. Acepto
 - icon: 📋
-  label: 2. Copiar
+  label: 2. Copiar el prompt
 - icon: 💬
-  label: 3. Pegar y enviar
+  label: 3. Pegarlo en el chat del agente y enviar
 ```
 
 ```exercise
@@ -491,8 +613,7 @@ choices:
 - 'No se ejecuta nada: el agente actúa solo cuando tú lo envías, y el sistema aún puede pedir permisos'
 - El computador se reinicia
 answer: 1
-explanation: Copiar no ejecuta nada. Solo marcas «Acepto» si estás de acuerdo y luego envías el mensaje
-  al agente.
+explanation: Copiar no ejecuta nada. Solo marcas «Acepto» si estás de acuerdo y luego envías el mensaje al agente.
 ```
 
 ```exercise
@@ -502,7 +623,7 @@ prompt: Ya copié el prompt y se lo envié al agente
 explanation: ¡Enviado! Veamos qué hace el agente.
 ```
 
-### 14. El agente construye la aplicación
+### 10. El agente construye la aplicación
 
 Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Al final te da la dirección para abrirla. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.
 
@@ -538,7 +659,7 @@ prompt: El agente ya terminó de construir la aplicación
 explanation: ¡Ya tienes una aplicación! Vamos a probarla.
 ```
 
-### 15. Verifica la aplicación
+### 11. Verifica la aplicación
 
 Ya tenemos una aplicación, y el agente la dejó corriendo. Tú solo abre el navegador y escribe la dirección que te dio, por ejemplo localhost dos puntos tres mil. Ahora comprueba la aplicación: usa sus botones, cambia de usuario y prueba sus funciones. Si algo falla, díselo al agente para que lo corrija. Y si la aplicación no está corriendo, también se lo puedes pedir: dile que la ejecute y te dé la dirección.
 
@@ -596,7 +717,7 @@ prompt: Ya abrí la aplicación en el navegador y la probé
 explanation: ¡Muy bien! Ahora haremos un cambio.
 ```
 
-### 16. Tu primer cambio
+### 12. Tu primer cambio
 
 Ahora te toca a ti. Elige un cambio, pídeselo al agente y comprueba el resultado en el navegador.
 
@@ -662,7 +783,7 @@ prompt: Ya le pedí un cambio al agente y lo comprobé en el navegador
 explanation: ¡Lo lograste! Ya programaste con IA.
 ```
 
-### 17. De una carpeta vacía a una aplicación
+### 13. De una carpeta vacía a una aplicación
 
 Empezamos con una carpeta vacía y terminamos con una aplicación que funciona. Todavía no entendemos todo su código. En las siguientes lecciones aprenderemos a comprenderlo y a tomar mejores decisiones al trabajar con inteligencia artificial.
 
