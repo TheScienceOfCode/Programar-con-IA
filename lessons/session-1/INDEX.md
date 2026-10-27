@@ -49,9 +49,9 @@ id: quiz-why-ai
 type: multiple-choice
 prompt: ¿Qué papel tiene la inteligencia artificial en este curso?
 choices:
-- Reemplaza por completo a la persona, que ya no debe revisar nada
-- Trabaja como agente que escribe y corrige programas, y tú compruebas el resultado
-- Sirve únicamente para buscar información en internet
+- Reemplaza por completo a la persona, que ya no debe revisar nada ni pensar.
+- Trabaja como agentes que escriben y corrigen código, y tú diriges y validas.
+- Sirve únicamente para buscar información en internet.
 answer: 1
 explanation: 'Los agentes multiplican lo que podemos crear, pero no son infalibles: siempre comprobamos
   el resultado.'
