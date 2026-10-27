@@ -45,7 +45,9 @@ Vamos a probarlo.
 
 Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium.
 
-Instálalo y ábrelo.
+Entra a code.visualstudio.com/download y elige tu sistema: Windows, macOS o Linux.
+
+Ahora instálalo. En Windows, abre el instalador y pulsa Siguiente hasta terminar. En macOS, arrastra Visual Studio Code a Aplicaciones. En Linux, instala el paquete con apt (Ubuntu/Debian) o dnf (Fedora). Cuando termine, ábrelo. Si ya lo tienes, salta este paso.
 
 **Enlaces:**
 - VS Code: https://code.visualstudio.com/download
@@ -59,9 +61,9 @@ Instálalo y ábrelo.
 
 **Narración:**
 
-Instala Codex o Claude Code desde las extensiones del editor e inicia sesión.
+Abre el panel de extensiones (Ctrl+Shift+X), busca Codex o Claude Code, pulsa Instalar e inicia sesión.
 
-Luego crea y abre una carpeta llamada `mis-videojuegos`. Ahí construiremos nuestra aplicación.
+Ahora crea una carpeta llamada `mis-videojuegos` y ábrela desde Archivo → Abrir carpeta. Ahí construiremos nuestra aplicación. Abre el chat del agente: ya está listo para escribirle.
 
 **Nota:** verificar que la extensión funcione en el editor mostrado, especialmente en VSCodium.
 
@@ -99,7 +101,15 @@ Vamos a pedirle al agente que construya la aplicación y prepare todo lo necesar
 
 Eso puede incluir instalar programas en tu computador. Lee la autorización y, si estás de acuerdo, marca «Acepto», copia el mensaje y envíalo.
 
-### 7. Verificar nuestra aplicación
+### 7. El agente construye la aplicación
+
+**Visual:** chat del agente y terminal con `docker compose up`.
+
+**Narración:**
+
+Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.
+
+### 8. Verificar nuestra aplicación
 
 **Visual:** grabación real del agente construyendo el proyecto y de la aplicación funcionando en el navegador.
 
@@ -109,7 +119,7 @@ Ya tenemos una aplicación. Ahora debemos comprobarla: abrirla, utilizar sus bot
 
 Si algo falla, le pedimos al agente que lo corrija.
 
-### 8. Tu primer cambio
+### 9. Tu primer cambio
 
 **Visual:** tres ejercicios seleccionables con instrucciones copiables.
 
@@ -123,7 +133,7 @@ Si algo falla, le pedimos al agente que lo corrija.
 
 Ahora te toca a ti. Elige un cambio, pídeselo al agente y comprueba el resultado en el navegador.
 
-### 9. Cierre
+### 10. Cierre
 
 **Visual:** editor y aplicación terminada.
 
@@ -245,39 +255,72 @@ Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostra
       "narration": "Los computadores han ampliado nuestra capacidad de calcular, recordar y resolver problemas. Ahora la inteligencia artificial nos permite ir más allá: podemos describir una idea y trabajar con agentes capaces de escribir programas, encontrar errores y proponer soluciones. Incluso podemos tener varios agentes trabajando en diferentes tareas. No son infalibles, pero multiplican lo que podemos crear. Vamos a probarlo."
     },
     {
-      "id": "prepare-editor",
+      "id": "download-editor",
       "type": "visual",
-      "visual": "os-download",
-      "title": "Instala el editor: Visual Studio Code",
+      "visual": "browser-download",
+      "title": "Descarga Visual Studio Code",
       "items": [
         {
           "icon": "🪟",
           "label": "Windows",
-          "detail": "code.visualstudio.com/download"
+          "detail": "Instalador .exe"
         },
         {
           "icon": "🍎",
           "label": "macOS",
-          "detail": "code.visualstudio.com/download"
+          "detail": "Archivo .zip"
         },
         {
           "icon": "🐧",
           "label": "Linux",
-          "detail": "VS Code o vscodium.com"
+          "detail": ".deb · .rpm · VSCodium"
         }
       ],
-      "steps": [
-        "Descarga",
-        "Instala",
-        "Ábrelo"
-      ],
-      "narration": "Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium. Instálalo y ábrelo."
+      "narration": "Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium. Entra a code punto visual studio punto com, barra download, y elige tu sistema: Windows, macOS o Linux."
     },
     {
-      "id": "connect-agent",
+      "id": "install-editor",
       "type": "visual",
-      "visual": "editor-setup",
-      "title": "Conecta tu agente",
+      "visual": "installer",
+      "title": "Instálalo y ábrelo",
+      "items": [
+        {
+          "icon": "🪟",
+          "label": "Windows",
+          "steps": [
+            "Abre VSCodeUserSetup.exe",
+            "Acepta y pulsa Siguiente",
+            "Pulsa Instalar",
+            "Marca «Ejecutar» y Finalizar"
+          ]
+        },
+        {
+          "icon": "🍎",
+          "label": "macOS",
+          "steps": [
+            "Abre el .zip descargado",
+            "Arrastra VS Code a Aplicaciones",
+            "Ábrelo desde Launchpad",
+            "Pulsa «Abrir» si macOS lo pide"
+          ]
+        },
+        {
+          "icon": "🐧",
+          "label": "Linux",
+          "steps": [
+            "$ sudo apt install ./code_*.deb",
+            "$ sudo dnf install ./code-*.rpm",
+            "Ábrelo desde el menú de aplicaciones"
+          ]
+        }
+      ],
+      "narration": "Ahora instálalo. En Windows, abre el instalador y pulsa Siguiente hasta terminar. En macOS, abre el archivo descargado y arrastra Visual Studio Code a la carpeta Aplicaciones. En Linux, instala el paquete: con apt en Ubuntu y Debian, o con dnf en Fedora. Cuando termine, ábrelo. Si ya lo tienes, salta este paso."
+    },
+    {
+      "id": "install-extension",
+      "type": "visual",
+      "visual": "extensions",
+      "title": "Instala tu agente",
       "items": [
         {
           "icon": "🟠",
@@ -290,7 +333,20 @@ Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostra
           "detail": "OpenAI"
         }
       ],
-      "narration": "Instala Codex o Claude Code desde las extensiones del editor e inicia sesión. Luego crea y abre una carpeta llamada mis-videojuegos. Ahí construiremos nuestra aplicación."
+      "narration": "Abre el panel de extensiones, con el icono de cuadritos o con Control, Shift y X. Busca Codex o Claude Code y pulsa Instalar. Después inicia sesión con tu cuenta."
+    },
+    {
+      "id": "open-folder",
+      "type": "visual",
+      "visual": "open-folder",
+      "title": "Abre tu carpeta de trabajo",
+      "items": [
+        {
+          "icon": "📂",
+          "label": "mis-videojuegos"
+        }
+      ],
+      "narration": "Ahora crea una carpeta llamada mis-videojuegos y ábrela desde el menú Archivo, Abrir carpeta. Ahí construiremos nuestra aplicación. Abre el chat del agente: ya está listo para escribirle."
     },
     {
       "id": "game-library",
@@ -367,6 +423,20 @@ Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostra
         }
       ],
       "narration": "Vamos a pedirle al agente que construya la aplicación y prepare todo lo necesario para ejecutarla. Eso puede incluir instalar programas en tu computador. Lee la autorización y, si estás de acuerdo, marca Acepto, copia el mensaje y envíalo."
+    },
+    {
+      "id": "agent-builds",
+      "type": "visual",
+      "visual": "agent-work",
+      "title": "El agente construye la aplicación",
+      "steps": [
+        "Detecté tu sistema operativo",
+        "Instalé Docker y sus componentes",
+        "Escribí el backend y el frontend",
+        "Ejecuté la aplicación con Docker",
+        "La probé en el navegador"
+      ],
+      "narration": "Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo."
     },
     {
       "id": "verify-app",
@@ -456,30 +526,56 @@ Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostra
       "explanation": "Los agentes multiplican lo que podemos crear, pero no son infalibles: siempre comprobamos el resultado."
     },
     {
-      "id": "quiz-prepare-editor",
+      "id": "quiz-download-editor",
       "type": "multiple-choice",
-      "afterScene": "prepare-editor",
-      "prompt": "¿Para qué necesitamos un editor como Visual Studio Code?",
+      "afterScene": "download-editor",
+      "prompt": "¿De dónde descargas Visual Studio Code?",
       "choices": [
-        "Para trabajar con nuestros archivos y conversar con el agente",
-        "Para que el computador funcione más rápido",
-        "Para jugar los videojuegos de la biblioteca"
-      ],
-      "answer": 0,
-      "explanation": "El editor es el lugar donde están nuestros archivos y donde conversamos con el agente."
-    },
-    {
-      "id": "quiz-connect-agent",
-      "type": "multiple-choice",
-      "afterScene": "connect-agent",
-      "prompt": "¿Qué hacemos después de instalar Codex o Claude Code?",
-      "choices": [
-        "Reiniciar el computador y esperar",
-        "Iniciar sesión, crear la carpeta mis-videojuegos y abrirla en el editor",
-        "Copiar el prompt sin abrir ninguna carpeta"
+        "De un correo que te envía el agente",
+        "De code.visualstudio.com/download",
+        "De la carpeta mis-videojuegos"
       ],
       "answer": 1,
-      "explanation": "Iniciamos sesión y abrimos la carpeta mis-videojuegos: ahí construiremos la aplicación."
+      "explanation": "El instalador oficial está en code.visualstudio.com/download; en Linux también puedes usar VSCodium."
+    },
+    {
+      "id": "quiz-install-editor",
+      "type": "multiple-choice",
+      "afterScene": "install-editor",
+      "prompt": "¿Cómo instalas Visual Studio Code en macOS?",
+      "choices": [
+        "Arrastrándolo a la carpeta Aplicaciones",
+        "Escribiendo sudo dnf install",
+        "Ejecutando docker compose up"
+      ],
+      "answer": 0,
+      "explanation": "En macOS se abre el archivo descargado y se arrastra la aplicación a Aplicaciones."
+    },
+    {
+      "id": "quiz-install-extension",
+      "type": "multiple-choice",
+      "afterScene": "install-extension",
+      "prompt": "¿Dónde buscas Codex o Claude Code dentro del editor?",
+      "choices": [
+        "En el panel de Extensiones (Ctrl+Shift+X)",
+        "En el menú Archivo → Guardar",
+        "En el navegador de la aplicación"
+      ],
+      "answer": 0,
+      "explanation": "Se instalan desde el panel de Extensiones y luego inicias sesión con tu cuenta."
+    },
+    {
+      "id": "quiz-open-folder",
+      "type": "multiple-choice",
+      "afterScene": "open-folder",
+      "prompt": "¿Qué carpeta abres para construir la aplicación?",
+      "choices": [
+        "Documentos",
+        "Descargas",
+        "mis-videojuegos"
+      ],
+      "answer": 2,
+      "explanation": "Ahí construiremos la aplicación: en Archivo → Abrir carpeta eliges mis-videojuegos."
     },
     {
       "id": "quiz-game-library",
@@ -530,6 +626,19 @@ Toma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostra
       ],
       "answer": 1,
       "explanation": "Copiar no ejecuta nada. Solo marcas «Acepto» si estás de acuerdo y luego envías el mensaje al agente."
+    },
+    {
+      "id": "quiz-agent-builds",
+      "type": "multiple-choice",
+      "afterScene": "agent-builds",
+      "prompt": "Mientras el agente trabaja, ¿qué haces si te pide permisos?",
+      "choices": [
+        "Los lees y aceptas solo si estás de acuerdo",
+        "Los aceptas sin leer",
+        "Cierras el editor"
+      ],
+      "answer": 0,
+      "explanation": "Puede pedir permisos para instalar o ejecutar cosas: léelos antes de aceptar."
     },
     {
       "id": "quiz-verify-app",
