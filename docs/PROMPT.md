@@ -1,4 +1,4 @@
-Utiliza AutoTorial para producir la lección definida en `lessons/session-1/INDEX.md`.
+Utiliza AutoTorial para producir la lección definida en `lessons/session-1/INDEX.md` (ajusta cualquier detalle pendiente en esos docs).
 
 El archivo contiene el sumario, guión narrado, escenas, instrucciones visuales, interacciones, ejercicios y criterios de producción.
 
