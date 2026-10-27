@@ -57,7 +57,40 @@ explanation: 'Los agentes multiplican lo que podemos crear, pero no son infalibl
   el resultado.'
 ```
 
-### 2. Descarga Visual Studio Code
+### 2. ¿Qué es un navegador?
+
+Vamos a construir una aplicación web. Para eso, primero debemos saber qué es un navegador. Es el programa que nos permite acceder a internet y ver páginas, imágenes y videos. Y es muy importante, porque nos permite usar aplicaciones sin instalarlas en nuestra máquina: basta escribir una dirección y ya estamos dentro de una aplicación web.
+
+```scene
+id: browser-intro
+type: visual
+visual: browser-page
+steps:
+  - una-direccion.com
+items:
+  - icon: 📄
+    label: Páginas
+  - icon: 🖼️
+    label: Imágenes
+  - icon: 🎬
+    label: Videos
+  - icon: 🎮
+    label: Aplicaciones web
+```
+
+```exercise
+id: quiz-browser
+type: multiple-choice
+prompt: ¿Qué ventaja nos da usar una aplicación web en el navegador?
+choices:
+  - Entramos escribiendo una dirección, sin instalarla en el computador
+  - Funciona sin ninguna dirección
+  - Necesita instalar Docker primero
+answer: 0
+explanation: Con solo escribir una dirección ya estamos dentro de la aplicación, sin instalar nada.
+```
+
+### 3. Descarga Visual Studio Code
 
 Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium. Entra a code punto visual studio punto com, barra download, y elige tu sistema: Windows, macOS o Linux.
 
@@ -78,7 +111,7 @@ items:
 ```
 
 
-### 3. Instálalo y ábrelo
+### 4. Instálalo y ábrelo
 
 Ahora instálalo. En Windows, abre el instalador y pulsa Siguiente hasta terminar. En macOS, abre el archivo descargado y arrastra Visual Studio Code a la carpeta Aplicaciones. En Linux, instala el paquete: con apt en Ubuntu y Debian, o con dnf en Fedora. Cuando termine, ábrelo. Si ya lo tienes, salta este paso.
 
@@ -113,7 +146,7 @@ items:
 ```
 
 
-### 4. Instala tu agente
+### 5. Instala tu agente
 
 Abre el panel de extensiones, con el icono de cuadritos o con Control, Shift y X. Busca Claude Code o Codex y pulsa Instalar. Cuando termine, inicia sesión con tu cuenta.
 
@@ -131,7 +164,7 @@ items:
 ```
 
 
-### 5. Abre una carpeta nueva
+### 6. Abre una carpeta nueva
 
 Ahora abre una carpeta de trabajo. En la pantalla de bienvenida pulsa Abrir carpeta. En la ventana que aparece, usa el botón Nueva carpeta, llámala mis-videojuegos y ábrela. Si el editor pregunta si confías en los autores, responde que sí. Ahí construiremos nuestra aplicación.
 
@@ -145,7 +178,7 @@ items:
 ```
 
 
-### 6. Abre el chat del agente
+### 7. Abre el chat del agente
 
 Ahora abre el chat del agente. En Claude Code, pulsa su icono, arriba a la derecha del editor. En Codex, usa su icono en la barra lateral. Se abrirá un panel con una caja para escribirle: ahí pegaremos nuestro mensaje.
 
@@ -159,7 +192,7 @@ items:
 ```
 
 
-### 7. Una biblioteca de videojuegos
+### 8. Una biblioteca de videojuegos
 
 Vamos a crear una biblioteca de videojuegos con portadas, búsqueda y favoritos. Tendremos usuarios normales y un administrador que podrá agregar, editar y eliminar juegos. También podremos cambiar de usuario con un clic.
 
@@ -175,39 +208,6 @@ items:
 ```
 
 
-### 8. ¿Qué es un navegador?
-
-Antes, una pregunta: ¿qué es un navegador? Es el programa que nos permite acceder a internet y ver páginas, imágenes y videos. Y es muy importante, porque nos permite usar aplicaciones sin instalarlas en nuestra máquina: basta escribir una dirección y ya estamos dentro de una aplicación web.
-
-```scene
-id: browser-intro
-type: visual
-visual: browser-page
-steps:
-  - una-direccion.com
-items:
-  - icon: 📄
-    label: Páginas
-  - icon: 🖼️
-    label: Imágenes
-  - icon: 🎬
-    label: Videos
-  - icon: 🎮
-    label: Aplicaciones web
-```
-
-```exercise
-id: quiz-browser
-type: multiple-choice
-prompt: ¿Qué ventaja nos da usar una aplicación web en el navegador?
-choices:
-  - Entramos escribiendo una dirección, sin instalarla en el computador
-  - Funciona sin ninguna dirección
-  - Necesita instalar Docker primero
-answer: 0
-explanation: Con solo escribir una dirección ya estamos dentro de la aplicación, sin instalar nada.
-```
-
 ### 9. Frontend: lo que ves
 
 Una aplicación web moderna tiene varios componentes. El frontend, o cliente, es lo que vemos directamente en el navegador: los botones y los formularios con los que interactuamos. Lo construiremos con React.
@@ -215,21 +215,29 @@ Una aplicación web moderna tiene varios componentes. El frontend, o cliente, es
 ```scene
 id: concept-frontend
 type: visual
-visual: stack
-focus: 0
+visual: frontend
 items:
-  - icon: 🖥️
-    label: Frontend
-    detail: React · lo que ves
-  - icon: ⚙️
-    label: Backend
-    detail: ASP.NET Core · recibe peticiones
-  - icon: 🗄️
-    label: Base de datos
-    detail: SQLite · guarda la información
-  - icon: 🐳
-    label: Docker
-    detail: ejecuta todo en contenedores
+  - icon: 🔍
+    label: Búsqueda
+    detail: Escribes y filtras los juegos
+  - icon: 🔘
+    label: Botones
+    detail: Agregar, favoritos, cambiar usuario
+  - icon: 📝
+    label: Formularios
+    detail: Los datos que escribes
+```
+
+```exercise
+id: quiz-frontend
+type: multiple-choice
+prompt: En una aplicación web, ¿qué es el frontend?
+choices:
+  - Lo que vemos y usamos en el navegador, como botones y formularios
+  - El programa que guarda los datos
+  - El contenedor que ejecuta la aplicación
+answer: 0
+explanation: El frontend, o cliente, es la parte que vemos y con la que interactuamos. Lo construiremos con React.
 ```
 
 ### 10. Backend: quien recibe las peticiones
@@ -239,26 +247,22 @@ El backend, o servidor, es el encargado de recibir las peticiones del navegador.
 ```scene
 id: concept-backend
 type: visual
-visual: stack
-focus: 1
+visual: backend
 steps:
   - Muéstrame la información
-  - Modifica este campo
-  - Guarda esto
-  - Borra aquello
+  - Modifícame este campo
+  - Guárdame esto
+  - Bórrame aquello
 items:
-  - icon: 🖥️
-    label: Frontend
-    detail: React · lo que ves
-  - icon: ⚙️
-    label: Backend
-    detail: ASP.NET Core · recibe peticiones
-  - icon: 🗄️
-    label: Base de datos
-    detail: SQLite · guarda la información
-  - icon: 🐳
-    label: Docker
-    detail: ejecuta todo en contenedores
+  - icon: 📥
+    label: Recibe la petición
+    detail: Llega desde el navegador
+  - icon: 🛡️
+    label: Hace validaciones
+    detail: ¿Tienes permiso? ¿Los datos son correctos?
+  - icon: ▶️
+    label: Ejecuta la acción
+    detail: Muestra, modifica, guarda o borra
 ```
 
 ```exercise
@@ -280,21 +284,23 @@ La base de datos es la que usa el backend para persistir, es decir, guardar la i
 ```scene
 id: concept-database
 type: visual
-visual: stack
-focus: 2
+visual: database
+steps:
+  - Reinicias la aplicación
+  - Los datos siguen ahí
 items:
-  - icon: 🖥️
-    label: Frontend
-    detail: React · lo que ves
-  - icon: ⚙️
-    label: Backend
-    detail: ASP.NET Core · recibe peticiones
-  - icon: 🗄️
-    label: Base de datos
-    detail: SQLite · guarda la información
-  - icon: 🐳
-    label: Docker
-    detail: ejecuta todo en contenedores
+  - label: Commander Keen 4
+    icon: 🎮
+    detail: '1991'
+  - label: Another World
+    icon: 🎮
+    detail: '1991'
+  - label: Prince of Persia
+    icon: 🎮
+    detail: '1989'
+  - label: Super Mario World
+    icon: 🎮
+    detail: '1990'
 ```
 
 ```exercise
@@ -316,21 +322,19 @@ Además usaremos Docker, que nos permite ejecutar la aplicación en contenedores
 ```scene
 id: concept-docker
 type: visual
-visual: stack
-focus: 3
+visual: docker
+steps:
+  - React · el frontend
+  - ASP.NET Core · el backend
+  - SQLite · los datos
+  - Todas sus dependencias
 items:
-  - icon: 🖥️
-    label: Frontend
-    detail: React · lo que ves
-  - icon: ⚙️
-    label: Backend
-    detail: ASP.NET Core · recibe peticiones
-  - icon: 🗄️
-    label: Base de datos
-    detail: SQLite · guarda la información
-  - icon: 🐳
-    label: Docker
-    detail: ejecuta todo en contenedores
+  - icon: 🪟
+    label: Windows
+  - icon: 🍎
+    label: macOS
+  - icon: 🐧
+    label: Linux
 ```
 
 ```exercise
