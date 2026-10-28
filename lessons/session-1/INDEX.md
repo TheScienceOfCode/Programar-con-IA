@@ -610,18 +610,6 @@ items:
 ```
 
 ```exercise
-id: quiz-usage
-type: multiple-choice
-prompt: En Claude Code, ¿cómo ves cuánto te queda de tu plan?
-choices:
-- En Account & usage, con View details, o escribiendo /usage en el chat
-- En la carpeta mis-videojuegos
-- En el navegador, en localhost:3000
-answer: 0
-explanation: El panel Account & usage muestra el uso de la sesión de cinco horas y de la semana, y cuándo se reinician.
-```
-
-```exercise
 id: check-usage
 type: checkpoint
 prompt: Ya revisé cuánto me queda de mi plan
