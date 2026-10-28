@@ -433,7 +433,7 @@ answer: 0
 explanation: El contenedor trae la aplicación y sus dependencias, y funciona igual en cualquier sistema operativo.
 ```
 
-### 9. Autoriza, copia y envía
+### 9. El prompt
 
 #### ¿Qué es un prompt?
 
@@ -530,7 +530,7 @@ answer: 0
 explanation: Más detalle da más control, pero también te obliga a decidir más. Cuánto dejar abierto depende de cada caso.
 ```
 
-#### Autoriza, copia y envía
+### 10. Autoriza, copia y envía
 
 Lee la autorización: el prompt le pide al agente que instale programas en tu computador. Si estás de acuerdo, marca Acepto, copia el prompt, pégalo en el chat del agente en VS Code y envíalo.
 
@@ -616,7 +616,7 @@ prompt: Ya copié el prompt y se lo envié al agente
 explanation: ¡Enviado! Veamos qué hace el agente.
 ```
 
-### 10. El agente construye la aplicación
+### 11. El agente construye la aplicación
 
 Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Al final te da la dirección para abrirla. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.
 
@@ -652,7 +652,7 @@ prompt: El agente ya terminó de construir la aplicación
 explanation: ¡Ya tienes una aplicación! Vamos a probarla.
 ```
 
-### 11. Verifica la aplicación
+### 12. Verifica la aplicación
 
 Ya tenemos una aplicación, y el agente la dejó corriendo. Tú solo abre el navegador y escribe la dirección que te dio, por ejemplo localhost dos puntos tres mil. Ahora comprueba la aplicación: usa sus botones, cambia de usuario y prueba sus funciones. Si algo falla, díselo al agente para que lo corrija. Y si la aplicación no está corriendo, también se lo puedes pedir: dile que la ejecute y te dé la dirección.
 
@@ -710,7 +710,7 @@ prompt: Ya abrí la aplicación en el navegador y la probé
 explanation: ¡Muy bien! Ahora haremos un cambio.
 ```
 
-### 12. Tu primer cambio
+### 13. Tu primer cambio
 
 Ahora te toca a ti. Elige un cambio, pídeselo al agente y comprueba el resultado en el navegador.
 
@@ -776,7 +776,7 @@ prompt: Ya le pedí un cambio al agente y lo comprobé en el navegador
 explanation: ¡Lo lograste! Ya programaste con IA.
 ```
 
-### 13. De una carpeta vacía a una aplicación
+### 14. De una carpeta vacía a una aplicación
 
 Empezamos con una carpeta vacía y terminamos con una aplicación que funciona. Todavía no entendemos todo su código. En las siguientes lecciones aprenderemos a comprenderlo y a tomar mejores decisiones al trabajar con inteligencia artificial.
 
