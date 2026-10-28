@@ -530,7 +530,105 @@ answer: 0
 explanation: Más detalle da más control, pero también te obliga a decidir más. Cuánto dejar abierto depende de cada caso.
 ```
 
-### 10. Autoriza, copia y envía
+### 10. Modelos y uso
+
+#### Elige el modelo
+
+El modelo es el cerebro que usa el agente, y no todos sirven para lo mismo. Uno más capaz, como Opus, o Sol si usas Codex, planifica y verifica mejor, pero es más lento y consume más de tu plan. Uno más ligero, como Sonnet, o Luna en Codex, responde rápido y gasta menos: ideal para ajustes pequeños. Para construir toda la aplicación, elige el más capaz; para retocarla, uno ligero. Cámbialo con el selector de modelo del chat.
+
+```scene
+id: choose-model
+type: visual
+visual: model-picker
+focus: 0
+items:
+- icon: 🧠
+  label: Opus · Sol en Codex
+  detail: Más capaz, para tareas largas y complejas
+  steps:
+  - Planifica y verifica mejor
+  - Más lento
+  - Consume más del plan
+- icon: ⚡
+  label: Sonnet · Luna en Codex
+  detail: Más ligero, para cambios pequeños
+  steps:
+  - Responde rápido
+  - Gasta menos
+```
+
+```exercise
+id: quiz-model-build
+type: multiple-choice
+prompt: Para construir la aplicación completa con nuestro prompt, ¿qué modelo conviene?
+choices:
+- Opus (Sol, si usas Codex), el más capaz
+- Sonnet (Luna, si usas Codex), porque responde más rápido
+- Da igual, todos dan el mismo resultado
+answer: 0
+explanation: Construir y verificar una aplicación completa es una tarea larga y compleja, y el modelo más capaz la maneja mejor.
+```
+
+```exercise
+id: quiz-model-small
+type: multiple-choice
+prompt: Para cambiar un color de la aplicación, ¿qué modelo suele bastar?
+choices:
+- Sonnet (Luna, si usas Codex), más ligero y económico
+- Solo Opus (Sol) sirve para hacer cambios
+- Ninguno, los cambios se hacen a mano
+answer: 0
+explanation: Un cambio pequeño y claro no necesita el modelo más capaz. Uno ligero responde más rápido y gasta menos de tu plan.
+```
+
+```exercise
+id: check-model
+type: checkpoint
+prompt: Ya elegí el modelo en el selector del chat
+explanation: ¡Listo! Ahora veamos cuánto uso te queda.
+```
+
+#### Cuánto te queda del plan
+
+Los planes tienen un límite de uso. En Claude Code, para ver cuánto te queda, abre la configuración en VS Code, entra a Account and usage y pulsa View details: verás el uso de la sesión de cinco horas y de la semana, y cuándo se reinician. También puedes escribir slash usage en el chat. En Codex, revisa el uso en tu cuenta de ChatGPT. Construye con el modelo capaz, pero vigila ese consumo.
+
+```scene
+id: plan-usage
+type: visual
+visual: usage-panel
+steps:
+- Abre la configuración de Claude Code
+- Entra a Account & usage
+- Pulsa View details
+items:
+- label: Session (5hr)
+  detail: Se reinicia en 3 h
+  value: 18
+- label: Weekly (7 day)
+  detail: Se reinicia en 4 días
+  value: 42
+```
+
+```exercise
+id: quiz-usage
+type: multiple-choice
+prompt: En Claude Code, ¿cómo ves cuánto te queda de tu plan?
+choices:
+- En Account & usage, con View details, o escribiendo /usage en el chat
+- En la carpeta mis-videojuegos
+- En el navegador, en localhost:3000
+answer: 0
+explanation: El panel Account & usage muestra el uso de la sesión de cinco horas y de la semana, y cuándo se reinician.
+```
+
+```exercise
+id: check-usage
+type: checkpoint
+prompt: Ya revisé cuánto me queda de mi plan
+explanation: ¡Bien! Ahora sí, a autorizar y enviar el prompt.
+```
+
+### 11. Autoriza, copia y envía
 
 Lee la autorización: el prompt le pide al agente que instale programas en tu computador. Si estás de acuerdo, marca Acepto, copia el prompt, pégalo en el chat del agente en VS Code y envíalo.
 
@@ -616,7 +714,7 @@ prompt: Ya copié el prompt y se lo envié al agente
 explanation: ¡Enviado! Veamos qué hace el agente.
 ```
 
-### 11. El agente construye la aplicación
+### 12. El agente construye la aplicación
 
 Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Al final te da la dirección para abrirla. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.
 
@@ -652,7 +750,7 @@ prompt: El agente ya terminó de construir la aplicación
 explanation: ¡Ya tienes una aplicación! Vamos a probarla.
 ```
 
-### 12. Verifica la aplicación
+### 13. Verifica la aplicación
 
 Ya tenemos una aplicación, y el agente la dejó corriendo. Tú solo abre el navegador y escribe la dirección que te dio, por ejemplo localhost dos puntos tres mil. Ahora comprueba la aplicación: usa sus botones, cambia de usuario y prueba sus funciones. Si algo falla, díselo al agente para que lo corrija. Y si la aplicación no está corriendo, también se lo puedes pedir: dile que la ejecute y te dé la dirección.
 
@@ -710,7 +808,7 @@ prompt: Ya abrí la aplicación en el navegador y la probé
 explanation: ¡Muy bien! Ahora haremos un cambio.
 ```
 
-### 13. Tu primer cambio
+### 14. Tu primer cambio
 
 Ahora te toca a ti. Elige un cambio, pídeselo al agente y comprueba el resultado en el navegador.
 
@@ -776,7 +874,7 @@ prompt: Ya le pedí un cambio al agente y lo comprobé en el navegador
 explanation: ¡Lo lograste! Ya programaste con IA.
 ```
 
-### 14. De una carpeta vacía a una aplicación
+### 15. De una carpeta vacía a una aplicación
 
 Empezamos con una carpeta vacía y terminamos con una aplicación que funciona. Todavía no entendemos todo su código. En las siguientes lecciones aprenderemos a comprenderlo y a tomar mejores decisiones al trabajar con inteligencia artificial.
 
