@@ -1,0 +1,111 @@
+{
+  "savedAt": "2026-10-28T13:36:56.427Z",
+  "source": {
+    "branch": "main",
+    "commit": "8a092ce"
+  },
+  "lessons": [
+    {
+      "slug": "session-1",
+      "title": "Lección 1: Tu primera aplicación con IA",
+      "sourceHash": "4a66df61a87797b94c0ebaeb555bc19e02be8f16bc5f7cfcc76c20cba2e1f8d1",
+      "producedAt": "2026-10-28T13:25:44.120Z",
+      "scenes": 21,
+      "narration": "kokoro"
+    }
+  ],
+  "files": [
+    {
+      "path": "autotorial/generated/session-1.json",
+      "bytes": 45663
+    },
+    {
+      "path": "autotorial/public/audio/07d677ccfdc1f9d32dc2a2fd168555021e7b40a4ec88317dac818f47e67737bd.wav",
+      "bytes": 1466412
+    },
+    {
+      "path": "autotorial/public/audio/0da94deadf0a2243d5bc6ca522d29f0cb07824783707999f7c435a91ced4cfad.wav",
+      "bytes": 1048620
+    },
+    {
+      "path": "autotorial/public/audio/0f5a2cc2e98e512f20c8b245487509791e2d56bc2879efee4150c98c38a680f8.wav",
+      "bytes": 683052
+    },
+    {
+      "path": "autotorial/public/audio/11ec63fbf186b5c1af6c918dcd93526e67bb4fe66f622666f0edd0b4161da3d2.wav",
+      "bytes": 830508
+    },
+    {
+      "path": "autotorial/public/audio/2c38492f23d314e285ad403d0a1b99d8ae7689e6627ef78a621293bf020c555d.wav",
+      "bytes": 269356
+    },
+    {
+      "path": "autotorial/public/audio/2cdd3047383edc8231ef76e8c250dff9c3d5a8b13524b2845081ddcd6ea26e25.wav",
+      "bytes": 551980
+    },
+    {
+      "path": "autotorial/public/audio/3e69620b6719bca430b6330c8ff886da8414b46214cae200ac42b9f09205a0fb.wav",
+      "bytes": 1081388
+    },
+    {
+      "path": "autotorial/public/audio/470279f6c231f251a218d2de559a7674eb80a90854de191ecb3e0fe60980020f.wav",
+      "bytes": 761900
+    },
+    {
+      "path": "autotorial/public/audio/59238cd9621c23dd64737d70e8fa03b68428a97a30d3d83785137e4e776b12d9.wav",
+      "bytes": 610348
+    },
+    {
+      "path": "autotorial/public/audio/5abdadbf68d4dc3c6f52dc9939e7a838871860b4ac03cd3fce485bff8a915633.wav",
+      "bytes": 813100
+    },
+    {
+      "path": "autotorial/public/audio/5c95f064d42526b35a729bac7fae611af24bd5c7224dfef06579efa93a4b33ba.wav",
+      "bytes": 598060
+    },
+    {
+      "path": "autotorial/public/audio/7ac136d5b883e60613b1dc987d87e4202e075c51c9f516d46cb76c38a29f1168.wav",
+      "bytes": 1031212
+    },
+    {
+      "path": "autotorial/public/audio/815c34174f904f6124400a8fe4f44f33a43da59434aa47164e4db100426c4983.wav",
+      "bytes": 976940
+    },
+    {
+      "path": "autotorial/public/audio/83661c6637d89aedb2b76ee5f0a34e2c587462a44c82413a94e9c39085cacc48.wav",
+      "bytes": 573484
+    },
+    {
+      "path": "autotorial/public/audio/86d9adb52ba909dc269cb6fc3405a8f6ca485dfbf000c5804db89a6705e9a72f.wav",
+      "bytes": 870444
+    },
+    {
+      "path": "autotorial/public/audio/97e51c2e9ae3f026089b709b9495b92471d7ad3602f909f169db99ee9d5ca037.wav",
+      "bytes": 497708
+    },
+    {
+      "path": "autotorial/public/audio/b4bc33288de95f0e52844492729ef33a5a5996b8509ea0137388450f502d05b7.wav",
+      "bytes": 763948
+    },
+    {
+      "path": "autotorial/public/audio/b7de00fd62020fa14f625d8f5fc1bd6a7846068283d2d2e11859f11e7cabbc59.wav",
+      "bytes": 1111084
+    },
+    {
+      "path": "autotorial/public/audio/c816eedf8da8b9ffe5322890d05de391a39dc13c74a32448b490dc2a1c9a6658.wav",
+      "bytes": 735276
+    },
+    {
+      "path": "autotorial/public/audio/d04500be1d9383f04fd766ae430da567ad9973b0145bc23fbcf970567a7413fd.wav",
+      "bytes": 618540
+    },
+    {
+      "path": "autotorial/public/audio/e9e831de1815b11304691cd3231b9453c941b05b39764f3c6884f147cc94ddbd.wav",
+      "bytes": 905260
+    },
+    {
+      "path": "autotorial/video/session-1.mp4",
+      "bytes": 21705219
+    }
+  ]
+}
