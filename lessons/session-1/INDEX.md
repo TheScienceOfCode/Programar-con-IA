@@ -1,5 +1,5 @@
 ---
-title: "Lección 1: Primer contacto"
+title: "Lección 1: Tu primera aplicación con IA"
 courseTitle: "Aprende a\nProgramar con IA"
 language: es
 objectives:
