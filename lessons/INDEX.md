@@ -9,10 +9,11 @@ Tabla de contenidos del curso. La fila N es la lección de `lessons/session-N/`;
 | # | Lección | Contenido |
 |---|---------|-----------|
 | 1 | Tu primera aplicación con IA | Introducción a la computación y la IA. VS Code, agentes y herramientas. Construir una biblioteca de videojuegos con frontend, backend, base de datos y Docker. Verificar su funcionamiento en el navegador. |
-| 2 | Entiende el backend de una API | APIs, HTTP y REST. Clases, propiedades, enums, inyección de dependencias, EF Core y migraciones en C#. Leer, modificar y probar un controlador real. |
-| 3 | Frontend e interfaces | React, componentes, interacción y comunicación con el backend. |
-| 4 | Pruebas automatizadas | Validaciones con clics, entradas y aserciones. Detección y corrección de errores con IA. |
-| 5 | Seguridad del software | Autenticación, autorización, vulnerabilidades y análisis de seguridad con IA. |
-| 6 | Patrones de backend | Arquitectura, responsabilidades, organización y buenas prácticas. |
-| 7 | Patrones de frontend | Componentes reutilizables, estado y mantenimiento. |
-| 8 | Tu propio harness de IA | Agentes, skills, instrucciones y automatización del desarrollo. |
+| 2 | Acercándonos al código | Tipos nativos, funciones y clases: datos y funciones agrupados. `public`, `get` y `set`. Un inventario de nombres, práctica de escritura, predicción de la ejecución y manejo de errores. |
+| 3 | Entiende el backend de una API | APIs, HTTP y REST. Controladores, modelo de datos, inyección de dependencias, EF Core, async y migraciones en C#. Leer, modificar y probar un controlador real. |
+| 4 | Frontend e interfaces | React, componentes, interacción y comunicación con el backend. |
+| 5 | Pruebas automatizadas | Validaciones con clics, entradas y aserciones. Detección y corrección de errores con IA. |
+| 6 | Seguridad del software | Autenticación, autorización, vulnerabilidades y análisis de seguridad con IA. |
+| 7 | Patrones de backend | Arquitectura, responsabilidades, organización y buenas prácticas. |
+| 8 | Patrones de frontend | Componentes reutilizables, estado y mantenimiento. |
+| 9 | Tu propio harness de IA | Agentes, skills, instrucciones y automatización del desarrollo. |
