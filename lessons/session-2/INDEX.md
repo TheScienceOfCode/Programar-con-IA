@@ -1,168 +1,197 @@
 ---
-title: "Lección 2: Entiende el backend de una API"
+title: "Lección 2: Entender el backend"
 courseTitle: "Aprende a\nProgramar con IA"
 language: es
 objectives:
-  - Entender qué son una API, HTTP y REST
-  - Reconocer clases, propiedades, enums, constructores y métodos en C#
-  - Comprender inyección de dependencias, EF Core y migraciones
-  - Leer, modificar y probar un controlador real
+  - Entender cómo se comunican los programas mediante una API HTTP
+  - Reconocer clases, objetos, propiedades, enums, constructores y métodos
+  - Comprender cómo el backend consulta y guarda tareas con EF Core
+  - Leer un controlador real y hacer cambios pequeños que funcionen
 prerequisites:
   - Lección 1
-  - VS Code con un agente de programación y Docker disponible
+  - Editor con agente de programación y Docker
 ---
-# Lección 2 — Entiende el backend de una API
+
+# Lección 2 — Entender el backend
 
 **Proyecto:** Aprende a Programar con IA  
-**Ejemplo:** https://github.com/TheScienceOfCode/Ejemplos-IA/tree/Todo-IA  
-**Formato:** video guiado, una pantalla por parte, con pregunta y botón Continuar.  
-**Público:** principiantes que ya construyeron su primera aplicación con IA.  
-**Objetivo práctico:** entender el código lo suficiente para comenzar a editarlo.
+**Código de ejemplo:** https://github.com/TheScienceOfCode/Ejemplos-IA/tree/Todo-IA  
+**Referencia de formato:** https://github.com/TheScienceOfCode/Programar-con-IA/blob/main/lessons/session-1/INDEX.md  
+**Público:** personas que construyeron una aplicación con IA, pero apenas empiezan a leer código.  
+**Objetivo:** entender qué sucede desde que pedimos una tarea hasta que el backend la consulta o guarda, y poder modificar ese recorrido.
 
-**Para producir el tutorial:** cada `###` es una pantalla. La narración es el texto del apartado; `scene` indica lo que se muestra; `exercise` contiene preguntas o prácticas. Al mostrar código, usar los archivos reales de la rama `Todo-IA`, resaltando únicamente las líneas necesarias. Los bloques `visual: code` describen una vista de código; si Autotorial todavía no la admite, implementarla o adaptarla sin perder el código ni su resaltado. No modificar el ejemplo solo para grabar las explicaciones.
+## Notas de producción
+
+- Cada `###` es una pantalla. El texto que precede a `scene` es **la narración**, escrita para escucharse, no para leerse como documentación.
+- **No narrar nombres de archivos, rutas, firmas de métodos ni comandos.** Esos datos se muestran en pantalla al abrir el código, cuando corresponda.
+- Primero explicar una idea cotidiana; después mostrar cómo aparece en nuestro código. Mostrar **pocas líneas** cada vez.
+- `scene` indica lo que se ve; `exercise`, la pregunta o práctica. Las escenas de código toman sus fragmentos del repositorio real; los ejemplos nuevos deben señalarse como tales.
+- **No introducir frontend ni patrones adicionales.** Esta lección es solo sobre el backend.
+- Dejar que el espectador piense y pruebe los ejercicios antes de mostrar pistas o soluciones.
 
 ## Partes
 
-### 1. El proyecto que vamos a entender
+### 1. ¿Qué vamos a entender?
 
-La vez pasada le pedimos a una IA que construyera una aplicación. Hoy vamos a mirar por dentro un backend de verdad: una API para crear, consultar, actualizar y borrar tareas. No tiene interfaz gráfica todavía. Todo lo probaremos desde el navegador con Swagger.
-
-En el repositorio, `src/back` contiene el backend, `run` los scripts para ejecutarlo y `src/front` está reservado para después. Puedes pedirle a tu agente que descargue la rama `Todo-IA`, ejecute `./run/build.sh` y `./run/start.sh`, y abra `http://localhost:5080/swagger`.
+En la primera lección construimos una aplicación con ayuda de la inteligencia artificial. Ahora vamos a empezar a entender el código que escribe por nosotros. Para hacerlo, usaremos una aplicación mucho más pequeña: una lista de tareas. Podemos agregar una tarea, consultar las que tenemos, cambiar su estado o borrarla. Hoy nos concentraremos en la parte que recibe esas órdenes y guarda la información: el backend.
 
 ```scene
-id: project-overview
+id: introduction
 type: visual
-visual: timeline
+visual: backend
+plain: true
+steps:
+  - Crear una tarea
+  - Ver las tareas guardadas
+  - Marcar una como terminada
+  - Borrar una tarea
 items:
-  - icon: 📁
-    label: src/back/TodoApi
-    detail: Código C# del backend
-  - icon: 🛠️
-    label: run/
-    detail: Construir, iniciar, detener y probar
-  - icon: 🌐
-    label: Swagger
-    detail: localhost:5080/swagger
-  - icon: 🧪
-    label: run/test.sh
-    detail: Pruebas HTTP de la API
+  - icon: 🖥️
+    label: Backend
+    detail: Recibe las órdenes y maneja los datos
+  - icon: 💾
+    label: Base de datos
+    detail: Conserva nuestras tareas
 ```
 ```exercise
-id: check-project
-type: checkpoint
-prompt: Ya tengo abierto el ejemplo y puedo ver sus endpoints en Swagger
-explanation: Perfecto. Empecemos por entender qué estamos viendo.
+id: intro-question
+type: multiple-choice
+prompt: Si queremos guardar una tarea para encontrarla mañana, ¿qué parte debe encargarse de almacenarla?
+choices:
+  - El backend, utilizando una base de datos
+  - El botón que pulsamos
+  - La pantalla de Swagger
+answer: 0
+explanation: La pantalla solicita una acción; el backend la procesa y guarda los datos.
 ```
 
 ### 2. ¿Qué es una API?
 
-Una API es una forma definida de comunicarse con un programa. En nuestro ejemplo, otro programa puede pedirle al backend la lista de tareas o decirle que guarde una nueva. No necesita saber cómo funciona la base de datos: solo conocer las operaciones que ofrece la API.
+Imagina que quieres consultar tus tareas desde el computador, pero también desde el teléfono. No tendría sentido construir un sistema de tareas diferente para cada dispositivo. Lo que necesitamos es que ambos puedan comunicarse con el mismo programa.
 
-Cuando consultamos `/api/todos`, el servidor nos responde con datos, normalmente en formato JSON. JSON es texto estructurado que representa información, por ejemplo una tarea con su título y estado.
+Una **API** es precisamente eso: una forma definida de pedirle cosas a otro programa. Puede ofrecer operaciones como «muéstrame las tareas» o «guarda esta nueva tarea». Las API existen en muchos tipos de programas; la nuestra se usa a través de la web.
 
 ```scene
-id: api-intro
+id: api-concept
 type: visual
 visual: backend
+plain: true
 steps:
-  - 'Cliente: dame las tareas'
-  - 'API: GET /api/todos'
-  - 'Servidor: consulta los datos'
-  - 'Respuesta JSON: [{"id":1,"title":"Estudiar","status":"Pending"}]'
+  - 'Computador: Muéstrame las tareas'
+  - 'API: recibe la solicitud'
+  - 'Backend: busca las tareas'
+  - 'API: devuelve el resultado'
+items:
+  - icon: 💻
+    label: Computador
+  - icon: 📱
+    label: Teléfono
+  - icon: ⚙️
+    label: La misma API
+    detail: Ambos pueden pedirle operaciones
 ```
 ```exercise
-id: quiz-api
+id: api-question
 type: multiple-choice
-prompt: ¿Para qué sirve una API en este ejemplo?
+prompt: ¿Por qué una API permite que distintos programas utilicen el mismo backend?
 choices:
-  - Para definir cómo otros programas consultan o modifican nuestras tareas
-  - Para dibujar botones en la pantalla
-  - Para reemplazar la base de datos
+  - Porque define cómo pedir operaciones y recibir resultados
+  - Porque instala una copia de la base de datos en cada dispositivo
+  - Porque sustituye al sistema operativo
 answer: 0
-explanation: La API expone operaciones; otros programas pueden utilizarlas sin conocer su funcionamiento interno.
+explanation: Los programas conocen cómo comunicarse con la API, sin tener que conocer su funcionamiento interno.
 ```
 
-### 3. HTTP: peticiones y respuestas
+### 3. HTTP: cómo se hablan los programas
 
-HTTP es el protocolo que usa el cliente para hablar con nuestro servidor. Una petición contiene una dirección y un método, como `GET` o `POST`. También puede enviar datos en un cuerpo JSON. El servidor responde con un código de estado y, cuando hace falta, con datos.
+Cuando abres una página web, tu navegador le hace una petición a un servidor y espera una respuesta. Para entenderse utilizan unas reglas comunes llamadas **HTTP**. Nuestras tareas funcionan de manera parecida.
 
-Por ejemplo, `GET /api/todos/1` pide la tarea número 1. Si existe, recibimos `200 OK` y la tarea. Si no existe, recibimos `404 Not Found`.
+Por ejemplo, podemos pedir la tarea número cinco. El servidor busca esa tarea y responde. Si la encuentra, devuelve su información; si no existe, nos lo indica. Por eso, una respuesta no solo trae datos: también nos dice si la operación salió bien o qué ocurrió.
 
 ```scene
-id: http-request
+id: http-exchange
 type: visual
 visual: timeline
+plain: true
 items:
   - icon: 📤
     label: Petición
-    detail: GET /api/todos/1
+    detail: Quiero consultar la tarea 5
   - icon: ⚙️
-    label: Backend
-    detail: Busca la tarea 1
+    label: Servidor
+    detail: Busca esa tarea
   - icon: ✅
-    label: Respuesta encontrada
-    detail: 200 OK + JSON
+    label: Si existe
+    detail: 200 OK y los datos
   - icon: ❓
-    label: Respuesta no encontrada
+    label: Si no existe
     detail: 404 Not Found
 ```
+
+**Nota visual:** después de la explicación, mostrar brevemente la petición real `GET /api/todos/5` y la respuesta. No leer la ruta en voz alta.
+
 ```exercise
-id: quiz-http
+id: http-question
 type: multiple-choice
-prompt: ¿Qué significa un 404 en GET /api/todos/99999?
+prompt: Pides una tarea que no existe. ¿Qué debería indicar la respuesta?
 choices:
-  - Que la tarea solicitada no se encontró
-  - Que la tarea se guardó correctamente
-  - Que el servidor devolvió todas las tareas
+  - Que no se encontró
+  - Que se creó una nueva
+  - Que se borraron todas las tareas
 answer: 0
-explanation: 404 significa que el recurso solicitado no se encontró.
+explanation: HTTP incluye códigos de respuesta; 404 significa que no se encontró el recurso solicitado.
 ```
 
-### 4. REST: las operaciones sobre tareas
+### 4. REST: organizar lo que podemos pedir
 
-REST es una forma de organizar APIs HTTP alrededor de recursos. Nuestro recurso es una tarea, o *ToDo*. La ruta identifica el recurso y el método expresa qué queremos hacer. Estas son las cinco operaciones reales del proyecto:
+Con HTTP podemos hacer distintas clases de peticiones. Y cuando seguimos el estilo **REST**, organizamos esas peticiones alrededor de las cosas que maneja nuestra aplicación. En este caso, la cosa principal es una tarea.
+
+Así, **GET** se utiliza para consultar, **POST** para crear, **PUT** para actualizar y **DELETE** para borrar. No necesitamos inventar una forma distinta de hablar con cada aplicación: estas operaciones siguen convenciones que muchos programas comparten.
 
 ```scene
-id: rest-routes
+id: rest-operations
 type: visual
 visual: timeline
+plain: true
 items:
-  - icon: 📋
-    label: GET /api/todos
-    detail: Listar tareas · 200
   - icon: 🔎
-    label: GET /api/todos/{id}
-    detail: Consultar una tarea · 200 o 404
+    label: GET
+    detail: Consultar tareas
   - icon: ➕
-    label: POST /api/todos
-    detail: Crear una tarea · 201
+    label: POST
+    detail: Crear una tarea
   - icon: ✏️
-    label: PUT /api/todos/{id}
-    detail: Actualizar una tarea · 204 o 404
+    label: PUT
+    detail: Actualizarla
   - icon: 🗑️
-    label: DELETE /api/todos/{id}
-    detail: Borrar una tarea · 204 o 404
+    label: DELETE
+    detail: Borrarla
 ```
+
+**Nota visual:** abrir Swagger y señalar las operaciones existentes. Solo en pantalla: `GET /api/todos`, `GET /api/todos/{id}`, `POST /api/todos`, `PUT /api/todos/{id}` y `DELETE /api/todos/{id}`. Explicar que Swagger es una pantalla para explorar y probar la API; no es la API en sí.
+
 ```exercise
-id: quiz-rest
+id: rest-question
 type: multiple-choice
-prompt: Si queremos cambiar el título de la tarea 3, ¿qué usamos?
+prompt: Una tarea ya existe, pero quieres marcarla como terminada. ¿Qué operación corresponde?
 choices:
-  - GET /api/todos
-  - PUT /api/todos/3
-  - DELETE /api/todos/3
-answer: 1
-explanation: PUT actualiza el recurso que identifica la ruta. El cuerpo JSON envía los nuevos valores.
+  - PUT, para actualizarla
+  - GET, para consultarla
+  - DELETE, para eliminarla
+answer: 0
+explanation: PUT se utiliza en esta API para actualizar una tarea existente.
 ```
 
-### 5. Programación orientada a objetos: clases y objetos
+### 5. Clases, objetos y propiedades
 
-En C# organizamos buena parte del código usando clases. Una clase define cómo es algo y qué puede hacer. Un objeto es una instancia concreta de esa clase.
+Ahora sí, miremos cómo se representa una tarea en C#. Antes de guardar algo, el programa necesita saber qué información tiene. Una **clase** sirve para describir esa estructura.
 
-Abre `Models/Todo.cs`. La clase `Todo` describe nuestras tareas. Por ejemplo, podemos crear un objeto con título «Estudiar C#». La clase es el modelo; ese objeto es una tarea específica.
+Nuestra clase de tarea tiene un título, una descripción, un estado y una fecha opcional. Cada tarea concreta que creamos es un **objeto** de esa clase. Por ejemplo, «Comprar café» es una tarea; «Llamar al médico» es otra. Tienen la misma estructura, pero distintos valores.
+
+Los datos de un objeto suelen llamarse **atributos**; en este código C# los declaramos como **propiedades**. Cada propiedad tiene un tipo: texto, número, fecha, etcétera.
 
 ```scene
-id: oop-class
+id: classes-objects
 type: code
 language: csharp
 file: src/back/TodoApi/Models/Todo.cs
@@ -176,52 +205,29 @@ code: |-
       public DateTime? DueDate { get; set; }
   }
 ```
+
+**Nota visual:** resaltar `class Todo`, luego dos objetos imaginarios: «Comprar café» y «Llamar al médico». Después señalar `string` como texto, `int` como entero y `?` como valor opcional. Mostrar `get; set;` como la posibilidad de leer o modificar una propiedad, sin detenerse en la sintaxis.
+
 ```exercise
-id: quiz-class
+id: class-question
 type: multiple-choice
-prompt: ¿Cuál es la diferencia entre clase y objeto?
+prompt: Si creas dos tareas con títulos distintos, ¿qué tienen en común?
 choices:
-  - La clase describe la estructura; el objeto es una instancia concreta
-  - La clase guarda datos y el objeto solo dibuja pantallas
-  - Son exactamente lo mismo
+  - Son dos objetos de la misma clase Todo
+  - Son dos clases nuevas
+  - Deben tener el mismo título
 answer: 0
-explanation: Todo es la clase; cada tarea concreta que creamos es un objeto Todo.
+explanation: La clase define qué datos tiene una tarea; cada objeto tiene sus propios valores.
 ```
 
-### 6. Propiedades y tipos: los datos de una tarea
+### 6. Enums: elegir entre opciones conocidas
 
-A los datos de un objeto solemos llamarlos atributos. En este código de C# están declarados como **propiedades**, con `get` para leer y `set` para cambiar su valor. `Id` es un número entero; `Title` y `Description` son textos; `Status` tendrá uno de varios estados; `DueDate` es una fecha opcional. El signo `?` significa que puede no tener valor.
+No queremos que una tarea tenga cualquier estado inventado. Queremos saber si está pendiente, en progreso o terminada. Para eso existe un **enum**: una lista de opciones permitidas que podemos utilizar desde el código.
+
+Así, en vez de escribir el estado de cualquier manera y equivocarnos, usamos un valor conocido. Si más adelante necesitamos admitir tareas canceladas, podemos agregar otra opción.
 
 ```scene
-id: todo-properties
-type: code
-language: csharp
-file: src/back/TodoApi/Models/Todo.cs
-code: |-
-  public int Id { get; set; }                   // Número entero
-  public string Title { get; set; } = "";       // Texto
-  public string Description { get; set; } = ""; // Texto
-  public Status Status { get; set; }            // Estado
-  public DateTime? DueDate { get; set; }        // Fecha opcional
-```
-```exercise
-id: quiz-properties
-type: multiple-choice
-prompt: ¿Qué propiedad guardarías para saber cuándo vence una tarea?
-choices:
-  - DueDate
-  - Title
-  - Id
-answer: 0
-explanation: DueDate representa una fecha opcional.
-```
-
-### 7. Enums: una lista de valores permitidos
-
-Abre `Models/Status.cs`. Un `enum` define un conjunto de opciones con nombre. Así evitamos escribir estados arbitrarios o equivocarnos al escribirlos. Aquí una tarea puede estar `Pending`, `InProgress` o `Done`. En una petición JSON enviamos el estado como texto, porque `Program.cs` configura esa conversión.
-
-```scene
-id: status-enum
+id: enum-intro
 type: code
 language: csharp
 file: src/back/TodoApi/Models/Status.cs
@@ -234,117 +240,125 @@ code: |-
   }
 ```
 ```exercise
-id: quiz-enum
+id: enum-question
 type: multiple-choice
-prompt: ¿Para qué usar un enum en lugar de un texto libre?
+prompt: ¿Qué ventaja tiene usar un enum para el estado de una tarea?
 choices:
-  - Para definir un conjunto conocido de opciones
-  - Para almacenar imágenes
-  - Para crear rutas HTTP
+  - Que los estados posibles están definidos y tienen nombres claros
+  - Que cada tarea se guarda automáticamente
+  - Que no necesitamos una base de datos
 answer: 0
-explanation: Un enum deja claros los valores que acepta el programa.
+explanation: Un enum evita que trabajemos con estados arbitrarios o escritos de maneras diferentes.
 ```
 
-### 8. Constructores y métodos
+### 7. Métodos y constructores: lo que hace una clase
 
-Un constructor prepara un objeto cuando se crea. Puede recibir datos necesarios para funcionar. En `TodoContext.cs` hay uno: recibe opciones de configuración y las pasa a `DbContext`. La clase `Todo` no declara constructor propio, así que C# le proporciona uno sin parámetros.
+Una clase no solo puede guardar datos: también puede tener **métodos**. Un método es una acción definida en el código. Por ejemplo, nuestro controlador tiene un método para buscar todas las tareas y otro para crear una nueva.
 
-Un método, en cambio, es una acción que un objeto puede ejecutar. En `TodosController.cs`, `GetAll()` es un método que obtiene tareas. Los paréntesis ayudan a reconocer los métodos; las propiedades se usan como datos.
+Hay un método especial llamado **constructor**. Se utiliza cuando se crea un objeto y sirve para prepararlo. Puede recibir información o herramientas que ese objeto necesitará. Más adelante veremos un constructor que recibe acceso a la base de datos. Por ahora, quédate con esta diferencia: las propiedades describen datos; los métodos realizan acciones; el constructor prepara el objeto al crearlo.
 
 ```scene
-id: constructors-methods
+id: methods-constructors
 type: code
 language: csharp
-file: src/back/TodoApi/TodoContext.cs
+file: src/back/TodoApi/Controllers/TodosController.cs
 code: |-
-  public class TodoContext : DbContext
-  {
-      public TodoContext(DbContextOptions<TodoContext> options)
-          : base(options) { }
-
-      public DbSet<Todo> Todos => Set<Todo>();
-  }
-```
-```exercise
-id: quiz-method
-type: multiple-choice
-prompt: En el controlador, ¿cuál es un método?
-choices:
-  - GetAll()
-  - Title
-  - Description
-answer: 0
-explanation: GetAll() ejecuta una acción; Title y Description son propiedades.
-```
-
-### 9. Inyección de dependencias: recibir lo que necesitamos
-
-Un controlador necesita acceso a los datos. Podría construir esa conexión por su cuenta, pero ASP.NET Core puede entregársela. Eso es **inyección de dependencias**: la clase declara qué necesita en su constructor y el sistema se lo proporciona.
-
-En `Program.cs`, `AddDbContext<TodoContext>` registra el contexto y configura SQLite. En `TodosController.cs`, el constructor recibe un `TodoContext` y lo guarda en `_db`. Así el controlador puede usarlo sin crearlo manualmente.
-
-```scene
-id: dependency-injection
-type: code
-language: csharp
-file: src/back/TodoApi/Program.cs + Controllers/TodosController.cs
-code: |-
-  // Program.cs: registro
-  builder.Services.AddDbContext<TodoContext>(
-      options => options.UseSqlite(connectionString));
-
-  // TodosController.cs: recepción
-  private readonly TodoContext _db;
+  // Constructor: prepara el controlador al crearlo
   public TodosController(TodoContext db)
   {
       _db = db;
   }
+
+  // Método: atiende una petición para consultar todas las tareas
+  public async Task<ActionResult<List<Todo>>> GetAll()
+  {
+      return await _db.Todos.ToListAsync();
+  }
 ```
+
+**Nota visual:** este fragmento anticipa el controlador. Resaltar solamente los nombres `TodosController` y `GetAll`. Aclarar en pantalla que un constructor tiene el nombre de la clase, mientras que los métodos tienen nombres de acciones. No explicar todavía `async`, `Task` ni genéricos.
+
 ```exercise
-id: quiz-di
+id: method-question
 type: multiple-choice
-prompt: ¿Quién entrega TodoContext al constructor del controlador?
+prompt: ¿Qué diferencia hay entre una propiedad y un método?
 choices:
-  - El sistema de inyección de dependencias de ASP.NET Core
-  - El navegador
-  - Swagger
+  - Una propiedad representa un dato y un método realiza una acción
+  - Una propiedad guarda todas las tareas y un método solo guarda textos
+  - Son dos nombres para lo mismo
 answer: 0
-explanation: El contexto se registra en Program.cs y ASP.NET Core lo proporciona al crear el controlador.
+explanation: Por ejemplo, Title es una propiedad; GetAll es un método que consulta tareas.
 ```
 
-### 10. EF Core: clases que representan datos
+### 8. Inyección de dependencias: recibir lo que necesitamos
 
-**Entity Framework Core**, o EF Core, nos permite trabajar con datos desde C# sin escribir SQL para cada operación. `TodoContext` representa el acceso a la base de datos, y `DbSet<Todo> Todos` representa el conjunto de tareas que podemos consultar o modificar.
+Imagina que el controlador tiene que consultar las tareas. Para hacerlo necesita una herramienta que le permita acceder a la base de datos. Podría intentar construir esa herramienta por su cuenta, pero hay una alternativa más sencilla: **recibirla ya preparada**.
 
-El proyecto utiliza SQLite. La base guarda una tabla `Todos` con las columnas correspondientes a las propiedades de `Todo`. No confundas `TodoContext` con una tarea: el primero sirve para acceder a los datos; `Todo` describe cada tarea.
+A eso lo llamamos **inyección de dependencias**. La aplicación configura las herramientas disponibles y se las entrega a las clases que las necesitan. Nuestro controlador dice, a través de su constructor, que necesita acceso a los datos. Así puede concentrarse en atender las peticiones, en vez de encargarse de crear esa conexión.
 
 ```scene
-id: ef-context
+id: dependency-injection
 type: visual
 visual: backend
+plain: true
 steps:
-  - TodoController recibe TodoContext
-  - TodoContext expone DbSet<Todo> Todos
-  - EF Core genera las operaciones de datos
-  - SQLite conserva los registros de la tabla Todos
+  - La aplicación prepara el acceso a los datos
+  - El controlador lo pide en su constructor
+  - ASP.NET Core se lo entrega
+  - El controlador puede consultar y guardar tareas
 ```
+
+**Nota visual:** conectar dos fragmentos reales. En `Program.cs`, `builder.Services.AddDbContext<TodoContext>(...)`. En `TodosController.cs`, `public TodosController(TodoContext db) { _db = db; }`. Mostrar las líneas; no narrar los nombres técnicos. Explicar que `TodoContext` es la herramienta de datos que veremos a continuación.
+
 ```exercise
-id: quiz-ef
+id: di-question
 type: multiple-choice
-prompt: En este proyecto, ¿qué representa _db.Todos?
+prompt: Si el controlador necesita acceso a la base de datos, ¿qué hace la inyección de dependencias?
 choices:
-  - El conjunto de tareas accesibles mediante EF Core
-  - El nombre del navegador
-  - El estado de una sola tarea
+  - Se lo entrega cuando se crea el controlador
+  - Convierte el controlador en una base de datos
+  - Obliga al navegador a instalar SQLite
 answer: 0
-explanation: Es un DbSet<Todo>, utilizado para consultar y cambiar tareas en la base de datos.
+explanation: La aplicación prepara y proporciona las dependencias que sus componentes necesitan.
 ```
 
-### 11. Consultas: leer tareas con EF Core
+### 9. EF Core: trabajar con datos desde C#
 
-Una consulta obtiene información sin modificarla. En el controlador, `ToListAsync()` obtiene todas las tareas y `FindAsync(id)` busca una por su identificador. Podemos filtrar con `Where` u ordenar con `OrderBy`.
+Ya sabemos cómo describir una tarea, pero falta guardarla para que no desaparezca cuando apaguemos el programa. Para eso tenemos una base de datos. Piensa en una tabla: cada fila sería una tarea y cada columna, uno de sus datos.
 
-Verás `async` y `await`: permiten esperar operaciones como una consulta a la base de datos sin bloquear innecesariamente el servidor. Por ahora basta con reconocerlos.
+**Entity Framework Core**, o **EF Core**, nos permite trabajar con esas tareas usando objetos y código C#, sin tener que escribir manualmente una instrucción SQL para cada operación. En nuestro ejemplo utiliza una base de datos SQLite. Y la clase que organiza ese acceso se llama `TodoContext`: es precisamente la herramienta que recibe el controlador.
+
+```scene
+id: efcore-bridge
+type: visual
+visual: backend
+plain: true
+steps:
+  - 'Objeto Todo: título, descripción, estado'
+  - EF Core lo relaciona con los datos almacenados
+  - 'Tabla Todos: una fila por tarea'
+  - SQLite conserva las tareas
+```
+
+**Nota visual:** abrir `TodoContext.cs` y señalar `DbSet<Todo> Todos` como el conjunto de tareas. Si se muestra el archivo, no leer la declaración completa en la narración.
+
+```exercise
+id: efcore-question
+type: multiple-choice
+prompt: ¿Para qué nos sirve EF Core en este proyecto?
+choices:
+  - Para consultar y modificar las tareas guardadas desde C#
+  - Para dibujar botones
+  - Para convertir HTTP en una imagen
+answer: 0
+explanation: EF Core conecta nuestro código con los datos almacenados en SQLite.
+```
+
+### 10. Consultas: encontrar lo que buscamos
+
+Supongamos que guardamos diez tareas. Ahora queremos verlas todas, buscar una en particular o mostrar únicamente las pendientes. Son tres formas de hacer una **consulta**: leer datos sin modificarlos.
+
+En C# podemos expresar esas búsquedas con instrucciones bastante descriptivas. Una obtiene la lista completa, otra busca por identificador y otra filtra según una condición. No hace falta memorizar cada símbolo; lo importante es reconocer qué se está pidiendo. Enseguida vas a modificar una de esas consultas.
 
 ```scene
 id: ef-queries
@@ -352,37 +366,40 @@ type: code
 language: csharp
 file: src/back/TodoApi/Controllers/TodosController.cs
 code: |-
-  // Todas las tareas
-  return await _db.Todos.ToListAsync();
+  // Obtener todas las tareas (código real)
+  await _db.Todos.ToListAsync();
 
-  // Una tarea por ID
-  var todo = await _db.Todos.FindAsync(id);
+  // Buscar una tarea por su identificador (código real)
+  await _db.Todos.FindAsync(id);
 
-  // Ejemplo adicional: solo tareas pendientes
-  var pending = await _db.Todos
+  // Ejemplo nuevo: obtener solo las pendientes
+  await _db.Todos
       .Where(t => t.Status == Status.Pending)
       .ToListAsync();
 ```
+
+**Nota visual:** mostrar tres tarjetas «Todas», «La número 5», «Solo pendientes» que se relacionan con cada fragmento. Explicar en pantalla que `Where` filtra, y que `await` espera el resultado de una operación que puede tardar; no desarrollar programación asíncrona en esta lección.
+
 ```exercise
-id: quiz-queries
+id: query-question
 type: multiple-choice
-prompt: Si quiero obtener solo tareas pendientes, ¿qué operación me ayuda a filtrarlas?
+prompt: Tienes diez tareas y quieres ver solo las pendientes. ¿Necesitas modificar la base de datos?
 choices:
-  - Where(...)
-  - Remove(...)
-  - SaveChangesAsync()
+  - No. Necesitas una consulta que filtre por estado
+  - Sí. Debes borrar las demás tareas
+  - Sí. Hay que crear una base de datos nueva
 answer: 0
-explanation: Where filtra los elementos según una condición.
+explanation: Consultar o filtrar datos no requiere modificarlos.
 ```
 
-### 12. Comandos: guardar, actualizar y borrar
+### 11. Comandos: guardar cambios
 
-Consultar no es lo mismo que cambiar datos. Para crear, el controlador llama a `Add(todo)` y después a `SaveChangesAsync()`. Para actualizar, busca la tarea, cambia sus propiedades y guarda los cambios. Para borrar, llama a `Remove(todo)` y vuelve a guardar.
+Consultar es una cosa; **cambiar información** es otra. Cuando creamos una tarea, el backend la agrega. Cuando la terminamos, cambia su estado. Cuando la borramos, la elimina.
 
-`SaveChangesAsync()` es importante: agregar, modificar o quitar un objeto en el contexto no equivale todavía a confirmar el cambio en la base de datos.
+Hay un detalle importante: hacer esos cambios en los objetos del programa no basta. Necesitamos confirmarlos en la base de datos para que queden guardados. En EF Core eso se hace con una operación de guardar cambios. Si olvidamos ese paso, podemos pensar que modificamos algo, pero el cambio no queda almacenado.
 
 ```scene
-id: ef-commands
+id: ef-writes
 type: code
 language: csharp
 file: src/back/TodoApi/Controllers/TodosController.cs
@@ -391,184 +408,177 @@ code: |-
   _db.Todos.Add(todo);
   await _db.SaveChangesAsync();
 
-  // Actualizar una tarea ya consultada
-  existing.Title = todo.Title;
+  // Actualizar una tarea que ya encontramos
+  existing.Status = todo.Status;
   await _db.SaveChangesAsync();
 
   // Borrar
   _db.Todos.Remove(todo);
   await _db.SaveChangesAsync();
 ```
+
+**Nota visual:** primero representar las acciones con una tarea «Comprar café»; después resaltar las líneas de C#. Señalar que actualizar no requiere llamar a `Update` aquí: EF Core detecta los cambios en el objeto que está siguiendo.
+
 ```exercise
-id: quiz-save
+id: write-question
 type: multiple-choice
-prompt: Después de cambiar Title en una tarea consultada, ¿qué falta para guardar el cambio?
+prompt: Cambias el estado de una tarea en el código, pero no confirmas los cambios. ¿Qué puede pasar?
 choices:
-  - Llamar a SaveChangesAsync()
-  - Llamar a ToListAsync()
-  - Recargar Swagger sin hacer nada más
+  - Que el cambio no quede guardado en la base de datos
+  - Que se guarde obligatoriamente igual
+  - Que se borren automáticamente las demás tareas
 answer: 0
 explanation: SaveChangesAsync confirma las modificaciones pendientes en la base de datos.
 ```
 
-### 13. Migraciones: cuando cambia la estructura de los datos
+### 12. Migraciones: cuando nuestros datos evolucionan
 
-Imagina que nuestra primera versión de `Todo` no tenía fecha de vencimiento. Después agregamos `DueDate`. Hay que actualizar la tabla para que esa columna exista. Para eso sirven las **migraciones**: registran cambios en la estructura de la base de datos.
+Al principio, nuestras tareas solo tenían título, descripción y estado. Después decidimos agregarles una fecha de vencimiento. Cambiar la clase en C# es fácil, pero la base de datos también necesita espacio para guardar ese dato nuevo.
 
-Este ejemplo contiene `InitialCreate`, que crea `Todos`, y `AddDueDate`, que agrega la fecha opcional. En `Program.cs`, `Database.Migrate()` aplica las migraciones pendientes cuando arranca la API. Las tareas se conservan en el volumen Docker `todo-data` incluso si detenemos la aplicación.
+Para eso sirven las **migraciones**: describen cómo debe cambiar la estructura de la base de datos de una versión a otra. Nuestro ejemplo ya trae una migración que crea la tabla y otra que agrega la fecha. Podemos actualizar la estructura sin empezar de cero ni perder las tareas anteriores.
 
 ```scene
-id: ef-migrations
+id: migrations
 type: visual
 visual: timeline
+plain: true
 items:
-  - icon: 🏗️
-    label: InitialCreate
-    detail: Crea la tabla Todos
+  - icon: 📋
+    label: Primera versión
+    detail: Título, descripción y estado
   - icon: 📅
-    label: AddDueDate
-    detail: Agrega la columna opcional DueDate
-  - icon: ▶️
-    label: Database.Migrate()
-    detail: Aplica cambios pendientes al iniciar
+    label: Necesidad nueva
+    detail: Agregar fecha de vencimiento
+  - icon: 🛠️
+    label: Migración
+    detail: Agrega la columna a la tabla existente
   - icon: 💾
-    label: Volumen Docker todo-data
-    detail: Conserva las tareas al detener y reiniciar
+    label: Resultado
+    detail: Seguimos teniendo nuestras tareas guardadas
 ```
+
+**Nota visual:** enseñar las migraciones reales `InitialCreate` y `AddDueDate`; luego señalar en `Program.cs` que las pendientes se aplican al arrancar. Mostrar que los datos se guardan en un volumen Docker que permanece cuando detenemos y reiniciamos el backend.
+
 ```exercise
-id: quiz-migrations
+id: migrations-question
 type: multiple-choice
-prompt: Si agregamos una propiedad nueva que debe guardarse en la base de datos, ¿qué necesitamos normalmente?
+prompt: Agregas una nueva propiedad a las tareas y necesitas guardarla. ¿Para qué creas una migración?
 choices:
-  - Crear y aplicar una migración
-  - Cambiar solamente los colores de Swagger
-  - Borrar todas las tareas existentes
+  - Para adaptar la estructura de la base de datos sin borrar lo que ya existe
+  - Para cambiar el color de la aplicación
+  - Para instalar de nuevo el navegador
 answer: 0
-explanation: La migración lleva el esquema de la base de datos a la nueva versión sin tener que recrearlo todo.
+explanation: Las migraciones permiten que la base de datos evolucione junto con nuestro código.
 ```
 
-### 14. El controlador: conectar HTTP con EF Core
+### 13. El controlador: todas las piezas juntas
 
-Ahora podemos leer el controlador completo. `[Route("api/todos")]` indica la dirección principal; `[HttpGet]` marca el método que atiende una petición GET. Esos corchetes son **atributos de C#**: indicaciones para ASP.NET Core, no propiedades de la tarea.
+Ya conocemos las piezas. Ahora sigamos una petición real. Alguien pide la lista de tareas. El servidor recibe esa petición HTTP y el **controlador** decide qué método debe ejecutarse. Ese método usa el acceso a datos que recibió en su constructor, consulta las tareas y devuelve el resultado.
 
-El constructor recibe `_db` por inyección de dependencias. `GetAll()` consulta la base de datos. `Get(id)` busca una tarea y responde `NotFound()` si no existe. Aquí se conectan todas las piezas que acabamos de estudiar.
+Si pedimos una tarea específica y no existe, el controlador responde que no la encontró. Si pedimos crear una, la guarda y responde que fue creada. Eso es lo que hace el controlador: conectar las peticiones que llegan por la API con las operaciones del programa.
 
 ```scene
-id: controller-get
-type: code
-language: csharp
-file: src/back/TodoApi/Controllers/TodosController.cs
-code: |-
-  [ApiController]
-  [Route("api/todos")]
-  public class TodosController : ControllerBase
-  {
-      private readonly TodoContext _db;
-      public TodosController(TodoContext db) { _db = db; }
-
-      [HttpGet]
-      public async Task<ActionResult<List<Todo>>> GetAll()
-      {
-          return await _db.Todos.ToListAsync();
-      }
-
-      [HttpGet("{id}")]
-      public async Task<ActionResult<Todo>> Get(int id)
-      {
-          var todo = await _db.Todos.FindAsync(id);
-          if (todo == null) return NotFound();
-          return todo;
-      }
-  }
-```
-```exercise
-id: quiz-controller
-type: multiple-choice
-prompt: ¿Qué línea obtiene los datos que devuelve GET /api/todos?
-choices:
-  - _db.Todos.ToListAsync()
-  - [Route("api/todos")]
-  - private readonly TodoContext _db;
-answer: 0
-explanation: La ruta y el constructor preparan el controlador, pero ToListAsync ejecuta la consulta.
-```
-
-### 15. Sigue una tarea de principio a fin
-
-Probemos el recorrido completo. Desde Swagger enviamos un `POST /api/todos` con título, descripción y estado. El controlador recibe un objeto `Todo`, lo agrega al contexto, guarda los cambios y responde `201 Created`. Después usamos `GET` para encontrarlo, `PUT` para cambiarlo y `DELETE` para borrarlo. Las respuestas `204 No Content` de PUT y DELETE indican éxito sin cuerpo de respuesta.
-
-```scene
-id: crud-walkthrough
+id: controller-flow
 type: visual
-visual: timeline
-items:
-  - icon: ➕
-    label: POST /api/todos
-    detail: '{"title":"Estudiar C#","description":"Leer el código","status":"Pending"}'
-  - icon: 🔎
-    label: GET /api/todos/{id}
-    detail: Comprueba la tarea creada
-  - icon: ✏️
-    label: PUT /api/todos/{id}
-    detail: Cambia title o status
-  - icon: 🗑️
-    label: DELETE /api/todos/{id}
-    detail: Elimina la tarea
-  - icon: 🧪
-    label: ./run/test.sh
-    detail: Comprueba automáticamente las operaciones principales
+visual: backend
+plain: true
+steps:
+  - El cliente pide ver las tareas
+  - HTTP lleva la petición al backend
+  - El controlador recibe la petición
+  - Consulta las tareas mediante EF Core
+  - La API devuelve los resultados al cliente
 ```
+
+**Nota visual:** abrir `TodosController.cs` y recorrer, en este orden, sin leer rutas ni sintaxis en voz alta:
+
+1. `[Route("api/todos")]`: dirección donde recibe peticiones.
+2. Constructor `TodosController(TodoContext db)`: recibe la dependencia y la guarda en `_db`.
+3. `[HttpGet]` y `GetAll()`: reconoce una petición de consulta y obtiene los datos.
+4. `[HttpGet("{id}")]` y `Get(int id)`: busca una sola tarea; si no existe, responde `NotFound()`.
+5. `Create`, `Update` y `Delete`: señalar brevemente que utilizan las operaciones de EF Core vistas anteriormente.
+
+**Aclaración visual:** los corchetes `[HttpGet]` son «atributos» de C# para identificar el tipo de petición. No confundirlos con las propiedades del objeto `Todo`.
+
 ```exercise
-id: check-crud
-type: checkpoint
-prompt: Ya creé, consulté, actualicé y borré una tarea desde Swagger
-explanation: Ahora conoces el recorrido completo, desde HTTP hasta SQLite.
+id: controller-question
+type: multiple-choice
+prompt: El cliente pide todas las tareas. ¿Quién recibe la petición y utiliza EF Core para buscarlas?
+choices:
+  - El controlador
+  - El enum Status
+  - La migración AddDueDate
+answer: 0
+explanation: El controlador atiende la petición y utiliza el contexto de datos que recibió por inyección de dependencias.
 ```
 
-### 16. Práctica: modifica tú el código
+### 14. Ahora te toca modificar el backend
 
-Vamos a hacer tres cambios pequeños. Hazlos en VS Code; puedes pedirle al agente que te explique una línea, pero intenta escribir el cambio tú. Después de cada cambio, reconstruye el contenedor con `./run/build.sh`, reinicia con `./run/restart.sh` y comprueba el resultado en Swagger. Al final ejecuta `./run/test.sh`.
+Ya no estamos mirando código desconocido. Sabemos qué representa una tarea, dónde se consulta, cómo se guarda y qué parte recibe las peticiones. Hagamos tres cambios pequeños. Intenta escribirlos tú primero. Puedes pedirle al agente que te explique una línea o te ayude con un error, pero verifica personalmente que cada cambio funcione.
 
-#### Ejercicio 1. Ordena las tareas
+#### Ejercicio 1 — Ordenar las tareas
 
-En `GetAll()`, cambia la consulta para devolver las tareas ordenadas alfabéticamente por título. Pista: usa `OrderBy(t => t.Title)` antes de `ToListAsync()`. Crea dos tareas con títulos distintos y comprueba el orden.
+**Objetivo:** que la lista de tareas aparezca en orden alfabético por título.
+
+**Dónde mirar:** método `GetAll()` del controlador.
+
+**Pista:** en una consulta de EF Core, `OrderBy(t => t.Title)` permite ordenar por título.
+
+**Cómo comprobarlo:** crea las tareas «Zanahorias» y «Arroz», en ese orden. Al consultar la lista, «Arroz» debería aparecer primero.
 
 ```scene
-id: practice-sort
+id: exercise-sort
 type: code
 language: csharp
 file: src/back/TodoApi/Controllers/TodosController.cs
 code: |-
-  // Antes
+  // Código actual
   return await _db.Todos.ToListAsync();
 
-  // Tu objetivo: agregar OrderBy(t => t.Title)
-  // antes de ToListAsync()
+  // Tu reto: ordenar por Title antes de obtener la lista.
 ```
 
-#### Ejercicio 2. Crea una nueva consulta
+#### Ejercicio 2 — Contar las tareas
 
-Agrega al controlador un endpoint `GET /api/todos/count` que devuelva el número de tareas. Usa `[HttpGet("count")]` y `_db.Todos.CountAsync()`. Crea y borra tareas desde Swagger para comprobar que el número cambia.
+**Objetivo:** agregar una operación que devuelva cuántas tareas tenemos.
+
+**Dónde mirar:** métodos del controlador que atienden peticiones GET.
+
+**Pista:** EF Core tiene `CountAsync()` para contar registros. Puedes pedirle al agente que te muestre cómo definir una nueva acción GET; revisa el código antes de aceptarlo.
+
+**Cómo comprobarlo:** la cantidad debe aumentar al crear una tarea y disminuir al borrarla.
 
 ```scene
-id: practice-count
-type: code
-language: csharp
-file: src/back/TodoApi/Controllers/TodosController.cs
-code: |-
-  [HttpGet("count")]
-  public async Task<int> GetCount()
-  {
-      return await _db.Todos.CountAsync();
-  }
+id: exercise-count
+type: visual
+visual: timeline
+plain: true
+items:
+  - icon: 🔎
+    label: Consulta nueva
+    detail: ¿Cuántas tareas hay?
+  - icon: 🔢
+    label: EF Core
+    detail: CountAsync()
+  - icon: ✅
+    label: Verificación
+    detail: Crear una tarea debe aumentar el resultado
 ```
 
-#### Ejercicio 3. Agrega otro estado
+**Nota técnica solo para producción:** resultado esperado: un nuevo GET, por ejemplo `/api/todos/count`. Al construirlo, advertir que debe usar una ruta distinta a la consulta por identificador; ASP.NET Core resuelve las restricciones de ruta apropiadas si se declaran.
 
-En `Status.cs`, agrega `Cancelled`. Reconstruye y prueba crear una tarea con `"status": "Cancelled"`. Comprueba que vuelve a aparecer al consultarla. En este proyecto el estado se guarda como número entero en SQLite y se representa como texto en JSON, así que agregar este valor no requiere cambiar la estructura de la tabla.
+#### Ejercicio 3 — Admitir tareas canceladas
+
+**Objetivo:** que una tarea también pueda tener el estado «Cancelada».
+
+**Dónde mirar:** enum `Status`.
+
+**Pista:** agrega el valor `Cancelled` al final de la lista de estados permitidos.
+
+**Cómo comprobarlo:** crea una tarea con estado `Cancelled`, consúltala y comprueba que se conserva.
 
 ```scene
-id: practice-enum
+id: exercise-enum
 type: code
 language: csharp
 file: src/back/TodoApi/Models/Status.cs
@@ -577,76 +587,53 @@ code: |-
   {
       Pending,
       InProgress,
-      Done,
-      Cancelled
+      Done
+      // Agrega aquí la nueva opción.
   }
 ```
+
+**Nota técnica solo para producción:** aquí no hace falta una migración: la base existente almacena el enum como entero y la API lo expone como texto mediante su configuración JSON.
+
 ```exercise
-id: check-practices
+id: exercise-finish
 type: checkpoint
-prompt: Comprobé mis tres cambios en Swagger y las pruebas existentes siguen pasando
-explanation: Ya modificaste una consulta, agregaste un endpoint y ampliaste un enum.
+prompt: Hice los tres cambios y comprobé que funcionan
+explanation: "La idea no es memorizar todo C#: es empezar a reconocer el código, modificarlo y verificar el resultado."
 ```
 
-### 17. Reto opcional: tu primera migración
+**Cómo verificar durante la práctica (mostrar, no narrar como una lista de comandos):** reconstruir el contenedor después de cambiar el código, reiniciar el backend, probar cada operación desde Swagger y ejecutar las pruebas existentes. Los scripts del repositorio son `./run/build.sh`, `./run/restart.sh` y `./run/test.sh`; Swagger está disponible en `http://localhost:5080/swagger`.
 
-Si quieres ir un poco más allá, agrega a `Todo` la propiedad `public bool IsImportant { get; set; }`. Pídele al agente que genere una migración de EF Core, pero que primero te muestre qué va a cambiar y te explique el archivo. Luego reconstruye, inicia y comprueba que puedes crear y consultar tareas con ese campo. Reinicia y verifica que se conserva.
+### 15. Cierre: ya puedes seguir el recorrido
+
+Cuando vuelvas a abrir este proyecto, ya tendrás una idea de lo que estás viendo. La API recibe peticiones; HTTP define cómo llegan; REST organiza las operaciones. Las clases describen las tareas, EF Core permite consultar y guardar sus datos y el controlador conecta todo. La inyección de dependencias proporciona las herramientas que necesita, y las migraciones permiten cambiar la base de datos a medida que evoluciona la aplicación.
+
+No se trata de aprender todos los nombres de memoria. Se trata de poder leer una parte del código, entender para qué existe, hacer un cambio pequeño y comprobar que realmente funciona.
 
 ```scene
-id: challenge-migration
+id: lesson-close
 type: visual
 visual: timeline
-items:
-  - icon: ✏️
-    label: Edita Todo.cs
-    detail: Agrega IsImportant de tipo bool
-  - icon: 🤖
-    label: Genera una migración
-    detail: Pide ayuda al agente y revisa lo que cambió
-  - icon: ▶️
-    label: Reinicia la API
-    detail: Database.Migrate() aplica la nueva migración
-  - icon: ✅
-    label: Verifica en Swagger
-    detail: Guarda y vuelve a leer IsImportant
-```
-```exercise
-id: check-migration-challenge
-type: checkpoint
-prompt: Terminé el reto o decidí continuar sin hacerlo
-explanation: Ya tienes las bases para leer el backend y empezar a cambiarlo sin trabajar a ciegas.
-```
-
-### 18. Qué aprendimos
-
-Una API ofrece operaciones para comunicarse con un programa. HTTP transporta las peticiones y REST ayuda a organizarlas. Las clases y sus propiedades representan datos; los métodos ejecutan acciones. La inyección de dependencias entrega al controlador lo que necesita. EF Core consulta y guarda en SQLite, y las migraciones actualizan la estructura de los datos.
-
-Lo más importante: ya puedes abrir un archivo, reconocer qué hace, cambiar unas líneas y verificar tu resultado. Así se empieza a dominar el código que construimos con IA.
-
-```scene
-id: lesson-summary
-type: visual
-visual: timeline
+plain: true
 items:
   - icon: 🌐
-    label: HTTP y REST
-    detail: Cómo se piden las operaciones
+    label: Petición
+    detail: Alguien pide una operación
+  - icon: 🧭
+    label: Controlador
+    detail: Decide cómo atenderla
   - icon: 🧱
-    label: Clases y métodos
-    detail: Cómo se organiza el programa
-  - icon: 🔌
-    label: Inyección de dependencias
-    detail: Cómo recibe el controlador el contexto
+    label: Clases
+    detail: Representan nuestros datos
   - icon: 💾
-    label: EF Core y migraciones
-    detail: Cómo se leen y conservan los datos
+    label: EF Core y SQLite
+    detail: Consultan y guardan
   - icon: ✅
-    label: Tu primer cambio
-    detail: Leer, editar, ejecutar y comprobar
+    label: Verificación
+    detail: Comprobamos el resultado
 ```
 ```exercise
-id: check-finished
+id: finish
 type: checkpoint
 prompt: Terminé la lección 2
-explanation: Ya puedes comenzar a explorar el backend por tu cuenta.
+explanation: Ya puedes empezar a orientarte y hacer cambios sencillos en un backend real.
 ```
