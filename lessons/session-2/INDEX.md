@@ -31,18 +31,21 @@ Una API, o interfaz de programación de aplicaciones, permite que se comuniquen 
 ```scene
 id: what-is-api
 type: visual
-visual: backend
+visual: timeline
 plain: true
-steps:
-  - "Frontend: pide crear o consultar una tarea"
-  - "API: permite comunicarse con el backend"
-  - "Backend: procesa la solicitud"
-  - "Base de datos: guarda o entrega los datos"
 items:
-  - icon: 📤
-    label: Petición
-  - icon: 📥
-    label: Respuesta
+  - icon: 🖥️
+    label: Frontend
+    detail: Pide o muestra los datos
+  - icon: 🔌
+    label: API
+    detail: Reglas para comunicarse
+  - icon: ⚙️
+    label: Backend
+    detail: Procesa la solicitud
+  - icon: 💾
+    label: Base de datos
+    detail: Guarda o entrega los datos
 ```
 
 ### 2. Nuestro ejemplo: un tablero de tareas
@@ -50,28 +53,26 @@ items:
 Para el ejemplo de hoy vamos a construir el backend de un tablero de tareas pendientes. Queremos consultar y crear tareas, y moverlas entre tres estados: pendiente, en progreso y terminado. La API ofrecerá esas operaciones. Más adelante podremos crear una pantalla que las utilice.
 
 ```scene
-id: todo-overview
+id: task-board
 type: visual
-visual: swagger-mock
-stage: overview
-header: "Todo API"
-show: "Cinco operaciones plegadas, estilo Swagger, como vista general del sistema. Resaltar las acciones CONSULTAR, CREAR, ACTUALIZAR y BORRAR; no explicar todavía métodos HTTP ni rutas. A la derecha, una tarea que pasa por Pending → InProgress → Done."
-operations:
-  - method: GET
-    path: /api/todos
-    caption: Consultar tareas
-  - method: GET
-    path: /api/todos/{id}
-    caption: Consultar una tarea
-  - method: POST
-    path: /api/todos
-    caption: Crear tarea
-  - method: PUT
-    path: /api/todos/{id}
-    caption: Cambiar tarea o estado
-  - method: DELETE
-    path: /api/todos/{id}
-    caption: Borrar tarea
+visual: task-board
+items:
+  - icon: ⏳
+    label: Pendiente
+    detail: Pending
+    steps:
+      - Comprar café
+      - Revisar el correo
+  - icon: 🛠️
+    label: En progreso
+    detail: InProgress
+    steps:
+      - Preparar la clase
+  - icon: ✅
+    label: Terminado
+    detail: Done
+    steps:
+      - Enviar la factura
 ```
 
 ### 3. HTTP: peticiones y respuestas
@@ -126,23 +127,23 @@ id: rest-real-endpoints
 type: visual
 visual: swagger-mock
 stage: method-map
-header: "Todo API — endpoints reales"
+header: "API de Tareas — endpoints reales"
 show: "Vista Swagger con los cinco endpoints reales, cada método con su color distintivo. Al pasar de uno a otro resaltar método, dirección y acción. Explicar visualmente que {id} identifica una tarea."
 operations:
   - method: GET
-    path: /api/todos
+    path: /api/tareas
     caption: Listar todas
   - method: GET
-    path: /api/todos/{id}
+    path: /api/tareas/{id}
     caption: Buscar una
   - method: POST
-    path: /api/todos
+    path: /api/tareas
     caption: Crear
   - method: PUT
-    path: /api/todos/{id}
+    path: /api/tareas/{id}
     caption: Actualizar
   - method: DELETE
-    path: /api/todos/{id}
+    path: /api/tareas/{id}
     caption: Eliminar
 ```
 
@@ -191,8 +192,8 @@ id: oop-real-project
 type: code
 language: csharp
 code: |-
-  // Todo.cs
-  public class Todo
+  // Tarea.cs
+  public class Tarea
   {
       public string Title { get; set; } = "";
       public Status Status { get; set; }
@@ -206,19 +207,19 @@ code: |-
       Done
   }
 
-  // TodosController.cs
-  return await _db.Todos.ToListAsync();
+  // TareasController.cs
+  return await _db.Tareas.ToListAsync();
 highlights: [2, 9, 17]
 source: repositorio
-show: "Pantalla dividida: a la izquierda Todo.cs y Status.cs (datos y estados); a la derecha una sola línea real de TodosController.cs (llamada entre objetos). Dibujar una flecha del controlador hacia _db.Todos. No mostrar todavía el controlador entero."
+show: "Pantalla dividida: a la izquierda Tarea.cs y Status.cs (datos y estados); a la derecha una sola línea real de TareasController.cs (llamada entre objetos). Dibujar una flecha del controlador hacia _db.Tareas. No mostrar todavía el controlador entero."
 files:
-  - src/back/TodoApi/Models/Todo.cs
-  - src/back/TodoApi/Models/Status.cs
-  - src/back/TodoApi/Controllers/TodosController.cs
+  - src/back/TareaApi/Models/Tarea.cs
+  - src/back/TareaApi/Models/Status.cs
+  - src/back/TareaApi/Controllers/TareasController.cs
 highlight:
-  - "public class Todo"
+  - "public class Tarea"
   - "public enum Status"
-  - "_db.Todos.ToListAsync()"
+  - "_db.Tareas.ToListAsync()"
 ```
 
 ```exercise
@@ -235,24 +236,24 @@ explanation: "Título es un dato de la tarea; consultar tareas es una acción."
 
 ### 8. Inyección de dependencias
 
-El controlador necesita acceso a la base de datos. En lugar de encargarse de construir esa herramienta, la recibe ya preparada cuando se crea. Eso se llama inyección de dependencias. En nuestro caso, la aplicación prepara un TodoContext y se lo entrega al constructor del controlador. Después el controlador lo utiliza para trabajar con las tareas.
+El controlador necesita acceso a la base de datos. En lugar de encargarse de construir esa herramienta, la recibe ya preparada cuando se crea. Eso se llama inyección de dependencias. En nuestro caso, la aplicación prepara un TareaContext y se lo entrega al constructor del controlador. Después el controlador lo utiliza para trabajar con las tareas.
 
 ```scene
 id: dependency-injection
 type: code
 language: csharp
 source: repositorio
-show: "Mostrar en dos bloques conectados: registro de TodoContext en Program.cs → parámetro del constructor de TodosController → campo _db. Resaltar la flecha de entrega. Código sin lectura de nombres de archivos."
+show: "Mostrar en dos bloques conectados: registro de TareaContext en Program.cs → parámetro del constructor de TareasController → campo _db. Resaltar la flecha de entrega. Código sin lectura de nombres de archivos."
 files:
-  - src/back/TodoApi/Program.cs
-  - src/back/TodoApi/Controllers/TodosController.cs
+  - src/back/TareaApi/Program.cs
+  - src/back/TareaApi/Controllers/TareasController.cs
 code: |-
   // Program.cs
-  builder.Services.AddDbContext<TodoContext>(
+  builder.Services.AddDbContext<TareaContext>(
       options => options.UseSqlite(connectionString));
 
-  // TodosController.cs
-  public TodosController(TodoContext db)
+  // TareasController.cs
+  public TareasController(TareaContext db)
   {
       _db = db;
   }
@@ -268,12 +269,12 @@ type: visual
 visual: backend
 plain: true
 steps:
-  - "C#: objetos Todo"
+  - "C#: objetos Tarea"
   - "EF Core: traduce operaciones y administra los cambios"
   - "SQLite: guarda las tareas en una tabla"
 items:
   - icon: 📋
-    label: Objeto Todo
+    label: Objeto Tarea
   - icon: 🔄
     label: EF Core
   - icon: 💾
@@ -290,14 +291,14 @@ type: code
 language: csharp
 source: repositorio
 show: "Dos columnas. Izquierda: CONSULTAR → ToListAsync / FindAsync → aparecen tareas en una lista. Derecha: MODIFICAR → Add / Remove / cambio de propiedades → SaveChangesAsync → cambia la tabla. Los fragmentos corresponden a los métodos reales del controlador."
-file: src/back/TodoApi/Controllers/TodosController.cs
+file: src/back/TareaApi/Controllers/TareasController.cs
 code: |-
   // Consultar
-  await _db.Todos.ToListAsync();
-  await _db.Todos.FindAsync(id);
+  await _db.Tareas.ToListAsync();
+  await _db.Tareas.FindAsync(id);
 
   // Crear y guardar
-  _db.Todos.Add(todo);
+  _db.Tareas.Add(tarea);
   await _db.SaveChangesAsync();
 ```
 
@@ -343,10 +344,10 @@ id: controller-entry
 type: code
 language: csharp
 code: |-
-  [Route("api/todos")]
-  public class TodosController : ControllerBase
+  [Route("api/tareas")]
+  public class TareasController : ControllerBase
   {
-      public TodosController(TodoContext db)
+      public TareasController(TareaContext db)
       {
           _db = db;
       }
@@ -362,11 +363,11 @@ code: |-
   }
 highlights: [1, 9, 11, 13, 15]
 source: repositorio
-show: "Mostrar la cabecera real de TodosController.cs y destacar por separado [Route], el constructor con _db, y los atributos [HttpGet], [HttpPost], [HttpPut], [HttpDelete]. Señalar que cada atributo conecta una petición HTTP con un método. No mostrar todavía las implementaciones completas."
-file: src/back/TodoApi/Controllers/TodosController.cs
+show: "Mostrar la cabecera real de TareasController.cs y destacar por separado [Route], el constructor con _db, y los atributos [HttpGet], [HttpPost], [HttpPut], [HttpDelete]. Señalar que cada atributo conecta una petición HTTP con un método. No mostrar todavía las implementaciones completas."
+file: src/back/TareaApi/Controllers/TareasController.cs
 highlight:
-  - '[Route("api/todos")]'
-  - "TodosController(TodoContext db)"
+  - '[Route("api/tareas")]'
+  - "TareasController(TareaContext db)"
   - "[HttpGet]"
   - "[HttpPost]"
   - '[HttpPut("{id}")]'
@@ -382,11 +383,11 @@ id: swagger-get
 type: visual
 visual: swagger-mock
 stage: request-response
-header: "GET /api/todos"
-show: "Simular clic en GET → Try it out → Execute. Animar el viaje de petición hacia el método GetAll(), luego _db.Todos.ToListAsync(), y volver a Swagger con 200 OK y una respuesta JSON de ejemplo. El JSON se ve en pantalla, no se lee en voz alta."
+header: "GET /api/tareas"
+show: "Simular clic en GET → Try it out → Execute. Animar el viaje de petición hacia el método GetAll(), luego _db.Tareas.ToListAsync(), y volver a Swagger con 200 OK y una respuesta JSON de ejemplo. El JSON se ve en pantalla, no se lee en voz alta."
 request:
   method: GET
-  path: /api/todos
+  path: /api/tareas
 response:
   status: 200
   json: |-
@@ -404,11 +405,11 @@ id: swagger-post
 type: visual
 visual: swagger-mock
 stage: request-response
-header: "POST /api/todos"
+header: "POST /api/tareas"
 show: "Simular abrir POST → Try it out → escribir el JSON → Execute. Mostrar el cuerpo entrando al controlador, Add() y SaveChangesAsync() en secuencia; respuesta 201 Created con id generado. No introducir frontend."
 request:
   method: POST
-  path: /api/todos
+  path: /api/tareas
   json: |-
     { "title": "Comprar café", "description": "Para mañana", "status": "Pending" }
 response:
@@ -426,18 +427,18 @@ id: swagger-put
 type: visual
 visual: swagger-mock
 stage: request-response
-header: "PUT /api/todos/1"
-show: "Simular seleccionar PUT, escribir id 1 y enviar el JSON. Mostrar la tarjeta de la tarea cambiando visualmente de Pending a InProgress. Swagger devuelve 204 No Content; después ejecutar GET /api/todos/1 para verificar el nuevo estado."
+header: "PUT /api/tareas/1"
+show: "Simular seleccionar PUT, escribir id 1 y enviar el JSON. Mostrar la tarjeta de la tarea cambiando visualmente de Pending a InProgress. Swagger devuelve 204 No Content; después ejecutar GET /api/tareas/1 para verificar el nuevo estado."
 request:
   method: PUT
-  path: /api/todos/1
+  path: /api/tareas/1
   json: |-
     { "title": "Comprar café", "description": "Para mañana", "status": "InProgress" }
 response:
   status: 204
 followup:
   method: GET
-  path: /api/todos/1
+  path: /api/tareas/1
   status: 200
   json: |-
     { "id": 1, "title": "Comprar café", "description": "Para mañana", "status": "InProgress", "dueDate": null }
