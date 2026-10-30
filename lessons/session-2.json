@@ -1,0 +1,1141 @@
+{
+  "schemaVersion": 1,
+  "slug": "session-2",
+  "title": "Lección 2: Entiende el backend de una API",
+  "courseTitle": "Aprende a\nProgramar con IA",
+  "language": "es",
+  "objectives": [
+    "Entender qué ofrecen una API, HTTP y REST",
+    "Reconocer las piezas básicas de C# orientado a objetos",
+    "Comprender cómo el controlador usa EF Core para consultar y guardar tareas",
+    "Probar la API desde Swagger y modificar código pequeño"
+  ],
+  "prerequisites": [
+    "Lección 1",
+    "Docker y un editor de código"
+  ],
+  "scenes": [
+    {
+      "id": "what-is-api",
+      "type": "visual",
+      "title": "¿Qué es una API?",
+      "visual": "timeline",
+      "plain": true,
+      "items": [
+        {
+          "icon": "🖥️",
+          "label": "Frontend",
+          "detail": "Muestra y recolecta información"
+        },
+        {
+          "icon": "🔌",
+          "label": "API",
+          "detail": "Reglas para comunicarse"
+        },
+        {
+          "icon": "⚙️",
+          "label": "Backend",
+          "detail": "Procesa la solicitud"
+        },
+        {
+          "icon": "💾",
+          "label": "Base de datos",
+          "detail": "Guarda o entrega los datos"
+        }
+      ],
+      "narration": "Una API, o interfaz de programación de aplicaciones, permite que se comuniquen dos programas de computador. En nuestro caso, el backend va a exponer una API para que el frontend la consuma. Esa API permitirá consultar información y realizar operaciones que terminarán con datos guardados o modificados en una base de datos.",
+      "duration": 19.724
+    },
+    {
+      "id": "task-board",
+      "type": "visual",
+      "title": "Nuestro ejemplo: un tablero de tareas",
+      "visual": "task-board",
+      "items": [
+        {
+          "icon": "⏳",
+          "label": "Pendiente",
+          "detail": "Pending",
+          "steps": [
+            "Comprar café",
+            "Revisar el correo"
+          ]
+        },
+        {
+          "icon": "🛠️",
+          "label": "En progreso",
+          "detail": "InProgress",
+          "steps": [
+            "Preparar la clase"
+          ]
+        },
+        {
+          "icon": "✅",
+          "label": "Terminado",
+          "detail": "Done",
+          "steps": [
+            "Enviar la factura"
+          ]
+        }
+      ],
+      "narration": "Para el ejemplo de hoy vamos a construir el backend de un tablero de tareas pendientes. Queremos consultar y crear tareas, y moverlas entre tres estados: pendiente, en progreso y terminado. La API ofrecerá esas operaciones. Más adelante podremos crear una pantalla que las utilice.",
+      "duration": 17.07866666666667
+    },
+    {
+      "id": "url-anatomy",
+      "type": "visual",
+      "title": "La dirección",
+      "visual": "url-anatomy",
+      "steps": [
+        "Reglas que permiten que programas diferentes se comuniquen por internet"
+      ],
+      "items": [
+        {
+          "icon": "🤝",
+          "label": "http://",
+          "detail": "Protocolo",
+          "at": "Empieza con http"
+        },
+        {
+          "icon": "🖥️",
+          "label": "localhost:5080",
+          "detail": "Servidor",
+          "at": "Después viene el lugar"
+        },
+        {
+          "icon": "📋",
+          "label": "/api/tareas",
+          "detail": "Recurso",
+          "at": "al final, el recurso"
+        }
+      ],
+      "group": "http-peticiones-y-respuestas",
+      "groupTitle": "HTTP: peticiones y respuestas",
+      "narration": "Cuando abrimos el navegador y vamos a una dirección, esa dirección suele tener una estructura. Empieza con http, que indica el protocolo de comunicación. Es algo muy técnico, pero es lo que permite que programas diferentes puedan comunicarse por internet. Después viene el lugar donde está el servidor y, al final, el recurso que queremos pedir.",
+      "duration": 20.236
+    },
+    {
+      "id": "http-request-response",
+      "type": "visual",
+      "title": "Petición y respuesta",
+      "visual": "request-flow",
+      "steps": [
+        "El frontend envía una petición HTTP",
+        "El backend consulta la base de datos",
+        "La base de datos entrega los datos",
+        "El backend devuelve una respuesta HTTP",
+        "El frontend procesa la respuesta"
+      ],
+      "stepAt": [
+        "Cuando el frontend",
+        "que llega hasta",
+        "la base de datos",
+        "El backend devuelve",
+        "y el frontend la procesa"
+      ],
+      "items": [
+        {
+          "icon": "🖥️",
+          "label": "Frontend"
+        },
+        {
+          "icon": "⚙️",
+          "label": "Backend"
+        },
+        {
+          "icon": "💾",
+          "label": "Base de datos"
+        }
+      ],
+      "group": "http-peticiones-y-respuestas",
+      "groupTitle": "HTTP: peticiones y respuestas",
+      "narration": "Cuando el frontend necesita obtener información, envía una petición http al backend, que llega hasta la base de datos. El backend devuelve una respuesta a esa petición, y el frontend la procesa.",
+      "duration": 12.470666666666666
+    },
+    {
+      "id": "hello-controller",
+      "type": "code",
+      "title": "Un controlador de usuarios",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            4
+          ],
+          "at": "quien recibe las peticiones"
+        },
+        {
+          "lines": [
+            2,
+            3,
+            4
+          ],
+          "at": "Vamos a crear uno para usuarios"
+        },
+        {
+          "lines": [
+            6
+          ],
+          "at": "Guarda los nombres"
+        },
+        {
+          "lines": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "at": "tiene un método para obtenerlos"
+        }
+      ],
+      "code": "// Ejemplo didáctico: no está en el repositorio\n[ApiController]\n[Route(\"usuarios\")]\npublic class UsuariosController : ControllerBase\n{\n    static List<string> usuarios = new();\n\n    [HttpGet(\"obtener\")]\n    public List<string> Obtener()\n    {\n        return usuarios;\n    }\n}",
+      "group": "controladores-un-ejemplo-de-hola-mundo",
+      "groupTitle": "Controladores: un ejemplo de hola mundo",
+      "narration": "Antes de usar nuestra aplicación de tareas, veamos un ejemplo muy pequeño. En una API, quien recibe las peticiones es un controlador: una clase que expone un recurso y tiene métodos que se ejecutan cuando llega una petición. Vamos a crear uno para usuarios. Guarda los nombres en una lista de textos y tiene un método para obtenerlos.",
+      "duration": 19.468
+    },
+    {
+      "id": "hello-controller-more",
+      "type": "code",
+      "title": "Crear y remover",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "at": "Con otro método agregamos"
+        },
+        {
+          "lines": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "at": "y con otro lo quitamos"
+        },
+        {
+          "lines": [
+            2,
+            8
+          ],
+          "at": "Cada método responde a una dirección distinta"
+        }
+      ],
+      "code": "// Ejemplo didáctico (continuación)\n[HttpPost(\"crear\")]\npublic void Crear(string nombre)\n{\n    usuarios.Add(nombre);\n}\n\n[HttpPost(\"remover\")]\npublic void Remover(string nombre)\n{\n    usuarios.Remove(nombre);\n}",
+      "group": "controladores-un-ejemplo-de-hola-mundo",
+      "groupTitle": "Controladores: un ejemplo de hola mundo",
+      "narration": "Con otro método agregamos un nombre a la lista, y con otro lo quitamos. Cada método responde a una dirección distinta: obtener, crear y remover.",
+      "duration": 9.356
+    },
+    {
+      "id": "hello-requests",
+      "type": "visual",
+      "title": "Probando el controlador",
+      "visual": "memory-list",
+      "items": [
+        {
+          "icon": "📤",
+          "label": "POST /usuarios/crear?nombre=Ana",
+          "detail": "Agrega a Ana",
+          "at": "Creamos a Ana",
+          "steps": [
+            "Ana"
+          ]
+        },
+        {
+          "icon": "📤",
+          "label": "POST /usuarios/crear?nombre=Luis",
+          "detail": "Agrega a Luis",
+          "at": "y luego a Luis",
+          "steps": [
+            "Ana",
+            "Luis"
+          ]
+        },
+        {
+          "icon": "📥",
+          "label": "GET /usuarios/obtener",
+          "detail": "Devuelve Ana y Luis",
+          "at": "Al consultar",
+          "steps": [
+            "Ana",
+            "Luis"
+          ]
+        },
+        {
+          "icon": "📤",
+          "label": "POST /usuarios/remover?nombre=Ana",
+          "detail": "Quita a Ana",
+          "at": "Si quitamos a Ana",
+          "steps": [
+            "Luis"
+          ]
+        },
+        {
+          "icon": "🔄",
+          "label": "Reiniciar la aplicación",
+          "detail": "La lista vuelve a estar vacía",
+          "at": "Si la reiniciamos",
+          "steps": []
+        }
+      ],
+      "group": "controladores-un-ejemplo-de-hola-mundo",
+      "groupTitle": "Controladores: un ejemplo de hola mundo",
+      "narration": "Hagamos algunas peticiones. Creamos a Ana y luego a Luis. Al consultar, la lista tiene a los dos. Si quitamos a Ana, queda solo Luis. Pero fíjate dónde vive esa lista: en la memoria de la aplicación. Si la reiniciamos, los nombres desaparecen, porque no tenemos una base de datos que los guarde. Así vemos qué es un controlador, cómo expone un recurso, y por qué después necesitaremos persistir la información.",
+      "duration": 23.18
+    },
+    {
+      "id": "rest-before",
+      "type": "visual",
+      "title": "Convenciones",
+      "visual": "swagger-mock",
+      "stage": "method-map",
+      "header": "Una ruta por acción",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/usuarios/obtener",
+          "caption": "Obtener"
+        },
+        {
+          "method": "POST",
+          "path": "/usuarios/crear",
+          "caption": "Crear"
+        },
+        {
+          "method": "POST",
+          "path": "/usuarios/remover",
+          "caption": "Remover"
+        }
+      ],
+      "group": "rest-y-restful",
+      "groupTitle": "REST y RESTful",
+      "narration": "Existen ciertas convenciones sobre cómo organizar las API, y una de las más usadas es RESTful. En RESTful definimos recursos y, en vez de tener múltiples rutas para crear, consultar o remover, usamos los verbos http. Mira cómo estaba nuestro ejemplo: una ruta distinta para cada acción.",
+      "duration": 18.316000000000003
+    },
+    {
+      "id": "rest-after",
+      "type": "visual",
+      "title": "Un recurso, varios verbos",
+      "visual": "swagger-mock",
+      "stage": "method-map",
+      "header": "RESTful: un recurso, varios verbos",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/usuarios",
+          "caption": "Obtener"
+        },
+        {
+          "method": "POST",
+          "path": "/usuarios",
+          "caption": "Crear"
+        },
+        {
+          "method": "DELETE",
+          "path": "/usuarios/{nombre}",
+          "caption": "Remover"
+        }
+      ],
+      "group": "rest-y-restful",
+      "groupTitle": "REST y RESTful",
+      "narration": "Convirtamos el ejemplo. Ahora el recurso es usuarios, y una misma dirección sirve para todo. GET consulta la lista, POST agrega un usuario y DELETE lo quita. La dirección identifica el recurso, y el verbo indica la acción.",
+      "duration": 14.070666666666666
+    },
+    {
+      "id": "rest-controller",
+      "type": "code",
+      "title": "El mismo controlador, RESTful",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            6,
+            9,
+            12
+          ],
+          "at": "Los métodos son los mismos"
+        },
+        {
+          "lines": [
+            5,
+            8,
+            11
+          ],
+          "at": "lo que cambia son los atributos"
+        }
+      ],
+      "code": "// Ejemplo didáctico: el mismo controlador, RESTful\n[Route(\"usuarios\")]\npublic class UsuariosController : ControllerBase\n{\n    [HttpGet]\n    public List<string> Obtener() { ... }\n\n    [HttpPost]\n    public void Crear(string nombre) { ... }\n\n    [HttpDelete(\"{nombre}\")]\n    public void Remover(string nombre) { ... }\n}",
+      "group": "rest-y-restful",
+      "groupTitle": "REST y RESTful",
+      "narration": "Así queda el código. Los métodos son los mismos; lo que cambia son los atributos que conectan cada método con un verbo.",
+      "duration": 8.161333333333333
+    },
+    {
+      "id": "rest-real-endpoints",
+      "type": "visual",
+      "title": "Métodos HTTP en nuestra API",
+      "visual": "swagger-mock",
+      "stage": "method-map",
+      "header": "API de Tareas — endpoints reales",
+      "show": "Vista Swagger con los cinco endpoints reales, cada método con su color distintivo. Al pasar de uno a otro resaltar método, dirección y acción. Explicar visualmente que {id} identifica una tarea.",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/tareas",
+          "caption": "Listar todas"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tareas/{id}",
+          "caption": "Buscar una"
+        },
+        {
+          "method": "POST",
+          "path": "/api/tareas",
+          "caption": "Crear"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tareas/{id}",
+          "caption": "Actualizar"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/tareas/{id}",
+          "caption": "Eliminar"
+        }
+      ],
+      "narration": "Veamos esas convenciones en acción. GET sirve para consultar. POST, para crear una tarea nueva. PUT, para actualizarla, por ejemplo cuando pasa de pendiente a terminada. Y DELETE, para borrarla. Las direcciones nos dicen sobre qué tareas vamos a trabajar; el método nos dice qué queremos hacer.",
+      "duration": 17.889333333333333
+    },
+    {
+      "id": "oop-generic",
+      "type": "code",
+      "title": "Una clase, un atributo y un método",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            2
+          ],
+          "at": "Organizamos el programa en clases"
+        },
+        {
+          "lines": [
+            4
+          ],
+          "at": "Puede tener atributos"
+        },
+        {
+          "lines": [
+            6
+          ],
+          "at": "Y puede tener métodos"
+        },
+        {
+          "lines": [
+            7,
+            8
+          ],
+          "at": "Lo que el método hace"
+        }
+      ],
+      "code": "// Ejemplo genérico: una clase que no hace nada\npublic class Ejemplo\n{\n    public string Atributo { get; set; }\n\n    public void Metodo()\n    {\n    }\n}",
+      "group": "programacion-orientada-a-objetos",
+      "groupTitle": "Programación orientada a objetos",
+      "narration": "Para entender el código necesitamos un concepto importante: la programación orientada a objetos. Organizamos el programa en clases, que son moldes para crear objetos. Veamos una clase genérica, que no hace nada. Puede tener atributos, también llamados propiedades: guardan datos, y se escriben con su tipo y su nombre. Y puede tener métodos: son acciones, y se escriben con el tipo que devuelven, su nombre y unos paréntesis. Lo que el método hace va dentro de las llaves.",
+      "duration": 26.593333333333334
+    },
+    {
+      "id": "oop-tarea",
+      "type": "code",
+      "title": "Una clase real: Tarea",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "Ahora una clase con sentido"
+        },
+        {
+          "lines": [
+            3
+          ],
+          "at": "un título"
+        },
+        {
+          "lines": [
+            4
+          ],
+          "at": "y un estado"
+        },
+        {
+          "lines": [
+            3,
+            4
+          ],
+          "at": "Esos son sus atributos"
+        }
+      ],
+      "code": "public class Tarea\n{\n    public string Title { get; set; }\n    public Status Status { get; set; }\n}",
+      "group": "programacion-orientada-a-objetos",
+      "groupTitle": "Programación orientada a objetos",
+      "narration": "Ahora una clase con sentido. Una tarea tiene un título y un estado. Esos son sus atributos o propiedades.",
+      "duration": 7.414666666666666
+    },
+    {
+      "id": "oop-enum",
+      "type": "code",
+      "title": "Enum: opciones conocidas",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "Un enum define"
+        },
+        {
+          "lines": [
+            3,
+            4,
+            5
+          ],
+          "at": "Estos son los tres estados"
+        }
+      ],
+      "code": "public enum Status\n{\n    Pending,\n    InProgress,\n    Done\n}",
+      "group": "programacion-orientada-a-objetos",
+      "groupTitle": "Programación orientada a objetos",
+      "narration": "El estado no puede ser cualquier texto. Un enum define un conjunto de opciones conocidas. Estos son los tres estados que puede tener una tarea.",
+      "duration": 9.292
+    },
+    {
+      "id": "oop-constructor",
+      "type": "code",
+      "title": "El constructor",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "at": "Un constructor es"
+        },
+        {
+          "lines": [
+            1,
+            6
+          ],
+          "at": "Se llama igual que la clase"
+        },
+        {
+          "lines": [
+            6
+          ],
+          "at": "puede recibir datos"
+        },
+        {
+          "lines": [
+            8
+          ],
+          "at": "Aquí recibe el título"
+        },
+        {
+          "lines": [
+            9
+          ],
+          "at": "empieza la tarea como pendiente"
+        }
+      ],
+      "code": "public class Tarea\n{\n    public string Title { get; set; }\n    public Status Status { get; set; }\n\n    public Tarea(string title)\n    {\n        Title = title;\n        Status = Status.Pending;\n    }\n}",
+      "group": "programacion-orientada-a-objetos",
+      "groupTitle": "Programación orientada a objetos",
+      "narration": "Un constructor es un código especial que prepara el objeto cuando lo creamos. Se llama igual que la clase, puede recibir datos y deja el objeto listo para usar. Aquí recibe el título y empieza la tarea como pendiente.",
+      "duration": 13.58
+    },
+    {
+      "id": "oop-method",
+      "type": "code",
+      "title": "Un método en un controlador",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            5
+          ],
+          "at": "Un método es"
+        },
+        {
+          "lines": [
+            3
+          ],
+          "at": "una lista de tareas"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "y un método que las devuelve"
+        },
+        {
+          "lines": [
+            6,
+            7,
+            8
+          ],
+          "at": "Dentro de las llaves"
+        }
+      ],
+      "code": "public class TareasController\n{\n    private List<Tarea> tareas = new();\n\n    public List<Tarea> ObtenerTodas()\n    {\n        return tareas;\n    }\n}",
+      "group": "programacion-orientada-a-objetos",
+      "groupTitle": "Programación orientada a objetos",
+      "narration": "Un método es una acción que un objeto puede realizar. Este controlador sencillo tiene una lista de tareas y un método que las devuelve. Primero va public, luego lo que devuelve, después el nombre y los paréntesis. Dentro de las llaves está lo que hace.",
+      "duration": 14.796
+    },
+    {
+      "id": "oop-use",
+      "type": "code",
+      "title": "Usar los objetos desde afuera",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "creamos un objeto con new"
+        },
+        {
+          "lines": [
+            2
+          ],
+          "at": "Después usamos sus propiedades"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "y sus métodos"
+        },
+        {
+          "lines": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "at": "Todo esto funciona porque están marcados como public"
+        },
+        {
+          "lines": [
+            7
+          ],
+          "at": "lo marcamos como private"
+        }
+      ],
+      "code": "var tarea = new Tarea(\"Comprar café\");\ntarea.Status = Status.InProgress;\n\nvar controlador = new TareasController();\nvar tareas = controlador.ObtenerTodas();\n\n// controlador.tareas no se puede usar desde aquí: es private",
+      "group": "programacion-orientada-a-objetos",
+      "groupTitle": "Programación orientada a objetos",
+      "narration": "Desde fuera de la clase, creamos un objeto con new, que llama al constructor. Después usamos sus propiedades y sus métodos con un punto. Todo esto funciona porque están marcados como public, es decir, que se pueden acceder desde cualquier parte de la aplicación. Si algo debe quedar oculto para el resto de la aplicación, lo marcamos como private, como la lista del controlador. Son temas de diseño que veremos más adelante.",
+      "duration": 23.67066666666667
+    },
+    {
+      "id": "oop-real-project",
+      "type": "code",
+      "title": "Así se ve en nuestro código C#",
+      "language": "csharp",
+      "code": "// Tarea.cs\npublic class Tarea\n{\n    public string Title { get; set; } = \"\";\n    public Status Status { get; set; }\n}\n\n// Status.cs\npublic enum Status\n{\n    Pending,\n    InProgress,\n    Done\n}\n\n// TareasController.cs\nreturn await _db.Tareas.ToListAsync();",
+      "highlights": [
+        2,
+        9,
+        17
+      ],
+      "source": "repositorio",
+      "show": "Pantalla dividida: a la izquierda Tarea.cs y Status.cs (datos y estados); a la derecha una sola línea real de TareasController.cs (llamada entre objetos). Dibujar una flecha del controlador hacia _db.Tareas. No mostrar todavía el controlador entero.",
+      "files": [
+        "src/back/TareaApi/Models/Tarea.cs",
+        "src/back/TareaApi/Models/Status.cs",
+        "src/back/TareaApi/Controllers/TareasController.cs"
+      ],
+      "highlight": [
+        "public class Tarea",
+        "public enum Status",
+        "_db.Tareas.ToListAsync()"
+      ],
+      "narration": "Nuestro backend está escrito en C#, un lenguaje orientado a objetos. Tenemos una clase que representa cada tarea y un enum con sus estados. También tenemos otros objetos, como el controlador, que llaman métodos para consultar y guardar datos. Así se construye el programa: distintos objetos que colaboran entre sí.",
+      "duration": 19.425333333333334
+    },
+    {
+      "id": "dependency-injection",
+      "type": "code",
+      "title": "Inyección de dependencias",
+      "language": "csharp",
+      "source": "repositorio",
+      "show": "Mostrar en dos bloques conectados: registro de TareaContext en Program.cs → parámetro del constructor de TareasController → campo _db. Resaltar la flecha de entrega. Código sin lectura de nombres de archivos.",
+      "files": [
+        "src/back/TareaApi/Program.cs",
+        "src/back/TareaApi/Controllers/TareasController.cs"
+      ],
+      "code": "// Program.cs\nbuilder.Services.AddDbContext<TareaContext>(\n    options => options.UseSqlite(connectionString));\n\n// TareasController.cs\npublic TareasController(TareaContext db)\n{\n    _db = db;\n}",
+      "narration": "El controlador necesita acceso a la base de datos. En lugar de encargarse de construir esa herramienta, la recibe ya preparada cuando se crea. Eso se llama inyección de dependencias. En nuestro caso, la aplicación prepara un TareaContext y se lo entrega al constructor del controlador. Después el controlador lo utiliza para trabajar con las tareas.",
+      "duration": 20.385333333333335
+    },
+    {
+      "id": "ef-intro",
+      "type": "visual",
+      "title": "Entity Framework Core",
+      "visual": "backend",
+      "plain": true,
+      "steps": [
+        "C#: objetos Tarea",
+        "EF Core: traduce operaciones y administra los cambios",
+        "SQLite: guarda las tareas en una tabla"
+      ],
+      "items": [
+        {
+          "icon": "📋",
+          "label": "Objeto Tarea"
+        },
+        {
+          "icon": "🔄",
+          "label": "EF Core"
+        },
+        {
+          "icon": "💾",
+          "label": "Base de datos"
+        }
+      ],
+      "narration": "Ahora necesitamos trabajar con la base de datos. Para eso usamos Entity Framework Core, o EF Core. Nos permite consultar, agregar y modificar tareas usando código C#, sin escribir directamente las instrucciones SQL. SQL es el lenguaje de las bases de datos y lo aprenderemos en otras lecciones. Por ahora, EF Core hace ese trabajo por nosotros.",
+      "duration": 21.985333333333333
+    },
+    {
+      "id": "ef-operations",
+      "type": "code",
+      "title": "Consultas y comandos",
+      "language": "csharp",
+      "source": "repositorio",
+      "show": "Dos columnas. Izquierda: CONSULTAR → ToListAsync / FindAsync → aparecen tareas en una lista. Derecha: MODIFICAR → Add / Remove / cambio de propiedades → SaveChangesAsync → cambia la tabla. Los fragmentos corresponden a los métodos reales del controlador.",
+      "file": "src/back/TareaApi/Controllers/TareasController.cs",
+      "code": "// Consultar\nawait _db.Tareas.ToListAsync();\nawait _db.Tareas.FindAsync(id);\n\n// Crear y guardar\n_db.Tareas.Add(tarea);\nawait _db.SaveChangesAsync();",
+      "narration": "Una consulta lee datos sin modificarlos. Podemos pedir todas las tareas o buscar una por su número. En cambio, cuando agregamos, actualizamos o borramos una tarea, estamos cambiando datos. En EF Core usamos métodos de C# para esas operaciones, y guardamos los cambios para que permanezcan en la base de datos.",
+      "duration": 19.44666666666667
+    },
+    {
+      "id": "ef-migrations",
+      "type": "visual",
+      "title": "Migraciones: cambiar la base de datos",
+      "visual": "timeline",
+      "plain": true,
+      "items": [
+        {
+          "icon": "📋",
+          "label": "InitialCreate",
+          "detail": "Crea Id, Title, Description y Status"
+        },
+        {
+          "icon": "📅",
+          "label": "AddDueDate",
+          "detail": "Agrega DueDate a la tabla existente"
+        },
+        {
+          "icon": "✅",
+          "label": "Resultado",
+          "detail": "La tabla evoluciona sin borrar las tareas"
+        }
+      ],
+      "narration": "¿Y si mañana queremos guardar una fecha de vencimiento para cada tarea? No basta con agregar ese dato al código: también necesitamos modificar la estructura de la base de datos. Para eso sirven las migraciones. Nuestro ejemplo ya tiene una que crea las tareas y otra que agrega la fecha, conservando los datos anteriores.",
+      "duration": 18.80666666666667
+    },
+    {
+      "id": "controller-entry",
+      "type": "code",
+      "title": "El controlador: la puerta de entrada",
+      "language": "csharp",
+      "code": "[Route(\"api/tareas\")]\npublic class TareasController : ControllerBase\n{\n    public TareasController(TareaContext db)\n    {\n        _db = db;\n    }\n\n    [HttpGet]\n    // ...\n    [HttpPost]\n    // ...\n    [HttpPut(\"{id}\")]\n    // ...\n    [HttpDelete(\"{id}\")]\n    // ...\n}",
+      "highlights": [
+        1,
+        9,
+        11,
+        13,
+        15
+      ],
+      "source": "repositorio",
+      "show": "Mostrar la cabecera real de TareasController.cs y destacar por separado [Route], el constructor con _db, y los atributos [HttpGet], [HttpPost], [HttpPut], [HttpDelete]. Señalar que cada atributo conecta una petición HTTP con un método. No mostrar todavía las implementaciones completas.",
+      "file": "src/back/TareaApi/Controllers/TareasController.cs",
+      "highlight": [
+        "[Route(\"api/tareas\")]",
+        "TareasController(TareaContext db)",
+        "[HttpGet]",
+        "[HttpPost]",
+        "[HttpPut(\"{id}\")]",
+        "[HttpDelete(\"{id}\")]"
+      ],
+      "narration": "Ya tenemos las piezas. El controlador es la puerta de entrada de nuestra API: recibe una petición HTTP, elige qué operación ejecutar y devuelve una respuesta. Como ya recibió el acceso a la base de datos mediante su constructor, puede consultar o modificar tareas sin encargarse de preparar la conexión.",
+      "duration": 18.80666666666667
+    },
+    {
+      "id": "swagger-get",
+      "type": "visual",
+      "title": "Consultar tareas: de Swagger a la respuesta",
+      "visual": "swagger-mock",
+      "stage": "request-response",
+      "header": "GET /api/tareas",
+      "show": "Simular clic en GET → Try it out → Execute. Animar el viaje de petición hacia el método GetAll(), luego _db.Tareas.ToListAsync(), y volver a Swagger con 200 OK y una respuesta JSON de ejemplo. El JSON se ve en pantalla, no se lee en voz alta.",
+      "request": {
+        "method": "GET",
+        "path": "/api/tareas"
+      },
+      "response": {
+        "status": 200,
+        "json": "[\n  { \"id\": 1, \"title\": \"Comprar café\", \"description\": \"\", \"status\": \"Pending\", \"dueDate\": null }\n]"
+      },
+      "narration": "Miremos una operación completa. Desde Swagger pedimos la lista de tareas. El controlador recibe esa petición, consulta la base de datos mediante EF Core y devuelve las tareas. Swagger nos muestra el resultado, como lo recibiría cualquier programa que utilice esta API.",
+      "duration": 16.75866666666667
+    },
+    {
+      "id": "swagger-post",
+      "type": "visual",
+      "title": "Crear tareas: enviar datos",
+      "visual": "swagger-mock",
+      "stage": "request-response",
+      "header": "POST /api/tareas",
+      "show": "Simular abrir POST → Try it out → escribir el JSON → Execute. Mostrar el cuerpo entrando al controlador, Add() y SaveChangesAsync() en secuencia; respuesta 201 Created con id generado. No introducir frontend.",
+      "request": {
+        "method": "POST",
+        "path": "/api/tareas",
+        "json": "{ \"title\": \"Comprar café\", \"description\": \"Para mañana\", \"status\": \"Pending\" }"
+      },
+      "response": {
+        "status": 201,
+        "json": "{ \"id\": 1, \"title\": \"Comprar café\", \"description\": \"Para mañana\", \"status\": \"Pending\", \"dueDate\": null }"
+      },
+      "narration": "Ahora hagamos lo contrario: enviar información al backend. En Swagger escribimos el título, la descripción y el estado de una tarea nueva. Cuando ejecutamos POST, el controlador recibe esos datos, crea la tarea en la base de datos y devuelve la información de la tarea creada, incluido su identificador.",
+      "duration": 18.081333333333333
+    },
+    {
+      "id": "swagger-put",
+      "type": "visual",
+      "title": "Cambiar el estado de una tarea",
+      "visual": "swagger-mock",
+      "stage": "request-response",
+      "header": "PUT /api/tareas/1",
+      "show": "Simular seleccionar PUT, escribir id 1 y enviar el JSON. Mostrar la tarjeta de la tarea cambiando visualmente de Pending a InProgress. Swagger devuelve 204 No Content; después ejecutar GET /api/tareas/1 para verificar el nuevo estado.",
+      "request": {
+        "method": "PUT",
+        "path": "/api/tareas/1",
+        "json": "{ \"title\": \"Comprar café\", \"description\": \"Para mañana\", \"status\": \"InProgress\" }"
+      },
+      "response": {
+        "status": 204
+      },
+      "followup": {
+        "method": "GET",
+        "path": "/api/tareas/1",
+        "status": 200,
+        "json": "{ \"id\": 1, \"title\": \"Comprar café\", \"description\": \"Para mañana\", \"status\": \"InProgress\", \"dueDate\": null }"
+      },
+      "narration": "La tarea ya existe, pero ahora estamos trabajando en ella. Podemos enviar una petición PUT con el mismo identificador y cambiar su estado a en progreso. El controlador busca la tarea, modifica sus datos y guarda el cambio. Si volvemos a consultarla, veremos el nuevo estado.",
+      "duration": 17.01466666666667
+    },
+    {
+      "id": "practice-swagger",
+      "type": "visual",
+      "title": "Te toca: probar Swagger y modificar el código",
+      "visual": "swagger-mock",
+      "stage": "hands-on",
+      "header": "http://localhost:5080/swagger",
+      "show": "Mostrar navegador real o simulado con Swagger, en orden: POST crear → GET listar → PUT cambiar estado → GET verificar. En una esquina, indicar ./run/build.sh y ./run/start.sh solo como apoyo visual. Cerrar con VS Code abierto en GetAll() y Status.cs.",
+      "steps": [
+        "Crear una tarea con POST",
+        "Consultar con GET",
+        "Cambiar su estado con PUT",
+        "Consultar de nuevo y comprobar el cambio"
+      ],
+      "narration": "Ahora vas a probar tú mismo las operaciones. Inicia la aplicación, abre Swagger y crea una tarea. Consúltala, cambia su estado y comprueba que quedó guardado. Después vamos a hacer dos cambios pequeños en el código: ordenar las tareas por título y agregar un nuevo estado. Puedes pedirle ayuda al agente, pero revisa qué cambió y verifica el resultado.",
+      "duration": 20.918666666666667
+    }
+  ],
+  "exercises": [
+    {
+      "id": "controller-memory",
+      "afterScene": "hello-requests",
+      "type": "multiple-choice",
+      "prompt": "Si reiniciamos la aplicación, ¿qué pasa con los nombres guardados en la lista en memoria?",
+      "choices": [
+        "Desaparecen, porque no se guardaron en una base de datos",
+        "Se guardan automáticamente en SQLite",
+        "Pasan al frontend"
+      ],
+      "answer": 0,
+      "explanation": "Una lista en memoria vive mientras la aplicación está en marcha. Para conservar datos necesitamos persistirlos."
+    },
+    {
+      "id": "rest-check",
+      "afterScene": "rest-real-endpoints",
+      "type": "multiple-choice",
+      "prompt": "Si una tarea ya existe y quieres cambiarla a terminada, ¿qué método HTTP usarías?",
+      "choices": [
+        "GET",
+        "PUT",
+        "POST"
+      ],
+      "answer": 1,
+      "explanation": "PUT actualiza una tarea existente."
+    },
+    {
+      "id": "oop-check",
+      "afterScene": "oop-real-project",
+      "type": "multiple-choice",
+      "prompt": "En una clase, ¿qué diferencia hay entre una propiedad y un método?",
+      "choices": [
+        "La propiedad contiene un dato; el método realiza una acción",
+        "Ambos son nombres para una base de datos",
+        "El método contiene datos y la propiedad ejecuta acciones"
+      ],
+      "answer": 0,
+      "explanation": "Título es un dato de la tarea; consultar tareas es una acción."
+    },
+    {
+      "id": "ef-check",
+      "afterScene": "ef-operations",
+      "type": "multiple-choice",
+      "prompt": "Después de agregar una tarea con EF Core, ¿qué nos permite guardar el cambio en la base de datos?",
+      "choices": [
+        "SaveChangesAsync()",
+        "ToListAsync()",
+        "FindAsync()"
+      ],
+      "answer": 0,
+      "explanation": "SaveChangesAsync() confirma los cambios pendientes."
+    },
+    {
+      "id": "practice-api",
+      "afterScene": "practice-swagger",
+      "type": "checkpoint",
+      "prompt": "Creé una tarea, cambié su estado y confirmé el resultado desde Swagger.",
+      "explanation": "La API queda comprobada cuando las peticiones devuelven los datos y estados esperados."
+    },
+    {
+      "id": "practice-sort",
+      "afterScene": "practice-swagger",
+      "type": "checkpoint",
+      "prompt": "Ordené las tareas alfabéticamente modificando GetAll() y comprobé el orden en Swagger.",
+      "explanation": "Pista: puedes usar OrderBy(t => t.Title) antes de ToListAsync(). Prueba creando dos tareas en orden inverso al alfabético."
+    },
+    {
+      "id": "practice-enum",
+      "afterScene": "practice-swagger",
+      "type": "checkpoint",
+      "prompt": "Agregué el estado Cancelled al enum Status y comprobé que puedo usarlo al actualizar una tarea.",
+      "explanation": "Busca los estados existentes en Status.cs; luego prueba desde Swagger con el nuevo valor."
+    }
+  ],
+  "producedAt": "2026-10-30T17:13:54.965Z",
+  "sourceHash": "ba0c929afe27c2b9b62ddea190b029f8f40958746bb1669d6f8384635dd025c2",
+  "audio": [
+    {
+      "sceneId": "what-is-api",
+      "src": "audio/cbaf9e0f7ae755ebd4bb3fc556d233f022cb97b7d897d2b6209843851ee44bbf.wav",
+      "duration": 18.624,
+      "provider": "kokoro",
+      "cacheKey": "cbaf9e0f7ae755ebd4bb3fc556d233f022cb97b7d897d2b6209843851ee44bbf"
+    },
+    {
+      "sceneId": "task-board",
+      "src": "audio/6808523b7d89142ad1e9a543a24009b3e207245358da9e5c36e299b4d0a2a595.wav",
+      "duration": 15.978666666666667,
+      "provider": "kokoro",
+      "cacheKey": "6808523b7d89142ad1e9a543a24009b3e207245358da9e5c36e299b4d0a2a595"
+    },
+    {
+      "sceneId": "url-anatomy",
+      "src": "audio/bfeb99e0dc3b1293a278b12d28996340a4198e214fdd83341eea0c992d3f3786.wav",
+      "duration": 19.136,
+      "provider": "kokoro",
+      "cacheKey": "bfeb99e0dc3b1293a278b12d28996340a4198e214fdd83341eea0c992d3f3786"
+    },
+    {
+      "sceneId": "http-request-response",
+      "src": "audio/f8506f33d8f4013b19e3ca47df6a74d016b998eebead01285e171c380d488768.wav",
+      "duration": 11.370666666666667,
+      "provider": "kokoro",
+      "cacheKey": "f8506f33d8f4013b19e3ca47df6a74d016b998eebead01285e171c380d488768"
+    },
+    {
+      "sceneId": "hello-controller",
+      "src": "audio/e8133a03e3850b89946b806809c000aee259d219966e2b81071050b666760526.wav",
+      "duration": 18.368,
+      "provider": "kokoro",
+      "cacheKey": "e8133a03e3850b89946b806809c000aee259d219966e2b81071050b666760526"
+    },
+    {
+      "sceneId": "hello-controller-more",
+      "src": "audio/b149fb315b109e57ff86ca9343994fca2b3bd3d1bcfeade782b4b4cfa935952d.wav",
+      "duration": 8.256,
+      "provider": "kokoro",
+      "cacheKey": "b149fb315b109e57ff86ca9343994fca2b3bd3d1bcfeade782b4b4cfa935952d"
+    },
+    {
+      "sceneId": "hello-requests",
+      "src": "audio/86d509795ed6d3e2b41e983f55ec06d7114dcb05c052123624a3c95bfa5f8aa5.wav",
+      "duration": 22.08,
+      "provider": "kokoro",
+      "cacheKey": "86d509795ed6d3e2b41e983f55ec06d7114dcb05c052123624a3c95bfa5f8aa5"
+    },
+    {
+      "sceneId": "rest-before",
+      "src": "audio/76670dc3fedaf682ae16353a0932a5bae92f06aa5d92fbac8ca30d206a8f4853.wav",
+      "duration": 17.216,
+      "provider": "kokoro",
+      "cacheKey": "76670dc3fedaf682ae16353a0932a5bae92f06aa5d92fbac8ca30d206a8f4853"
+    },
+    {
+      "sceneId": "rest-after",
+      "src": "audio/204ba0f53894b184bfa9f95acf42cd3843adad15ccfc898706ecb1322af0f0c2.wav",
+      "duration": 12.970666666666666,
+      "provider": "kokoro",
+      "cacheKey": "204ba0f53894b184bfa9f95acf42cd3843adad15ccfc898706ecb1322af0f0c2"
+    },
+    {
+      "sceneId": "rest-controller",
+      "src": "audio/2887e68f9d7822e0fb6dbc49396d2c2a98ea491b1bb1d6bac78d12e1b1926c4c.wav",
+      "duration": 7.061333333333334,
+      "provider": "kokoro",
+      "cacheKey": "2887e68f9d7822e0fb6dbc49396d2c2a98ea491b1bb1d6bac78d12e1b1926c4c"
+    },
+    {
+      "sceneId": "rest-real-endpoints",
+      "src": "audio/33a32899c2239b9cd0e0ea2484ea9e928802168e1fc3c603cc460645e8484e33.wav",
+      "duration": 16.78933333333333,
+      "provider": "kokoro",
+      "cacheKey": "33a32899c2239b9cd0e0ea2484ea9e928802168e1fc3c603cc460645e8484e33"
+    },
+    {
+      "sceneId": "oop-generic",
+      "src": "audio/b2b77ab4491361bebac67945f09cf723b690244f2d1e1164251d36dea278a6c0.wav",
+      "duration": 25.493333333333332,
+      "provider": "kokoro",
+      "cacheKey": "b2b77ab4491361bebac67945f09cf723b690244f2d1e1164251d36dea278a6c0"
+    },
+    {
+      "sceneId": "oop-tarea",
+      "src": "audio/88d8a2358ccee670e98170884a4a0f6e5cd3a4625e1ceba9e17fd656f78832bc.wav",
+      "duration": 6.314666666666667,
+      "provider": "kokoro",
+      "cacheKey": "88d8a2358ccee670e98170884a4a0f6e5cd3a4625e1ceba9e17fd656f78832bc"
+    },
+    {
+      "sceneId": "oop-enum",
+      "src": "audio/2bff848968544704c3fd592fd9dc3d9ed70902a4bf2ea406eaf4ae14d03d0f6d.wav",
+      "duration": 8.192,
+      "provider": "kokoro",
+      "cacheKey": "2bff848968544704c3fd592fd9dc3d9ed70902a4bf2ea406eaf4ae14d03d0f6d"
+    },
+    {
+      "sceneId": "oop-constructor",
+      "src": "audio/b66388d1e394b4ce8a59ae98cddd7bc1e6e23cb502a4defa63f1e82618643b54.wav",
+      "duration": 12.48,
+      "provider": "kokoro",
+      "cacheKey": "b66388d1e394b4ce8a59ae98cddd7bc1e6e23cb502a4defa63f1e82618643b54"
+    },
+    {
+      "sceneId": "oop-method",
+      "src": "audio/2143d8bd7478902da67bde0a90f2bbd665e40166fc5cde78b7a60d0b31bb2c14.wav",
+      "duration": 13.696,
+      "provider": "kokoro",
+      "cacheKey": "2143d8bd7478902da67bde0a90f2bbd665e40166fc5cde78b7a60d0b31bb2c14"
+    },
+    {
+      "sceneId": "oop-use",
+      "src": "audio/ee341aff7e7e82c57a94402f27c5a4e340a3b91fdf8866d41d5f7b38e1ad82a6.wav",
+      "duration": 22.570666666666668,
+      "provider": "kokoro",
+      "cacheKey": "ee341aff7e7e82c57a94402f27c5a4e340a3b91fdf8866d41d5f7b38e1ad82a6"
+    },
+    {
+      "sceneId": "oop-real-project",
+      "src": "audio/e8a5e607b1718f9eb737c86c5e08954b4f9b1203c3f886cedb6205a57a33af86.wav",
+      "duration": 18.325333333333333,
+      "provider": "kokoro",
+      "cacheKey": "e8a5e607b1718f9eb737c86c5e08954b4f9b1203c3f886cedb6205a57a33af86"
+    },
+    {
+      "sceneId": "dependency-injection",
+      "src": "audio/e151b230cfefce78cce7ee2b16efd3e05a010d77f16dcd95c54f3d45e8ad9d7c.wav",
+      "duration": 19.285333333333334,
+      "provider": "kokoro",
+      "cacheKey": "e151b230cfefce78cce7ee2b16efd3e05a010d77f16dcd95c54f3d45e8ad9d7c"
+    },
+    {
+      "sceneId": "ef-intro",
+      "src": "audio/8d8dfc3cb48b5c0dba7f87e4a309a7f877a2ae7bf803e63f0036785810aa42e2.wav",
+      "duration": 20.88533333333333,
+      "provider": "kokoro",
+      "cacheKey": "8d8dfc3cb48b5c0dba7f87e4a309a7f877a2ae7bf803e63f0036785810aa42e2"
+    },
+    {
+      "sceneId": "ef-operations",
+      "src": "audio/174fca07ea1796b53f1e64a7d61b97025b8537c7ef29de28fd2187cc7433da89.wav",
+      "duration": 18.346666666666668,
+      "provider": "kokoro",
+      "cacheKey": "174fca07ea1796b53f1e64a7d61b97025b8537c7ef29de28fd2187cc7433da89"
+    },
+    {
+      "sceneId": "ef-migrations",
+      "src": "audio/245f4eb380c92c504864a29e64356b3e388bf0123075765365f08c3f21d054d4.wav",
+      "duration": 17.706666666666667,
+      "provider": "kokoro",
+      "cacheKey": "245f4eb380c92c504864a29e64356b3e388bf0123075765365f08c3f21d054d4"
+    },
+    {
+      "sceneId": "controller-entry",
+      "src": "audio/dc9118c7027e0f03b3c804523afb984176fd1bcf1478ffc2926f27d8a2a43a9e.wav",
+      "duration": 17.706666666666667,
+      "provider": "kokoro",
+      "cacheKey": "dc9118c7027e0f03b3c804523afb984176fd1bcf1478ffc2926f27d8a2a43a9e"
+    },
+    {
+      "sceneId": "swagger-get",
+      "src": "audio/64c0aa53bd8c9bcbbbb13966699c0e227dd8b9bcae7945df8e2907d213e7b2ab.wav",
+      "duration": 15.658666666666667,
+      "provider": "kokoro",
+      "cacheKey": "64c0aa53bd8c9bcbbbb13966699c0e227dd8b9bcae7945df8e2907d213e7b2ab"
+    },
+    {
+      "sceneId": "swagger-post",
+      "src": "audio/cb482cdbd4a9d704ced776d64734acf577d910fa641ee0a3f38f17f44adff86f.wav",
+      "duration": 16.981333333333332,
+      "provider": "kokoro",
+      "cacheKey": "cb482cdbd4a9d704ced776d64734acf577d910fa641ee0a3f38f17f44adff86f"
+    },
+    {
+      "sceneId": "swagger-put",
+      "src": "audio/25893b63f16dbe929cefe3ebc3caff4724229ec5c241e00ccf2392ae9020013c.wav",
+      "duration": 15.914666666666667,
+      "provider": "kokoro",
+      "cacheKey": "25893b63f16dbe929cefe3ebc3caff4724229ec5c241e00ccf2392ae9020013c"
+    },
+    {
+      "sceneId": "practice-swagger",
+      "src": "audio/a3c120577570c0ccd0b573dfddbc28dd8b6fe6e2390805a9f93df1c8fb23cec7.wav",
+      "duration": 19.818666666666665,
+      "provider": "kokoro",
+      "cacheKey": "a3c120577570c0ccd0b573dfddbc28dd8b6fe6e2390805a9f93df1c8fb23cec7"
+    }
+  ],
+  "totalDuration": 466.92666666666673
+}

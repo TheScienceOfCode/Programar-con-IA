@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "title": "Aprende a Programar con IA",
+  "contents": [
+    {
+      "number": 1,
+      "title": "Tu primera aplicación con IA",
+      "description": "Introducción a la computación y la IA. VS Code, agentes y herramientas. Construir una biblioteca de videojuegos con frontend, backend, base de datos y Docker. Verificar su funcionamiento en el navegador.",
+      "slug": "session-1",
+      "available": true
+    },
+    {
+      "number": 2,
+      "title": "Entiende el backend de una API",
+      "description": "APIs, HTTP y REST. Clases, propiedades, enums, inyección de dependencias, EF Core y migraciones en C#. Leer, modificar y probar un controlador real.",
+      "slug": "session-2",
+      "available": true
+    },
+    {
+      "number": 3,
+      "title": "Frontend e interfaces",
+      "description": "React, componentes, interacción y comunicación con el backend.",
+      "slug": "session-3",
+      "available": false
+    },
+    {
+      "number": 4,
+      "title": "Pruebas automatizadas",
+      "description": "Validaciones con clics, entradas y aserciones. Detección y corrección de errores con IA.",
+      "slug": "session-4",
+      "available": false
+    },
+    {
+      "number": 5,
+      "title": "Seguridad del software",
+      "description": "Autenticación, autorización, vulnerabilidades y análisis de seguridad con IA.",
+      "slug": "session-5",
+      "available": false
+    },
+    {
+      "number": 6,
+      "title": "Patrones de backend",
+      "description": "Arquitectura, responsabilidades, organización y buenas prácticas.",
+      "slug": "session-6",
+      "available": false
+    },
+    {
+      "number": 7,
+      "title": "Patrones de frontend",
+      "description": "Componentes reutilizables, estado y mantenimiento.",
+      "slug": "session-7",
+      "available": false
+    },
+    {
+      "number": 8,
+      "title": "Tu propio harness de IA",
+      "description": "Agentes, skills, instrucciones y automatización del desarrollo.",
+      "slug": "session-8",
+      "available": false
+    }
+  ],
+  "sessions": [
+    {
+      "slug": "session-1",
+      "title": "Lección 1: Tu primera aplicación con IA",
+      "language": "es",
+      "objectives": [
+        "Preparar un editor y conectar un agente de programación",
+        "Construir y verificar una biblioteca web de videojuegos con ayuda de IA",
+        "Solicitar y comprobar un primer cambio en la aplicación"
+      ],
+      "href": "lessons/session-1.json",
+      "videoHref": "video/session-1.mp4"
+    },
+    {
+      "slug": "session-2",
+      "title": "Lección 2: Entiende el backend de una API",
+      "language": "es",
+      "objectives": [
+        "Entender qué ofrecen una API, HTTP y REST",
+        "Reconocer las piezas básicas de C# orientado a objetos",
+        "Comprender cómo el controlador usa EF Core para consultar y guardar tareas",
+        "Probar la API desde Swagger y modificar código pequeño"
+      ],
+      "href": "lessons/session-2.json",
+      "videoHref": "video/session-2.mp4"
+    }
+  ]
+}

@@ -1,0 +1,1153 @@
+{
+  "schemaVersion": 1,
+  "slug": "session-1",
+  "title": "Lección 1: Tu primera aplicación con IA",
+  "courseTitle": "Aprende a\nProgramar con IA",
+  "language": "es",
+  "objectives": [
+    "Preparar un editor y conectar un agente de programación",
+    "Construir y verificar una biblioteca web de videojuegos con ayuda de IA",
+    "Solicitar y comprobar un primer cambio en la aplicación"
+  ],
+  "prerequisites": [
+    "Ninguno"
+  ],
+  "scenes": [
+    {
+      "id": "why-ai",
+      "type": "visual",
+      "title": "De una idea a una aplicación",
+      "visual": "timeline",
+      "items": [
+        {
+          "icon": "🖥️",
+          "label": "Los computadores",
+          "detail": "calculan y recuerdan"
+        },
+        {
+          "icon": "✍️",
+          "label": "Describes una idea",
+          "detail": "con tus palabras"
+        },
+        {
+          "icon": "🤖",
+          "label": "Agentes de IA",
+          "detail": "escriben y corrigen"
+        },
+        {
+          "icon": "🎮",
+          "label": "Aplicación terminada",
+          "detail": "tú la compruebas"
+        }
+      ],
+      "narration": "Los computadores han ampliado nuestra capacidad de calcular, recordar y resolver problemas. Ahora la inteligencia artificial nos permite ir más allá: podemos describir una idea y trabajar con agentes capaces de escribir programas, encontrar errores y proponer soluciones. Incluso podemos tener varios agentes trabajando en diferentes tareas. No son infalibles, pero multiplican lo que podemos crear. Vamos a probarlo.",
+      "duration": 23.628
+    },
+    {
+      "id": "browser-intro",
+      "type": "visual",
+      "title": "¿Qué es un navegador?",
+      "visual": "browser-page",
+      "steps": [
+        "una-direccion.com"
+      ],
+      "items": [
+        {
+          "icon": "📄",
+          "label": "Páginas"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Imágenes"
+        },
+        {
+          "icon": "🎬",
+          "label": "Videos"
+        },
+        {
+          "icon": "🎮",
+          "label": "Aplicaciones web"
+        }
+      ],
+      "narration": "Vamos a construir una aplicación web. Para eso, primero debemos saber qué es un navegador. Es el programa que nos permite acceder a internet y ver páginas, imágenes y videos. Y es muy importante, porque nos permite usar aplicaciones sin instalarlas en nuestra máquina: basta escribir una dirección y ya estamos dentro de una aplicación web.",
+      "duration": 19.95866666666667
+    },
+    {
+      "id": "download-editor",
+      "type": "visual",
+      "title": "Descarga Visual Studio Code",
+      "visual": "browser-download",
+      "items": [
+        {
+          "icon": "🪟",
+          "label": "Windows",
+          "detail": "Instalador .exe"
+        },
+        {
+          "icon": "🍎",
+          "label": "macOS",
+          "detail": "Archivo .zip"
+        },
+        {
+          "icon": "🐧",
+          "label": "Linux",
+          "detail": ".deb · .rpm · VSCodium"
+        }
+      ],
+      "narration": "Necesitamos un editor para trabajar con nuestros archivos y conversar con el agente. Usaremos Visual Studio Code; en Linux también puedes utilizar VSCodium. Entra a code punto visual studio punto com, barra download, y elige tu sistema: Windows, macOS o Linux.",
+      "duration": 16.972
+    },
+    {
+      "id": "install-editor",
+      "type": "visual",
+      "title": "Instálalo y ábrelo",
+      "visual": "installer",
+      "items": [
+        {
+          "icon": "🪟",
+          "label": "Windows",
+          "steps": [
+            "Abre VSCodeUserSetup.exe",
+            "Acepta y pulsa Siguiente",
+            "Pulsa Instalar",
+            "Marca «Ejecutar» y Finalizar"
+          ]
+        },
+        {
+          "icon": "🍎",
+          "label": "macOS",
+          "steps": [
+            "Abre el .zip descargado",
+            "Arrastra VS Code a Aplicaciones",
+            "Ábrelo desde Launchpad",
+            "Pulsa «Abrir» si macOS lo pide"
+          ]
+        },
+        {
+          "icon": "🐧",
+          "label": "Linux",
+          "steps": [
+            "Descarga el .deb (Ubuntu/Debian) o el .rpm (Fedora)",
+            "Doble clic en el archivo: se abre «Instalar software»",
+            "O por terminal, en la carpeta de descargas:",
+            "$ sudo apt install ./archivo.deb",
+            "$ sudo dnf install ./archivo.rpm",
+            "Ábrelo desde el menú de aplicaciones"
+          ]
+        }
+      ],
+      "narration": "Ahora instálalo. En Windows, abre el instalador y pulsa Siguiente hasta terminar. En macOS, abre el archivo descargado y arrastra Visual Studio Code a la carpeta Aplicaciones. En Linux, instala el paquete: con apt en Ubuntu y Debian, o con dnf en Fedora. Cuando termine, ábrelo. Si ya lo tienes, salta este paso.",
+      "duration": 19.233333333333334
+    },
+    {
+      "id": "install-extension",
+      "type": "visual",
+      "title": "Instala tu agente",
+      "visual": "extensions",
+      "items": [
+        {
+          "icon": "🟠",
+          "label": "Claude Code",
+          "detail": "Agente de programación de Anthropic"
+        },
+        {
+          "icon": "⚫",
+          "label": "Codex",
+          "detail": "Agente de programación de OpenAI"
+        }
+      ],
+      "narration": "Abre el panel de extensiones, con el icono de cuadritos o con Control, Shift y X. Busca Claude Code o Codex y pulsa Instalar. Cuando termine, inicia sesión con tu cuenta.",
+      "duration": 11.468
+    },
+    {
+      "id": "open-folder",
+      "type": "visual",
+      "title": "Abre una carpeta nueva",
+      "visual": "open-folder",
+      "items": [
+        {
+          "icon": "📂",
+          "label": "mis-videojuegos"
+        }
+      ],
+      "narration": "Ahora abre una carpeta de trabajo. En la pantalla de bienvenida pulsa Abrir carpeta. En la ventana que aparece, usa el botón Nueva carpeta, llámala mis-videojuegos y ábrela. Si el editor pregunta si confías en los autores, responde que sí. Ahí construiremos nuestra aplicación.",
+      "duration": 17.01466666666667
+    },
+    {
+      "id": "open-chat",
+      "type": "visual",
+      "title": "Abre el chat del agente",
+      "visual": "open-chat",
+      "items": [
+        {
+          "icon": "📂",
+          "label": "mis-videojuegos"
+        }
+      ],
+      "narration": "Ahora abre el chat del agente. En Claude Code, pulsa su icono, arriba a la derecha del editor. En Codex, usa su icono en la barra lateral. Se abrirá un panel con una caja para escribirle: ahí pegaremos nuestro mensaje.",
+      "duration": 13.558666666666666
+    },
+    {
+      "id": "game-library",
+      "type": "visual",
+      "title": "Una biblioteca de videojuegos",
+      "visual": "app-preview",
+      "cards": [
+        {
+          "label": "Commander Keen 4",
+          "detail": "1991",
+          "image": "keen.jpg"
+        },
+        {
+          "label": "Another World",
+          "detail": "1991",
+          "image": "another-world.png"
+        },
+        {
+          "label": "Prince of Persia",
+          "detail": "1989",
+          "image": "prince-of-persia.jpg"
+        },
+        {
+          "label": "Prince of Persia 2",
+          "detail": "1993",
+          "image": "prince-of-persia-2.jpg"
+        },
+        {
+          "label": "Super Mario World",
+          "detail": "1990",
+          "image": "super-mario-world.png"
+        },
+        {
+          "label": "Simon the Sorcerer 2",
+          "detail": "1995",
+          "image": "simon-2.png"
+        }
+      ],
+      "items": [
+        {
+          "icon": "👤",
+          "label": "Usuario"
+        },
+        {
+          "icon": "🛡️",
+          "label": "Administrador"
+        }
+      ],
+      "group": "que-vamos-a-construir",
+      "groupTitle": "Qué vamos a construir",
+      "narration": "Vamos a crear una biblioteca de videojuegos con portadas, búsqueda y favoritos. Tendremos usuarios normales y un administrador que podrá agregar, editar y eliminar juegos. También podremos cambiar de usuario con un clic.",
+      "duration": 13.985333333333333
+    },
+    {
+      "id": "concept-frontend",
+      "type": "visual",
+      "title": "Frontend: lo que ves",
+      "visual": "frontend",
+      "cards": [
+        {
+          "label": "Commander Keen 4",
+          "detail": "1991",
+          "image": "keen.jpg"
+        },
+        {
+          "label": "Another World",
+          "detail": "1991",
+          "image": "another-world.png"
+        },
+        {
+          "label": "Prince of Persia",
+          "detail": "1989",
+          "image": "prince-of-persia.jpg"
+        },
+        {
+          "label": "Prince of Persia 2",
+          "detail": "1993",
+          "image": "prince-of-persia-2.jpg"
+        }
+      ],
+      "items": [
+        {
+          "icon": "🔍",
+          "label": "Búsqueda",
+          "detail": "Escribes y filtras los juegos"
+        },
+        {
+          "icon": "🔘",
+          "label": "Botones",
+          "detail": "Agregar, favoritos, cambiar usuario"
+        },
+        {
+          "icon": "📝",
+          "label": "Formularios",
+          "detail": "Los datos que escribes"
+        }
+      ],
+      "group": "que-vamos-a-construir",
+      "groupTitle": "Qué vamos a construir",
+      "narration": "Una aplicación web moderna tiene varios componentes. El frontend, o cliente, es lo que vemos directamente en el navegador: los botones y los formularios con los que interactuamos. Lo construiremos con React.",
+      "duration": 13.046666666666667
+    },
+    {
+      "id": "concept-backend",
+      "type": "visual",
+      "title": "Backend: quien recibe las peticiones",
+      "visual": "backend",
+      "steps": [
+        "Muéstrame la información",
+        "Modifícame este campo",
+        "Guárdame esto",
+        "Bórrame aquello"
+      ],
+      "items": [
+        {
+          "icon": "📥",
+          "label": "Recibe la petición",
+          "detail": "Llega desde el navegador"
+        },
+        {
+          "icon": "🛡️",
+          "label": "Hace validaciones",
+          "detail": "¿Tienes permiso? ¿Los datos son correctos?"
+        },
+        {
+          "icon": "▶️",
+          "label": "Ejecuta la acción",
+          "detail": "Muestra, modifica, guarda o borra"
+        }
+      ],
+      "group": "que-vamos-a-construir",
+      "groupTitle": "Qué vamos a construir",
+      "narration": "El backend, o servidor, es el encargado de recibir las peticiones del navegador. Por ejemplo: muéstrame la información, modifícame este campo, guárdame esto, bórrame aquello. Recibe la petición, hace las validaciones y ejecuta las acciones. Usaremos ASP.NET Core.",
+      "duration": 16.417333333333335
+    },
+    {
+      "id": "concept-database",
+      "type": "visual",
+      "title": "Base de datos: donde se guarda",
+      "visual": "database",
+      "steps": [
+        "Guardar|Marcas un favorito y el backend lo escribe en la base de datos",
+        "Apagar|Apagas la aplicación, pero los datos siguen guardados en la base de datos",
+        "Volver a abrir|La enciendes de nuevo: el backend lee la base de datos y el favorito sigue ahí"
+      ],
+      "items": [
+        {
+          "label": "Commander Keen 4",
+          "icon": "🎮",
+          "detail": "1991",
+          "image": "keen.jpg"
+        },
+        {
+          "label": "Another World",
+          "icon": "🎮",
+          "detail": "1991",
+          "image": "another-world.png"
+        }
+      ],
+      "group": "que-vamos-a-construir",
+      "groupTitle": "Qué vamos a construir",
+      "narration": "La base de datos es donde el backend guarda la información de forma permanente; es decir, la persiste. Si marcamos un favorito, el backend lo escribe en la base de datos. Aunque apaguemos la aplicación, el dato sigue guardado; y al volver a encenderla, el backend lo lee y lo muestra. Usaremos SQLite.",
+      "duration": 18.038666666666668
+    },
+    {
+      "id": "concept-docker",
+      "type": "visual",
+      "title": "Docker: la caja que lo contiene",
+      "visual": "docker",
+      "steps": [
+        "React · el frontend",
+        "ASP.NET Core · el backend",
+        "SQLite · los datos",
+        "Todas sus dependencias"
+      ],
+      "items": [
+        {
+          "icon": "🪟",
+          "label": "Windows"
+        },
+        {
+          "icon": "🍎",
+          "label": "macOS"
+        },
+        {
+          "icon": "🐧",
+          "label": "Linux"
+        }
+      ],
+      "group": "que-vamos-a-construir",
+      "groupTitle": "Qué vamos a construir",
+      "narration": "Además usaremos Docker, que nos permite ejecutar la aplicación en contenedores, sin tener que instalar cosas directamente en nuestra máquina. Un contenedor reúne toda nuestra aplicación y sus dependencias, y funciona igual en cualquier computador, sin importar el sistema operativo. Así no tenemos que instalar nada y, además, podremos llevar la aplicación a cualquier lado.",
+      "duration": 21.452
+    },
+    {
+      "id": "what-is-prompt",
+      "type": "visual",
+      "title": "¿Qué es un prompt?",
+      "visual": "timeline",
+      "items": [
+        {
+          "icon": "✍️",
+          "label": "Describes lo que quieres",
+          "detail": "en lenguaje natural"
+        },
+        {
+          "icon": "📝",
+          "label": "El prompt",
+          "detail": "un mensaje de texto"
+        },
+        {
+          "icon": "🤖",
+          "label": "El agente en VS Code",
+          "detail": "lo interpreta"
+        },
+        {
+          "icon": "🎮",
+          "label": "Construye la aplicación",
+          "detail": "lo que describiste"
+        }
+      ],
+      "group": "el-prompt",
+      "groupTitle": "El prompt",
+      "narration": "Ahora vamos a pedirle al agente que construya la aplicación. Lo haremos con un prompt: un mensaje en lenguaje natural que le enviamos al agente en el chat de VS Code. El agente lo interpreta y construye lo que describimos.",
+      "duration": 13.814666666666666
+    },
+    {
+      "id": "prompt-anatomy",
+      "type": "visual",
+      "title": "Cómo está armado nuestro prompt",
+      "visual": "prompt-anatomy",
+      "focus": 3,
+      "items": [
+        {
+          "icon": "🎯",
+          "label": "Qué construir",
+          "detail": "Una biblioteca web de videojuegos"
+        },
+        {
+          "icon": "🧰",
+          "label": "Con qué tecnologías",
+          "detail": "React, ASP.NET Core, SQLite y Docker Compose"
+        },
+        {
+          "icon": "✅",
+          "label": "Qué funcionalidades",
+          "detail": "Catálogo, favoritos, cambio de usuario y administrador"
+        },
+        {
+          "icon": "🔎",
+          "label": "Cómo verificar",
+          "detail": "Ejecuta la aplicación y haz clics como un usuario real"
+        }
+      ],
+      "group": "el-prompt",
+      "groupTitle": "El prompt",
+      "narration": "Revisa y lee el prompt, para que veas cómo se puede hacer. El prompt puede ser de muchas formas, tener más o menos detalle: depende de cada caso y de cuánto quieras dejar abierto para la IA. En nuestro caso vamos a definir qué queremos que construya la IA, con qué tecnologías y qué funcionalidades. Y, muy importante, le decimos a la IA misma cómo debe verificar que su trabajo realmente funciona: le pedimos que ejecute lo que construyó y que haga clics como un usuario real, para comprobar que la aplicación está correctamente implementada.",
+      "duration": 31.649333333333335
+    },
+    {
+      "id": "choose-model",
+      "type": "visual",
+      "title": "Elige el modelo",
+      "visual": "model-picker",
+      "focus": 0,
+      "items": [
+        {
+          "icon": "🧠",
+          "label": "Opus · Sol en Codex",
+          "detail": "Más capaz, para tareas largas y complejas",
+          "steps": [
+            "Planifica y verifica mejor",
+            "Más lento",
+            "Consume más del plan"
+          ]
+        },
+        {
+          "icon": "⚡",
+          "label": "Sonnet · Luna en Codex",
+          "detail": "Más ligero, para cambios pequeños",
+          "steps": [
+            "Responde rápido",
+            "Gasta menos"
+          ]
+        }
+      ],
+      "group": "modelos-y-uso",
+      "groupTitle": "Modelos y uso",
+      "narration": "El modelo es el cerebro que usa el agente, y no todos sirven para lo mismo. Uno más capaz, como Opus, o Sol si usas Codex, planifica y verifica mejor, pero es más lento y consume más de tu plan. Uno más ligero, como Sonnet, o Luna en Codex, responde rápido y gasta menos: ideal para ajustes pequeños. Para construir toda la aplicación, elige el más capaz; para retocarla, uno ligero. Cámbialo con el selector de modelo del chat.",
+      "duration": 24.24666666666667
+    },
+    {
+      "id": "plan-usage",
+      "type": "visual",
+      "title": "Cuánto te queda del plan",
+      "visual": "usage-panel",
+      "steps": [
+        "Abre la configuración de Claude Code",
+        "Entra a Account & usage",
+        "Pulsa View details"
+      ],
+      "items": [
+        {
+          "label": "Session (5hr)",
+          "detail": "Se reinicia en 3 h",
+          "value": 18
+        },
+        {
+          "label": "Weekly (7 day)",
+          "detail": "Se reinicia en 4 días",
+          "value": 42
+        }
+      ],
+      "group": "modelos-y-uso",
+      "groupTitle": "Modelos y uso",
+      "narration": "Los planes tienen un límite de uso. En Claude Code, para ver cuánto te queda, abre la configuración en VS Code, entra a Account and usage y pulsa View details: verás el uso de la sesión de cinco horas y de la semana, y cuándo se reinician. También puedes escribir slash usage en el chat. En Codex, revisa el uso en tu cuenta de ChatGPT. Construye con el modelo capaz, pero vigila ese consumo.",
+      "duration": 22.582666666666668
+    },
+    {
+      "id": "authorize-prompt",
+      "type": "visual",
+      "title": "Autoriza, copia y envía",
+      "visual": "prompt-flow",
+      "items": [
+        {
+          "icon": "☑️",
+          "label": "1. Acepto"
+        },
+        {
+          "icon": "📋",
+          "label": "2. Copiar el prompt"
+        },
+        {
+          "icon": "💬",
+          "label": "3. Pegarlo en el chat del agente y enviar"
+        }
+      ],
+      "narration": "Lee la autorización: el prompt le pide al agente que instale programas en tu computador. Si estás de acuerdo, marca Acepto, copia el prompt, pégalo en el chat del agente en VS Code y envíalo.",
+      "duration": 12.598666666666666
+    },
+    {
+      "id": "agent-builds",
+      "type": "visual",
+      "title": "El agente construye la aplicación",
+      "visual": "agent-work",
+      "steps": [
+        "Detecté tu sistema operativo",
+        "Instalé Docker y sus componentes",
+        "Escribí el backend y el frontend",
+        "Ejecuté la aplicación con Docker",
+        "La probé en el navegador",
+        "Te di la dirección: http://localhost:3000"
+      ],
+      "narration": "Al enviar el mensaje, el agente trabaja solo: detecta tu sistema, instala lo que falte, escribe el código, ejecuta la aplicación con Docker y la prueba en el navegador. Al final te da la dirección para abrirla. Puede tardar varios minutos y pedirte permisos. Léelos y acéptalos solo si estás de acuerdo.",
+      "duration": 18.401333333333334
+    },
+    {
+      "id": "verify-app",
+      "type": "visual",
+      "title": "Verifica la aplicación",
+      "visual": "app-preview",
+      "cards": [
+        {
+          "label": "Commander Keen 4",
+          "detail": "1991",
+          "image": "keen.jpg"
+        },
+        {
+          "label": "Another World",
+          "detail": "1991",
+          "image": "another-world.png"
+        },
+        {
+          "label": "Prince of Persia",
+          "detail": "1989",
+          "image": "prince-of-persia.jpg"
+        },
+        {
+          "label": "Prince of Persia 2",
+          "detail": "1993",
+          "image": "prince-of-persia-2.jpg"
+        },
+        {
+          "label": "Super Mario World",
+          "detail": "1990",
+          "image": "super-mario-world.png"
+        },
+        {
+          "label": "Simon the Sorcerer 2",
+          "detail": "1995",
+          "image": "simon-2.png"
+        }
+      ],
+      "items": [
+        {
+          "icon": "👤",
+          "label": "Usuario"
+        },
+        {
+          "icon": "🛡️",
+          "label": "Administrador"
+        }
+      ],
+      "steps": [
+        "Abre el navegador",
+        "Escribe la dirección que te dio el agente",
+        "Prueba los botones y cambia de usuario",
+        "💡 ¿No está corriendo? Díselo al agente: «Ejecuta la aplicación y dame la dirección»"
+      ],
+      "narration": "Ya tenemos una aplicación, y el agente la dejó corriendo. Tú solo abre el navegador y escribe la dirección que te dio, por ejemplo localhost dos puntos tres mil. Ahora comprueba la aplicación: usa sus botones, cambia de usuario y prueba sus funciones. Si algo falla, díselo al agente para que lo corrija. Y si la aplicación no está corriendo, también se lo puedes pedir: dile que la ejecute y te dé la dirección.",
+      "duration": 22.945333333333334
+    },
+    {
+      "id": "first-change",
+      "type": "visual",
+      "title": "Tu primer cambio",
+      "visual": "choices",
+      "items": [
+        {
+          "icon": "🌗",
+          "label": "Colores",
+          "detail": "Agrega un botón para cambiar entre tema claro y oscuro"
+        },
+        {
+          "icon": "⭐",
+          "label": "Puntuación",
+          "detail": "Permite puntuar los videojuegos de una a cinco estrellas"
+        },
+        {
+          "icon": "🔀",
+          "label": "Orden",
+          "detail": "Permite ordenar por título, año o género"
+        }
+      ],
+      "narration": "Ahora te toca a ti. Elige un cambio, pídeselo al agente y comprueba el resultado en el navegador.",
+      "duration": 6.710666666666667
+    },
+    {
+      "id": "closing",
+      "type": "visual",
+      "title": "De una carpeta vacía a una aplicación",
+      "visual": "timeline",
+      "items": [
+        {
+          "icon": "📂",
+          "label": "Carpeta vacía"
+        },
+        {
+          "icon": "💬",
+          "label": "Un prompt"
+        },
+        {
+          "icon": "🤖",
+          "label": "El agente construye"
+        },
+        {
+          "icon": "✅",
+          "label": "Aplicación que funciona"
+        }
+      ],
+      "narration": "Empezamos con una carpeta vacía y terminamos con una aplicación que funciona. Todavía no entendemos todo su código. En las siguientes lecciones aprenderemos a comprenderlo y a tomar mejores decisiones al trabajar con inteligencia artificial.",
+      "duration": 15.329333333333333
+    }
+  ],
+  "exercises": [
+    {
+      "id": "quiz-why-ai",
+      "afterScene": "why-ai",
+      "type": "multiple-choice",
+      "prompt": "¿Qué papel tiene la inteligencia artificial en este curso?",
+      "choices": [
+        "Reemplaza por completo a la persona, que ya no debe revisar nada ni pensar.",
+        "Trabaja como agentes que escriben y corrigen código, y tú diriges y validas.",
+        "Sirve únicamente para buscar información en internet."
+      ],
+      "answer": 1,
+      "explanation": "Los agentes multiplican lo que podemos crear, pero no son infalibles: siempre comprobamos el resultado."
+    },
+    {
+      "id": "quiz-browser",
+      "afterScene": "browser-intro",
+      "type": "multiple-choice",
+      "prompt": "¿Qué ventaja nos da usar una aplicación web en el navegador?",
+      "choices": [
+        "Entramos escribiendo una dirección, sin instalarla en el computador",
+        "Hay que instalarla antes en cada computador",
+        "Solo funciona si descargamos un archivo"
+      ],
+      "answer": 0,
+      "explanation": "Con solo escribir una dirección ya estamos dentro de la aplicación, sin instalar nada."
+    },
+    {
+      "id": "check-download",
+      "afterScene": "download-editor",
+      "type": "checkpoint",
+      "prompt": "Ya descargué Visual Studio Code (o ya lo tenía)",
+      "explanation": "¡Listo! Sigue con la instalación."
+    },
+    {
+      "id": "check-install",
+      "afterScene": "install-editor",
+      "type": "checkpoint",
+      "prompt": "Ya instalé y abrí Visual Studio Code",
+      "explanation": "¡Perfecto! Ahora instalaremos tu agente."
+    },
+    {
+      "id": "check-extension",
+      "afterScene": "install-extension",
+      "type": "checkpoint",
+      "prompt": "Ya instalé la extensión e inicié sesión",
+      "explanation": "¡Bien! Falta abrir la carpeta de trabajo."
+    },
+    {
+      "id": "check-folder",
+      "afterScene": "open-folder",
+      "type": "checkpoint",
+      "prompt": "Ya abrí la carpeta mis-videojuegos",
+      "explanation": "¡Excelente! Ahora abre el chat del agente."
+    },
+    {
+      "id": "check-chat",
+      "afterScene": "open-chat",
+      "type": "checkpoint",
+      "prompt": "Ya tengo abierto el chat del agente",
+      "explanation": "¡Listo para pedirle la aplicación!"
+    },
+    {
+      "id": "quiz-library",
+      "afterScene": "game-library",
+      "type": "multiple-choice",
+      "prompt": "En la biblioteca, ¿qué puede hacer el administrador que un usuario normal no puede?",
+      "choices": [
+        "Agregar, editar y eliminar videojuegos",
+        "Marcar favoritos",
+        "Buscar juegos y cambiar de usuario"
+      ],
+      "answer": 0,
+      "explanation": "El usuario normal explora y guarda favoritos; solo el administrador gestiona el catálogo."
+    },
+    {
+      "id": "quiz-frontend",
+      "afterScene": "concept-frontend",
+      "type": "multiple-choice",
+      "prompt": "En una aplicación web, ¿qué es el frontend?",
+      "choices": [
+        "Lo que vemos y usamos en el navegador, como botones y formularios",
+        "El programa que guarda los datos",
+        "El contenedor que ejecuta la aplicación"
+      ],
+      "answer": 0,
+      "explanation": "El frontend, o cliente, es la parte que vemos y con la que interactuamos. Lo construiremos con React."
+    },
+    {
+      "id": "quiz-backend",
+      "afterScene": "concept-backend",
+      "type": "multiple-choice",
+      "prompt": "Pides «borra este juego» en el navegador. ¿Quién valida la petición y ejecuta la acción?",
+      "choices": [
+        "El frontend, que solo muestra los botones",
+        "El backend",
+        "Docker"
+      ],
+      "answer": 1,
+      "explanation": "El backend recibe la petición, hace las validaciones y ejecuta la acción."
+    },
+    {
+      "id": "quiz-backend-validates",
+      "afterScene": "concept-backend",
+      "type": "multiple-choice",
+      "prompt": "Un usuario normal intenta eliminar un juego. ¿Qué debe hacer el backend?",
+      "choices": [
+        "Ejecutarlo, porque el botón estaba visible",
+        "Validar la petición y rechazarla, porque no tiene permiso",
+        "Pedirle a Docker que lo decida"
+      ],
+      "answer": 1,
+      "explanation": "El backend siempre valida antes de ejecutar: no basta con ocultar el botón en el navegador."
+    },
+    {
+      "id": "quiz-database",
+      "afterScene": "concept-database",
+      "type": "multiple-choice",
+      "prompt": "Apagas la aplicación y la vuelves a encender. ¿Por qué tus favoritos siguen ahí?",
+      "choices": [
+        "Porque el backend los guardó en la base de datos, que los conserva aunque la aplicación esté apagada",
+        "Porque el navegador los recuerda siempre",
+        "Porque Docker los vuelve a crear al iniciar"
+      ],
+      "answer": 0,
+      "explanation": "Guardar de forma permanente se llama persistir. La base de datos conserva la información fuera de la aplicación."
+    },
+    {
+      "id": "quiz-docker",
+      "afterScene": "concept-docker",
+      "type": "multiple-choice",
+      "prompt": "¿Qué ventaja nos da Docker?",
+      "choices": [
+        "Ejecutar la aplicación sin instalar todo en el computador, y llevarla a cualquier lado",
+        "Hacer más bonitos los botones",
+        "Guardar los datos en la nube"
+      ],
+      "answer": 0,
+      "explanation": "El contenedor trae la aplicación y sus dependencias, y funciona igual en cualquier sistema operativo."
+    },
+    {
+      "id": "quiz-what-is-prompt",
+      "afterScene": "what-is-prompt",
+      "type": "multiple-choice",
+      "prompt": "¿Qué es un prompt?",
+      "choices": [
+        "Un programa que instalamos en el computador",
+        "Un mensaje en lenguaje natural que le enviamos al agente para que lo interprete y construya lo que describimos",
+        "Una carpeta donde el agente guarda los archivos"
+      ],
+      "answer": 1,
+      "explanation": "El prompt describe en lenguaje natural lo que queremos; el agente lo interpreta y lo construye."
+    },
+    {
+      "id": "quiz-validation",
+      "afterScene": "prompt-anatomy",
+      "type": "multiple-choice",
+      "prompt": "¿Por qué le pedimos a la IA que ejecute la aplicación y haga clics como un usuario real?",
+      "choices": [
+        "Para que el prompt quede más corto",
+        "Para que compruebe por sí misma que lo que construyó realmente funciona",
+        "Para que la aplicación se vea más bonita"
+      ],
+      "answer": 1,
+      "explanation": "Código que parece correcto puede fallar al usarlo. Pedirle que lo ejecute y lo pruebe como un usuario real es la mejor forma de verificar que funciona."
+    },
+    {
+      "id": "quiz-less-detail",
+      "afterScene": "prompt-anatomy",
+      "type": "multiple-choice",
+      "prompt": "Si le damos al agente un prompt con menos detalle, ¿qué suele pasar?",
+      "choices": [
+        "La IA decide por su cuenta lo que falta, y el resultado puede alejarse de lo que querías",
+        "Siempre construye exactamente lo que imaginabas",
+        "No puede construir nada"
+      ],
+      "answer": 0,
+      "explanation": "Menos detalle deja más decisiones abiertas a la IA. Puede servir para explorar, pero el resultado puede ser distinto a lo que esperabas."
+    },
+    {
+      "id": "quiz-more-detail",
+      "afterScene": "prompt-anatomy",
+      "type": "multiple-choice",
+      "prompt": "¿Qué ganamos al dar más detalle en el prompt?",
+      "choices": [
+        "Más control sobre el resultado, a cambio de dejar menos libertad a la IA",
+        "Que la IA ya no necesite verificar su trabajo",
+        "Que el prompt sea mejor en cualquier caso, sin importar lo que busquemos"
+      ],
+      "answer": 0,
+      "explanation": "Más detalle da más control, pero también te obliga a decidir más. Cuánto dejar abierto depende de cada caso."
+    },
+    {
+      "id": "quiz-model-build",
+      "afterScene": "choose-model",
+      "type": "multiple-choice",
+      "prompt": "Para construir la aplicación completa con nuestro prompt, ¿qué modelo conviene?",
+      "choices": [
+        "Opus (Sol, si usas Codex), el más capaz",
+        "Sonnet (Luna, si usas Codex), porque responde más rápido",
+        "Da igual, todos dan el mismo resultado"
+      ],
+      "answer": 0,
+      "explanation": "Construir y verificar una aplicación completa es una tarea larga y compleja, y el modelo más capaz la maneja mejor."
+    },
+    {
+      "id": "quiz-model-small",
+      "afterScene": "choose-model",
+      "type": "multiple-choice",
+      "prompt": "Para cambiar un color de la aplicación, ¿qué modelo suele bastar?",
+      "choices": [
+        "Sonnet (Luna, si usas Codex), más ligero y económico",
+        "Solo Opus (Sol) sirve para hacer cambios",
+        "Ninguno, los cambios se hacen a mano"
+      ],
+      "answer": 0,
+      "explanation": "Un cambio pequeño y claro no necesita el modelo más capaz. Uno ligero responde más rápido y gasta menos de tu plan."
+    },
+    {
+      "id": "check-model",
+      "afterScene": "choose-model",
+      "type": "checkpoint",
+      "prompt": "Ya elegí el modelo en el selector del chat",
+      "explanation": "¡Listo! Ahora veamos cuánto uso te queda."
+    },
+    {
+      "id": "check-usage",
+      "afterScene": "plan-usage",
+      "type": "checkpoint",
+      "prompt": "Ya revisé cuánto me queda de mi plan",
+      "explanation": "¡Bien! Ahora sí, a autorizar y enviar el prompt."
+    },
+    {
+      "id": "authorize-and-copy",
+      "afterScene": "authorize-prompt",
+      "type": "authorization",
+      "prompt": "Permiso para instalar software",
+      "notice": "Este mensaje autoriza al agente a instalar y configurar las herramientas necesarias para ejecutar el proyecto, incluido Docker. Estas operaciones pueden modificar la configuración de tu computador y requerir permisos de administrador o reiniciar el sistema.",
+      "consentLabel": "Acepto y autorizo estas instalaciones y configuraciones para este proyecto.",
+      "buttonLabel": "Copiar prompt completo",
+      "copyText": "Quiero que construyas una biblioteca web de videojuegos. Soy principiante: haz el trabajo y explícame lo esencial con palabras sencillas.\n\nTecnologías: React.js (frontend), ASP.NET Core con C# (backend), SQLite (datos) y Docker Compose para ejecutarlo.\n\nFuncionalidades:\n- Catálogo con portada, título, año, género, plataforma y descripción, con búsqueda y filtros.\n- Cuentas de demostración y botón Cambiar usuario para entrar con un clic.\n- Administrador: agregar, editar y eliminar videojuegos.\n- Usuario normal: explorar y marcar favoritos, sin editar el catálogo.\n- Validar los permisos también en el backend.\n- Conservar datos y favoritos al reiniciar.\n\nDiseño: inspirado en Steam, tonos azules oscuros, portadas y adaptación a pantallas pequeñas.\n\nVideojuegos iniciales:\n- Commander Keen 4: Secret of the Oracle (1991).\n- Another World (1991).\n- Prince of Persia (1989).\n- Prince of Persia 2: The Shadow and the Flame (1993).\n- Super Mario World (1990).\n- Simon the Sorcerer 2 (1995).\n\nUtiliza portadas reales de fuentes accesibles o imágenes de reemplazo.\n\nInstalación:\nTe autorizo a instalar y configurar las dependencias necesarias, incluido Docker y sus componentes.\nDetecta mi sistema operativo e instala lo que falte, sin limitarte a darme instrucciones. Si necesitas permisos de administrador o reiniciar, solicítame intervenir.\nNo borres archivos personales ni realices cambios ajenos al proyecto.\nTrabaja en la carpeta actual, ejecuta la aplicación con Docker y dame la dirección para abrirla.\n\nVerificación:\nAntes de terminar, abre la aplicación en un navegador y comprueba que realmente funciona. Haz clic en los botones, cambia de usuario, agrega y edita videojuegos y prueba las funciones principales.\nSi algo falla, corrígelo y vuelve a comprobar. Si no puedes controlar el navegador, indícalo y guíame para verificar la aplicación.\n\nAl terminar, explícame brevemente qué construiste y cómo iniciar y detener la aplicación.\n\nToma decisiones razonables sin preguntarme cada detalle. Las cuentas de demostración son solo para uso educativo local.",
+      "explanation": "El prompt quedó copiado. Pégalo en el chat del agente; copiarlo no ejecuta ninguna instalación."
+    },
+    {
+      "id": "quiz-authorize-prompt",
+      "afterScene": "authorize-prompt",
+      "type": "multiple-choice",
+      "prompt": "¿Qué ocurre al copiar el prompt?",
+      "choices": [
+        "Se instala todo automáticamente en ese momento",
+        "No se ejecuta nada: el agente actúa solo cuando tú lo envías, y el sistema aún puede pedir permisos",
+        "El computador se reinicia"
+      ],
+      "answer": 1,
+      "explanation": "Copiar no ejecuta nada. Solo marcas «Acepto» si estás de acuerdo y luego envías el mensaje al agente."
+    },
+    {
+      "id": "check-sent",
+      "afterScene": "authorize-prompt",
+      "type": "checkpoint",
+      "prompt": "Ya copié el prompt y se lo envié al agente",
+      "explanation": "¡Enviado! Veamos qué hace el agente."
+    },
+    {
+      "id": "quiz-agent-builds",
+      "afterScene": "agent-builds",
+      "type": "multiple-choice",
+      "prompt": "Mientras el agente trabaja, ¿qué haces si te pide permisos?",
+      "choices": [
+        "Los lees y aceptas solo si estás de acuerdo",
+        "Los aceptas sin leer",
+        "Cierras el editor"
+      ],
+      "answer": 0,
+      "explanation": "Puede pedir permisos para instalar o ejecutar cosas: léelos antes de aceptar."
+    },
+    {
+      "id": "check-built",
+      "afterScene": "agent-builds",
+      "type": "checkpoint",
+      "prompt": "El agente ya terminó de construir la aplicación",
+      "explanation": "¡Ya tienes una aplicación! Vamos a probarla."
+    },
+    {
+      "id": "quiz-verify-app",
+      "afterScene": "verify-app",
+      "type": "multiple-choice",
+      "prompt": "¿Quién ejecuta la aplicación?",
+      "choices": [
+        "Tú, instalando cada herramienta a mano",
+        "El agente la ejecuta y te da la dirección; tú solo abres el navegador",
+        "Se ejecuta sola al copiar el prompt"
+      ],
+      "answer": 1,
+      "explanation": "Si no está corriendo, pídeselo al agente, por ejemplo «Ejecuta la aplicación y dame la dirección»."
+    },
+    {
+      "id": "check-opened",
+      "afterScene": "verify-app",
+      "type": "checkpoint",
+      "prompt": "Ya abrí la aplicación en el navegador y la probé",
+      "explanation": "¡Muy bien! Ahora haremos un cambio."
+    },
+    {
+      "id": "change-colors",
+      "afterScene": "first-change",
+      "type": "prompt-copy",
+      "prompt": "Opción 1: colores",
+      "copyText": "Agrega un botón para cambiar entre tema claro y oscuro y recuerda mi preferencia. Comprueba el cambio en el navegador y corrige cualquier problema que encuentres.",
+      "explanation": "Instrucción copiada. Pégala en el chat del agente y comprueba ambos temas."
+    },
+    {
+      "id": "change-rating",
+      "afterScene": "first-change",
+      "type": "prompt-copy",
+      "prompt": "Opción 2: puntuación",
+      "copyText": "Permite que cada usuario puntúe los videojuegos de una a cinco estrellas. Conserva las puntuaciones al reiniciar y comprueba el cambio en el navegador.",
+      "explanation": "Instrucción copiada. Pégala en el chat del agente y prueba varias puntuaciones."
+    },
+    {
+      "id": "change-order",
+      "afterScene": "first-change",
+      "type": "prompt-copy",
+      "prompt": "Opción 3: orden",
+      "copyText": "Permite ordenar los videojuegos por título, año o género. Comprueba cada opción en el navegador y corrige cualquier problema que encuentres.",
+      "explanation": "Instrucción copiada. Pégala en el chat del agente y prueba los tres criterios."
+    },
+    {
+      "id": "quiz-first-change",
+      "afterScene": "first-change",
+      "type": "multiple-choice",
+      "prompt": "¿Cómo compruebas que tu primer cambio quedó bien?",
+      "choices": [
+        "Confiando en que el agente no se equivoca",
+        "Abriendo la aplicación en el navegador y probando el cambio",
+        "Leyendo todo el código"
+      ],
+      "answer": 1,
+      "explanation": "Siempre se comprueba el resultado en el navegador."
+    },
+    {
+      "id": "check-change",
+      "afterScene": "first-change",
+      "type": "checkpoint",
+      "prompt": "Ya le pedí un cambio al agente y lo comprobé en el navegador",
+      "explanation": "¡Lo lograste! Ya programaste con IA."
+    }
+  ],
+  "producedAt": "2026-10-30T17:13:55.128Z",
+  "sourceHash": "4a66df61a87797b94c0ebaeb555bc19e02be8f16bc5f7cfcc76c20cba2e1f8d1",
+  "audio": [
+    {
+      "sceneId": "why-ai",
+      "src": "audio/3e69620b6719bca430b6330c8ff886da8414b46214cae200ac42b9f09205a0fb.wav",
+      "duration": 22.528,
+      "provider": "kokoro",
+      "cacheKey": "3e69620b6719bca430b6330c8ff886da8414b46214cae200ac42b9f09205a0fb"
+    },
+    {
+      "sceneId": "browser-intro",
+      "src": "audio/e9e831de1815b11304691cd3231b9453c941b05b39764f3c6884f147cc94ddbd.wav",
+      "duration": 18.858666666666668,
+      "provider": "kokoro",
+      "cacheKey": "e9e831de1815b11304691cd3231b9453c941b05b39764f3c6884f147cc94ddbd"
+    },
+    {
+      "sceneId": "download-editor",
+      "src": "audio/470279f6c231f251a218d2de559a7674eb80a90854de191ecb3e0fe60980020f.wav",
+      "duration": 15.872,
+      "provider": "kokoro",
+      "cacheKey": "470279f6c231f251a218d2de559a7674eb80a90854de191ecb3e0fe60980020f"
+    },
+    {
+      "sceneId": "install-editor",
+      "src": "audio/86d9adb52ba909dc269cb6fc3405a8f6ca485dfbf000c5804db89a6705e9a72f.wav",
+      "duration": 18.133333333333333,
+      "provider": "kokoro",
+      "cacheKey": "86d9adb52ba909dc269cb6fc3405a8f6ca485dfbf000c5804db89a6705e9a72f"
+    },
+    {
+      "sceneId": "install-extension",
+      "src": "audio/97e51c2e9ae3f026089b709b9495b92471d7ad3602f909f169db99ee9d5ca037.wav",
+      "duration": 10.368,
+      "provider": "kokoro",
+      "cacheKey": "97e51c2e9ae3f026089b709b9495b92471d7ad3602f909f169db99ee9d5ca037"
+    },
+    {
+      "sceneId": "open-folder",
+      "src": "audio/b4bc33288de95f0e52844492729ef33a5a5996b8509ea0137388450f502d05b7.wav",
+      "duration": 15.914666666666667,
+      "provider": "kokoro",
+      "cacheKey": "b4bc33288de95f0e52844492729ef33a5a5996b8509ea0137388450f502d05b7"
+    },
+    {
+      "sceneId": "open-chat",
+      "src": "audio/5c95f064d42526b35a729bac7fae611af24bd5c7224dfef06579efa93a4b33ba.wav",
+      "duration": 12.458666666666666,
+      "provider": "kokoro",
+      "cacheKey": "5c95f064d42526b35a729bac7fae611af24bd5c7224dfef06579efa93a4b33ba"
+    },
+    {
+      "sceneId": "game-library",
+      "src": "audio/d04500be1d9383f04fd766ae430da567ad9973b0145bc23fbcf970567a7413fd.wav",
+      "duration": 12.885333333333334,
+      "provider": "kokoro",
+      "cacheKey": "d04500be1d9383f04fd766ae430da567ad9973b0145bc23fbcf970567a7413fd"
+    },
+    {
+      "sceneId": "concept-frontend",
+      "src": "audio/83661c6637d89aedb2b76ee5f0a34e2c587462a44c82413a94e9c39085cacc48.wav",
+      "duration": 11.946666666666667,
+      "provider": "kokoro",
+      "cacheKey": "83661c6637d89aedb2b76ee5f0a34e2c587462a44c82413a94e9c39085cacc48"
+    },
+    {
+      "sceneId": "concept-backend",
+      "src": "audio/c816eedf8da8b9ffe5322890d05de391a39dc13c74a32448b490dc2a1c9a6658.wav",
+      "duration": 15.317333333333334,
+      "provider": "kokoro",
+      "cacheKey": "c816eedf8da8b9ffe5322890d05de391a39dc13c74a32448b490dc2a1c9a6658"
+    },
+    {
+      "sceneId": "concept-database",
+      "src": "audio/5abdadbf68d4dc3c6f52dc9939e7a838871860b4ac03cd3fce485bff8a915633.wav",
+      "duration": 16.938666666666666,
+      "provider": "kokoro",
+      "cacheKey": "5abdadbf68d4dc3c6f52dc9939e7a838871860b4ac03cd3fce485bff8a915633"
+    },
+    {
+      "sceneId": "concept-docker",
+      "src": "audio/815c34174f904f6124400a8fe4f44f33a43da59434aa47164e4db100426c4983.wav",
+      "duration": 20.352,
+      "provider": "kokoro",
+      "cacheKey": "815c34174f904f6124400a8fe4f44f33a43da59434aa47164e4db100426c4983"
+    },
+    {
+      "sceneId": "what-is-prompt",
+      "src": "audio/59238cd9621c23dd64737d70e8fa03b68428a97a30d3d83785137e4e776b12d9.wav",
+      "duration": 12.714666666666666,
+      "provider": "kokoro",
+      "cacheKey": "59238cd9621c23dd64737d70e8fa03b68428a97a30d3d83785137e4e776b12d9"
+    },
+    {
+      "sceneId": "prompt-anatomy",
+      "src": "audio/07d677ccfdc1f9d32dc2a2fd168555021e7b40a4ec88317dac818f47e67737bd.wav",
+      "duration": 30.549333333333333,
+      "provider": "kokoro",
+      "cacheKey": "07d677ccfdc1f9d32dc2a2fd168555021e7b40a4ec88317dac818f47e67737bd"
+    },
+    {
+      "sceneId": "choose-model",
+      "src": "audio/b7de00fd62020fa14f625d8f5fc1bd6a7846068283d2d2e11859f11e7cabbc59.wav",
+      "duration": 23.14666666666667,
+      "provider": "kokoro",
+      "cacheKey": "b7de00fd62020fa14f625d8f5fc1bd6a7846068283d2d2e11859f11e7cabbc59"
+    },
+    {
+      "sceneId": "plan-usage",
+      "src": "audio/7ac136d5b883e60613b1dc987d87e4202e075c51c9f516d46cb76c38a29f1168.wav",
+      "duration": 21.482666666666667,
+      "provider": "kokoro",
+      "cacheKey": "7ac136d5b883e60613b1dc987d87e4202e075c51c9f516d46cb76c38a29f1168"
+    },
+    {
+      "sceneId": "authorize-prompt",
+      "src": "audio/2cdd3047383edc8231ef76e8c250dff9c3d5a8b13524b2845081ddcd6ea26e25.wav",
+      "duration": 11.498666666666667,
+      "provider": "kokoro",
+      "cacheKey": "2cdd3047383edc8231ef76e8c250dff9c3d5a8b13524b2845081ddcd6ea26e25"
+    },
+    {
+      "sceneId": "agent-builds",
+      "src": "audio/11ec63fbf186b5c1af6c918dcd93526e67bb4fe66f622666f0edd0b4161da3d2.wav",
+      "duration": 17.301333333333332,
+      "provider": "kokoro",
+      "cacheKey": "11ec63fbf186b5c1af6c918dcd93526e67bb4fe66f622666f0edd0b4161da3d2"
+    },
+    {
+      "sceneId": "verify-app",
+      "src": "audio/0da94deadf0a2243d5bc6ca522d29f0cb07824783707999f7c435a91ced4cfad.wav",
+      "duration": 21.845333333333333,
+      "provider": "kokoro",
+      "cacheKey": "0da94deadf0a2243d5bc6ca522d29f0cb07824783707999f7c435a91ced4cfad"
+    },
+    {
+      "sceneId": "first-change",
+      "src": "audio/2c38492f23d314e285ad403d0a1b99d8ae7689e6627ef78a621293bf020c555d.wav",
+      "duration": 5.610666666666667,
+      "provider": "kokoro",
+      "cacheKey": "2c38492f23d314e285ad403d0a1b99d8ae7689e6627ef78a621293bf020c555d"
+    },
+    {
+      "sceneId": "closing",
+      "src": "audio/0f5a2cc2e98e512f20c8b245487509791e2d56bc2879efee4150c98c38a680f8.wav",
+      "duration": 14.229333333333333,
+      "provider": "kokoro",
+      "cacheKey": "0f5a2cc2e98e512f20c8b245487509791e2d56bc2879efee4150c98c38a680f8"
+    }
+  ],
+  "totalDuration": 373.0520000000001
+}
