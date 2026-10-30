@@ -91,12 +91,15 @@ items:
   - icon: 🤝
     label: "http://"
     detail: Protocolo
+    at: "Empieza con http"
   - icon: 🖥️
     label: "localhost:5080"
     detail: Servidor
+    at: "Después viene el lugar"
   - icon: 📋
     label: "/api/tareas"
     detail: Recurso
+    at: "al final, el recurso"
 ```
 
 #### Petición y respuesta
@@ -113,6 +116,12 @@ steps:
   - "La base de datos entrega los datos"
   - "El backend devuelve una respuesta HTTP"
   - "El frontend procesa la respuesta"
+stepAt:
+  - "Cuando el frontend"
+  - "que llega hasta"
+  - "la base de datos"
+  - "El backend devuelve"
+  - "y el frontend la procesa"
 items:
   - icon: 🖥️
     label: Frontend
@@ -144,7 +153,15 @@ Antes de usar nuestra aplicación de tareas, veamos un ejemplo muy pequeño. En 
 id: hello-controller
 type: code
 language: csharp
-focus: [[4], [6], [8, 9], [11]]
+focus:
+  - lines: [4]
+    at: "quien recibe las peticiones"
+  - lines: [2, 3, 4]
+    at: "Vamos a crear uno para usuarios"
+  - lines: [6]
+    at: "Guarda los nombres"
+  - lines: [8, 9, 10, 11, 12]
+    at: "tiene un método para obtenerlos"
 code: |-
   // Ejemplo didáctico: no está en el repositorio
   [ApiController]
@@ -169,7 +186,13 @@ Con otro método agregamos un nombre a la lista, y con otro lo quitamos. Cada m�
 id: hello-controller-more
 type: code
 language: csharp
-focus: [[2, 3], [5], [8, 9], [11]]
+focus:
+  - lines: [2, 3, 4, 5, 6]
+    at: "Con otro método agregamos"
+  - lines: [8, 9, 10, 11, 12]
+    at: "y con otro lo quitamos"
+  - lines: [2, 8]
+    at: "Cada método responde a una dirección distinta"
 code: |-
   // Ejemplo didáctico (continuación)
   [HttpPost("crear")]
@@ -197,22 +220,27 @@ items:
   - icon: 📤
     label: "POST /usuarios/crear?nombre=Ana"
     detail: Agrega a Ana
+    at: "Creamos a Ana"
     steps: [Ana]
   - icon: 📤
     label: "POST /usuarios/crear?nombre=Luis"
     detail: Agrega a Luis
+    at: "y luego a Luis"
     steps: [Ana, Luis]
   - icon: 📥
     label: "GET /usuarios/obtener"
     detail: Devuelve Ana y Luis
+    at: "Al consultar"
     steps: [Ana, Luis]
   - icon: 📤
     label: "POST /usuarios/remover?nombre=Ana"
     detail: Quita a Ana
+    at: "Si quitamos a Ana"
     steps: [Luis]
   - icon: 🔄
     label: Reiniciar la aplicación
     detail: La lista vuelve a estar vacía
+    at: "Si la reiniciamos"
     steps: []
 ```
 
@@ -270,7 +298,11 @@ Así queda el código. Los métodos son los mismos; lo que cambia son los atribu
 id: rest-controller
 type: code
 language: csharp
-focus: [[5], [8], [11]]
+focus:
+  - lines: [6, 9, 12]
+    at: "Los métodos son los mismos"
+  - lines: [5, 8, 11]
+    at: "lo que cambia son los atributos"
 code: |-
   // Ejemplo didáctico: el mismo controlador, RESTful
   [Route("usuarios")]
@@ -338,7 +370,15 @@ Para entender el código necesitamos un concepto importante: la programación or
 id: oop-generic
 type: code
 language: csharp
-focus: [[2], [4], [6], [7, 8]]
+focus:
+  - lines: [2]
+    at: "Organizamos el programa en clases"
+  - lines: [4]
+    at: "Puede tener atributos"
+  - lines: [6]
+    at: "Y puede tener métodos"
+  - lines: [7, 8]
+    at: "Lo que el método hace"
 code: |-
   // Ejemplo genérico: una clase que no hace nada
   public class Ejemplo
@@ -359,7 +399,15 @@ Ahora una clase con sentido. Una tarea tiene un título y un estado. Esos son su
 id: oop-tarea
 type: code
 language: csharp
-focus: [[1], [3], [4]]
+focus:
+  - lines: [1]
+    at: "Ahora una clase con sentido"
+  - lines: [3]
+    at: "un título"
+  - lines: [4]
+    at: "y un estado"
+  - lines: [3, 4]
+    at: "Esos son sus atributos"
 code: |-
   public class Tarea
   {
@@ -376,7 +424,11 @@ El estado no puede ser cualquier texto. Un enum define un conjunto de opciones c
 id: oop-enum
 type: code
 language: csharp
-focus: [[1], [3], [4], [5]]
+focus:
+  - lines: [1]
+    at: "Un enum define"
+  - lines: [3, 4, 5]
+    at: "Estos son los tres estados"
 code: |-
   public enum Status
   {
@@ -394,7 +446,17 @@ Un constructor es un código especial que prepara el objeto cuando lo creamos. S
 id: oop-constructor
 type: code
 language: csharp
-focus: [[6], [8], [9]]
+focus:
+  - lines: [6, 7, 8, 9, 10]
+    at: "Un constructor es"
+  - lines: [1, 6]
+    at: "Se llama igual que la clase"
+  - lines: [6]
+    at: "puede recibir datos"
+  - lines: [8]
+    at: "Aquí recibe el título"
+  - lines: [9]
+    at: "empieza la tarea como pendiente"
 code: |-
   public class Tarea
   {
@@ -417,7 +479,15 @@ Un método es una acción que un objeto puede realizar. Este controlador sencill
 id: oop-method
 type: code
 language: csharp
-focus: [[3], [5], [7]]
+focus:
+  - lines: [5]
+    at: "Un método es"
+  - lines: [3]
+    at: "una lista de tareas"
+  - lines: [5]
+    at: "y un método que las devuelve"
+  - lines: [6, 7, 8]
+    at: "Dentro de las llaves"
 code: |-
   public class TareasController
   {
@@ -438,7 +508,17 @@ Desde fuera de la clase, creamos un objeto con new, que llama al constructor. De
 id: oop-use
 type: code
 language: csharp
-focus: [[1], [2], [4], [5], [7]]
+focus:
+  - lines: [1]
+    at: "creamos un objeto con new"
+  - lines: [2]
+    at: "Después usamos sus propiedades"
+  - lines: [5]
+    at: "y sus métodos"
+  - lines: [1, 2, 4, 5]
+    at: "Todo esto funciona porque están marcados como public"
+  - lines: [7]
+    at: "lo marcamos como private"
 code: |-
   var tarea = new Tarea("Comprar café");
   tarea.Status = Status.InProgress;
