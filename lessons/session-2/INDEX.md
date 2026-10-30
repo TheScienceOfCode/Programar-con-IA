@@ -36,7 +36,7 @@ plain: true
 items:
   - icon: 🖥️
     label: Frontend
-    detail: Pide o muestra los datos
+    detail: Muestra y recolecta información
   - icon: 🔌
     label: API
     detail: Reglas para comunicarse
@@ -77,48 +77,217 @@ items:
 
 ### 3. HTTP: peticiones y respuestas
 
-¿Cómo se comunican estos programas por la web? Usan HTTP, un conjunto de reglas para enviar peticiones y recibir respuestas. Por ejemplo, pedimos nuestras tareas; el servidor las busca y nos devuelve una respuesta con los datos. Si algo falla, también nos lo indica.
+#### La dirección
+
+Cuando abrimos el navegador y vamos a una dirección, esa dirección suele tener una estructura. Empieza con http, que indica el protocolo de comunicación. Es algo muy técnico, pero es lo que permite que programas diferentes puedan comunicarse por internet. Después viene el lugar donde está el servidor y, al final, el recurso que queremos pedir.
+
+```scene
+id: url-anatomy
+type: visual
+visual: url-anatomy
+steps:
+  - "Reglas que permiten que programas diferentes se comuniquen por internet"
+items:
+  - icon: 🤝
+    label: "http://"
+    detail: Protocolo
+  - icon: 🖥️
+    label: "localhost:5080"
+    detail: Servidor
+  - icon: 📋
+    label: "/api/tareas"
+    detail: Recurso
+```
+
+#### Petición y respuesta
+
+Cuando el frontend necesita obtener información, envía una petición http al backend, que llega hasta la base de datos. El backend devuelve una respuesta a esa petición, y el frontend la procesa.
 
 ```scene
 id: http-request-response
 type: visual
-visual: backend
-plain: true
+visual: request-flow
 steps:
-  - "Cliente → servidor: quiero ver mis tareas"
-  - "Servidor: consulta los datos"
-  - "Servidor → cliente: estas son tus tareas"
+  - "El frontend envía una petición HTTP"
+  - "El backend consulta la base de datos"
+  - "La base de datos entrega los datos"
+  - "El backend devuelve una respuesta HTTP"
+  - "El frontend procesa la respuesta"
 items:
-  - icon: 📤
-    label: Petición HTTP
-  - icon: 📥
-    label: Respuesta HTTP
-    detail: "Datos + resultado (por ejemplo, 200 OK)"
+  - icon: 🖥️
+    label: Frontend
+  - icon: ⚙️
+    label: Backend
+  - icon: 💾
+    label: Base de datos
 ```
 
-### 4. REST y RESTful
+### 4. Controladores: un ejemplo de hola mundo
 
-REST es una manera de organizar las API que utilizan HTTP. En lugar de inventar una operación diferente para cada cosa, trabajamos con recursos. En nuestro ejemplo, el recurso es una tarea. Cuando una API sigue estas convenciones, solemos llamarla RESTful.
+```exercise
+id: controller-memory
+type: multiple-choice
+prompt: "Si reiniciamos la aplicación, ¿qué pasa con los nombres guardados en la lista en memoria?"
+choices:
+  - "Desaparecen, porque no se guardaron en una base de datos"
+  - "Se guardan automáticamente en SQLite"
+  - "Pasan al frontend"
+answer: 0
+explanation: "Una lista en memoria vive mientras la aplicación está en marcha. Para conservar datos necesitamos persistirlos."
+```
+
+#### Un controlador de usuarios
+
+Antes de usar nuestra aplicación de tareas, veamos un ejemplo muy pequeño. En una API, quien recibe las peticiones es un controlador: una clase que expone un recurso y tiene métodos que se ejecutan cuando llega una petición. Vamos a crear uno para usuarios. Guarda los nombres en una lista de textos y tiene un método para obtenerlos.
 
 ```scene
-id: rest-concept
-type: visual
-visual: backend
-plain: true
-steps:
-  - "Recurso: tareas"
-  - "Una misma dirección identifica el conjunto"
-  - "El método HTTP indica lo que queremos hacer"
-items:
-  - icon: 📋
-    label: Tareas
-    detail: El recurso
-  - icon: 🔄
-    label: Operaciones
-    detail: Consultar, crear, actualizar, borrar
+id: hello-controller
+type: code
+language: csharp
+focus: [[4], [6], [8, 9], [11]]
+code: |-
+  // Ejemplo didáctico: no está en el repositorio
+  [ApiController]
+  [Route("usuarios")]
+  public class UsuariosController : ControllerBase
+  {
+      static List<string> usuarios = new();
+
+      [HttpGet("obtener")]
+      public List<string> Obtener()
+      {
+          return usuarios;
+      }
+  }
 ```
 
-### 5. Métodos HTTP en nuestra API
+#### Crear y remover
+
+Con otro método agregamos un nombre a la lista, y con otro lo quitamos. Cada método responde a una dirección distinta: obtener, crear y remover.
+
+```scene
+id: hello-controller-more
+type: code
+language: csharp
+focus: [[2, 3], [5], [8, 9], [11]]
+code: |-
+  // Ejemplo didáctico (continuación)
+  [HttpPost("crear")]
+  public void Crear(string nombre)
+  {
+      usuarios.Add(nombre);
+  }
+
+  [HttpPost("remover")]
+  public void Remover(string nombre)
+  {
+      usuarios.Remove(nombre);
+  }
+```
+
+#### Probando el controlador
+
+Hagamos algunas peticiones. Creamos a Ana y luego a Luis. Al consultar, la lista tiene a los dos. Si quitamos a Ana, queda solo Luis. Pero fíjate dónde vive esa lista: en la memoria de la aplicación. Si la reiniciamos, los nombres desaparecen, porque no tenemos una base de datos que los guarde. Así vemos qué es un controlador, cómo expone un recurso, y por qué después necesitaremos persistir la información.
+
+```scene
+id: hello-requests
+type: visual
+visual: memory-list
+items:
+  - icon: 📤
+    label: "POST /usuarios/crear?nombre=Ana"
+    detail: Agrega a Ana
+    steps: [Ana]
+  - icon: 📤
+    label: "POST /usuarios/crear?nombre=Luis"
+    detail: Agrega a Luis
+    steps: [Ana, Luis]
+  - icon: 📥
+    label: "GET /usuarios/obtener"
+    detail: Devuelve Ana y Luis
+    steps: [Ana, Luis]
+  - icon: 📤
+    label: "POST /usuarios/remover?nombre=Ana"
+    detail: Quita a Ana
+    steps: [Luis]
+  - icon: 🔄
+    label: Reiniciar la aplicación
+    detail: La lista vuelve a estar vacía
+    steps: []
+```
+
+### 5. REST y RESTful
+
+#### Convenciones
+
+Existen ciertas convenciones sobre cómo organizar las API, y una de las más usadas es RESTful. En RESTful definimos recursos y, en vez de tener múltiples rutas para crear, consultar o remover, usamos los verbos http. Mira cómo estaba nuestro ejemplo: una ruta distinta para cada acción.
+
+```scene
+id: rest-before
+type: visual
+visual: swagger-mock
+stage: method-map
+header: "Una ruta por acción"
+operations:
+  - method: GET
+    path: /usuarios/obtener
+    caption: Obtener
+  - method: POST
+    path: /usuarios/crear
+    caption: Crear
+  - method: POST
+    path: /usuarios/remover
+    caption: Remover
+```
+
+#### Un recurso, varios verbos
+
+Convirtamos el ejemplo. Ahora el recurso es usuarios, y una misma dirección sirve para todo. GET consulta la lista, POST agrega un usuario y DELETE lo quita. La dirección identifica el recurso, y el verbo indica la acción.
+
+```scene
+id: rest-after
+type: visual
+visual: swagger-mock
+stage: method-map
+header: "RESTful: un recurso, varios verbos"
+operations:
+  - method: GET
+    path: /usuarios
+    caption: Obtener
+  - method: POST
+    path: /usuarios
+    caption: Crear
+  - method: DELETE
+    path: /usuarios/{nombre}
+    caption: Remover
+```
+
+#### El mismo controlador, RESTful
+
+Así queda el código. Los métodos son los mismos; lo que cambia son los atributos que conectan cada método con un verbo.
+
+```scene
+id: rest-controller
+type: code
+language: csharp
+focus: [[5], [8], [11]]
+code: |-
+  // Ejemplo didáctico: el mismo controlador, RESTful
+  [Route("usuarios")]
+  public class UsuariosController : ControllerBase
+  {
+      [HttpGet]
+      public List<string> Obtener() { ... }
+
+      [HttpPost]
+      public void Crear(string nombre) { ... }
+
+      [HttpDelete("{nombre}")]
+      public void Remover(string nombre) { ... }
+  }
+```
+
+### 6. Métodos HTTP en nuestra API
 
 Veamos esas convenciones en acción. GET sirve para consultar. POST, para crear una tarea nueva. PUT, para actualizarla, por ejemplo cuando pasa de pendiente a terminada. Y DELETE, para borrarla. Las direcciones nos dicen sobre qué tareas vamos a trabajar; el método nos dice qué queremos hacer.
 
@@ -159,31 +328,128 @@ answer: 1
 explanation: "PUT actualiza una tarea existente."
 ```
 
-### 6. Programación orientada a objetos
+### 7. Programación orientada a objetos
 
-Para entender el código necesitamos un concepto importante: la programación orientada a objetos. Es una forma de organizar el programa en clases que reúnen datos y comportamientos. Los datos, llamados atributos o propiedades, son por ejemplo el título y el estado de una tarea; los métodos son las acciones que puede realizar. Un constructor prepara el objeto cuando lo creamos, y un enum permite definir opciones conocidas, como los estados de una tarea.
+#### Una clase, un atributo y un método
+
+Para entender el código necesitamos un concepto importante: la programación orientada a objetos. Organizamos el programa en clases, que son moldes para crear objetos. Veamos una clase genérica, que no hace nada. Puede tener atributos, también llamados propiedades: guardan datos, y se escriben con su tipo y su nombre. Y puede tener métodos: son acciones, y se escriben con el tipo que devuelven, su nombre y unos paréntesis. Lo que el método hace va dentro de las llaves.
 
 ```scene
-id: oop-basics
+id: oop-generic
 type: code
 language: csharp
-source: ejemplo-didactico
-show: "Ejemplo inventado SOLO para explicar los conceptos. Resaltar en secuencia clase, propiedad, constructor, método y enum. Mostrar al lado una tarjeta de tarea que cambia a Terminada al invocar Completar()."
+focus: [[2], [4], [6], [7, 8]]
 code: |-
-  enum Estado { Pendiente, EnProgreso, Terminada }
-
-  class TareaEjemplo
+  // Ejemplo genérico: una clase que no hace nada
+  public class Ejemplo
   {
-      public string Titulo { get; set; }
-      public Estado Estado { get; private set; }
-      = Estado.Pendiente;
+      public string Atributo { get; set; }
 
-      public TareaEjemplo(string titulo) { Titulo = titulo; }
-      public void Completar() { Estado = Estado.Terminada; }
+      public void Metodo()
+      {
+      }
   }
 ```
 
-### 7. Así se ve en nuestro código C#
+#### Una clase real: Tarea
+
+Ahora una clase con sentido. Una tarea tiene un título y un estado. Esos son sus atributos o propiedades.
+
+```scene
+id: oop-tarea
+type: code
+language: csharp
+focus: [[1], [3], [4]]
+code: |-
+  public class Tarea
+  {
+      public string Title { get; set; }
+      public Status Status { get; set; }
+  }
+```
+
+#### Enum: opciones conocidas
+
+El estado no puede ser cualquier texto. Un enum define un conjunto de opciones conocidas. Estos son los tres estados que puede tener una tarea.
+
+```scene
+id: oop-enum
+type: code
+language: csharp
+focus: [[1], [3], [4], [5]]
+code: |-
+  public enum Status
+  {
+      Pending,
+      InProgress,
+      Done
+  }
+```
+
+#### El constructor
+
+Un constructor es un código especial que prepara el objeto cuando lo creamos. Se llama igual que la clase, puede recibir datos y deja el objeto listo para usar. Aquí recibe el título y empieza la tarea como pendiente.
+
+```scene
+id: oop-constructor
+type: code
+language: csharp
+focus: [[6], [8], [9]]
+code: |-
+  public class Tarea
+  {
+      public string Title { get; set; }
+      public Status Status { get; set; }
+
+      public Tarea(string title)
+      {
+          Title = title;
+          Status = Status.Pending;
+      }
+  }
+```
+
+#### Un método en un controlador
+
+Un método es una acción que un objeto puede realizar. Este controlador sencillo tiene una lista de tareas y un método que las devuelve. Primero va public, luego lo que devuelve, después el nombre y los paréntesis. Dentro de las llaves está lo que hace.
+
+```scene
+id: oop-method
+type: code
+language: csharp
+focus: [[3], [5], [7]]
+code: |-
+  public class TareasController
+  {
+      private List<Tarea> tareas = new();
+
+      public List<Tarea> ObtenerTodas()
+      {
+          return tareas;
+      }
+  }
+```
+
+#### Usar los objetos desde afuera
+
+Desde fuera de la clase, creamos un objeto con new, que llama al constructor. Después usamos sus propiedades y sus métodos con un punto. Todo esto funciona porque están marcados como public, es decir, que se pueden acceder desde cualquier parte de la aplicación. Si algo debe quedar oculto para el resto de la aplicación, lo marcamos como private, como la lista del controlador. Son temas de diseño que veremos más adelante.
+
+```scene
+id: oop-use
+type: code
+language: csharp
+focus: [[1], [2], [4], [5], [7]]
+code: |-
+  var tarea = new Tarea("Comprar café");
+  tarea.Status = Status.InProgress;
+
+  var controlador = new TareasController();
+  var tareas = controlador.ObtenerTodas();
+
+  // controlador.tareas no se puede usar desde aquí: es private
+```
+
+### 8. Así se ve en nuestro código C#
 
 Nuestro backend está escrito en C#, un lenguaje orientado a objetos. Tenemos una clase que representa cada tarea y un enum con sus estados. También tenemos otros objetos, como el controlador, que llaman métodos para consultar y guardar datos. Así se construye el programa: distintos objetos que colaboran entre sí.
 
@@ -234,7 +500,7 @@ answer: 0
 explanation: "Título es un dato de la tarea; consultar tareas es una acción."
 ```
 
-### 8. Inyección de dependencias
+### 9. Inyección de dependencias
 
 El controlador necesita acceso a la base de datos. En lugar de encargarse de construir esa herramienta, la recibe ya preparada cuando se crea. Eso se llama inyección de dependencias. En nuestro caso, la aplicación prepara un TareaContext y se lo entrega al constructor del controlador. Después el controlador lo utiliza para trabajar con las tareas.
 
@@ -259,7 +525,7 @@ code: |-
   }
 ```
 
-### 9. Entity Framework Core
+### 10. Entity Framework Core
 
 Ahora necesitamos trabajar con la base de datos. Para eso usamos Entity Framework Core, o EF Core. Nos permite consultar, agregar y modificar tareas usando código C#, sin escribir directamente las instrucciones SQL. SQL es el lenguaje de las bases de datos y lo aprenderemos en otras lecciones. Por ahora, EF Core hace ese trabajo por nosotros.
 
@@ -281,7 +547,7 @@ items:
     label: Base de datos
 ```
 
-### 10. Consultas y comandos
+### 11. Consultas y comandos
 
 Una consulta lee datos sin modificarlos. Podemos pedir todas las tareas o buscar una por su número. En cambio, cuando agregamos, actualizamos o borramos una tarea, estamos cambiando datos. En EF Core usamos métodos de C# para esas operaciones, y guardamos los cambios para que permanezcan en la base de datos.
 
@@ -314,7 +580,7 @@ answer: 0
 explanation: "SaveChangesAsync() confirma los cambios pendientes."
 ```
 
-### 11. Migraciones: cambiar la base de datos
+### 12. Migraciones: cambiar la base de datos
 
 ¿Y si mañana queremos guardar una fecha de vencimiento para cada tarea? No basta con agregar ese dato al código: también necesitamos modificar la estructura de la base de datos. Para eso sirven las migraciones. Nuestro ejemplo ya tiene una que crea las tareas y otra que agrega la fecha, conservando los datos anteriores.
 
@@ -335,7 +601,7 @@ items:
     detail: "La tabla evoluciona sin borrar las tareas"
 ```
 
-### 12. El controlador: la puerta de entrada
+### 13. El controlador: la puerta de entrada
 
 Ya tenemos las piezas. El controlador es la puerta de entrada de nuestra API: recibe una petición HTTP, elige qué operación ejecutar y devuelve una respuesta. Como ya recibió el acceso a la base de datos mediante su constructor, puede consultar o modificar tareas sin encargarse de preparar la conexión.
 
@@ -374,7 +640,7 @@ highlight:
   - '[HttpDelete("{id}")]'
 ```
 
-### 13. Consultar tareas: de Swagger a la respuesta
+### 14. Consultar tareas: de Swagger a la respuesta
 
 Miremos una operación completa. Desde Swagger pedimos la lista de tareas. El controlador recibe esa petición, consulta la base de datos mediante EF Core y devuelve las tareas. Swagger nos muestra el resultado, como lo recibiría cualquier programa que utilice esta API.
 
@@ -396,7 +662,7 @@ response:
     ]
 ```
 
-### 14. Crear tareas: enviar datos
+### 15. Crear tareas: enviar datos
 
 Ahora hagamos lo contrario: enviar información al backend. En Swagger escribimos el título, la descripción y el estado de una tarea nueva. Cuando ejecutamos POST, el controlador recibe esos datos, crea la tarea en la base de datos y devuelve la información de la tarea creada, incluido su identificador.
 
@@ -418,7 +684,7 @@ response:
     { "id": 1, "title": "Comprar café", "description": "Para mañana", "status": "Pending", "dueDate": null }
 ```
 
-### 15. Cambiar el estado de una tarea
+### 16. Cambiar el estado de una tarea
 
 La tarea ya existe, pero ahora estamos trabajando en ella. Podemos enviar una petición PUT con el mismo identificador y cambiar su estado a en progreso. El controlador busca la tarea, modifica sus datos y guarda el cambio. Si volvemos a consultarla, veremos el nuevo estado.
 
@@ -444,7 +710,7 @@ followup:
     { "id": 1, "title": "Comprar café", "description": "Para mañana", "status": "InProgress", "dueDate": null }
 ```
 
-### 16. Te toca: probar Swagger y modificar el código
+### 17. Te toca: probar Swagger y modificar el código
 
 Ahora vas a probar tú mismo las operaciones. Inicia la aplicación, abre Swagger y crea una tarea. Consúltala, cambia su estado y comprueba que quedó guardado. Después vamos a hacer dos cambios pequeños en el código: ordenar las tareas por título y agregar un nuevo estado. Puedes pedirle ayuda al agente, pero revisa qué cambió y verifica el resultado.
 
