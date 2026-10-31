@@ -22,19 +22,7 @@ prerequisites:
 
 ## Partes
 
-### 1. Los bloques básicos
-
-```exercise
-id: oop-check
-type: multiple-choice
-prompt: "En una clase, ¿qué diferencia hay entre un atributo y un método?"
-choices:
-  - "El atributo contiene un dato; el método realiza una acción"
-  - "Ambos son nombres para una base de datos"
-  - "El método contiene datos y el atributo ejecuta acciones"
-answer: 0
-explanation: "La lista de nombres es un dato de la clase; agregar un nombre es una acción."
-```
+### 1. Tipos y funciones
 
 #### Los tipos nativos
 
@@ -90,6 +78,138 @@ code: |-
   }
 
   int resultado = Sumar(2, 3);
+```
+
+### 2. Bloques de control
+
+```exercise
+id: control-suma
+type: code-completion
+language: csharp
+prompt: "Completa la función Sumar(a, b): debe devolver la suma de todos los números desde a hasta b, incluidos los dos. Usa un for."
+starter: |-
+  int Sumar(int a, int b)
+  {
+      int total = 0;
+      // recorre desde a hasta b con un for
+      // y suma cada número a total
+      return total;
+  }
+solution: |-
+  int Sumar(int a, int b)
+  {
+      int total = 0;
+      for (int i = a; i <= b; i++)
+      {
+          total += i;
+      }
+      return total;
+  }
+tests:
+  - name: "de 1 a 4 suma 10"
+    expression: |-
+      Console.WriteLine(Sumar(1, 4));
+    expected: "10"
+  - name: "de 3 a 5 suma 12"
+    expression: |-
+      Console.WriteLine(Sumar(3, 5));
+    expected: "12"
+  - name: "de 5 a 5 suma 5"
+    expression: |-
+      Console.WriteLine(Sumar(5, 5));
+    expected: "5"
+explanation: "El for recorre los números desde a hasta b y total va acumulando la suma."
+```
+
+#### if: tomar decisiones
+
+Los bloques de control deciden qué se ejecuta y cuántas veces. El primero es if: ejecuta unas instrucciones solo si se cumple una condición. Aquí, si la edad es mayor o igual a dieciocho, mostramos que es mayor de edad. Con else decimos qué hacer en caso contrario.
+
+```scene
+id: control-if
+type: code
+language: csharp
+focus:
+  - lines: [3]
+    at: "El primero es if"
+  - lines: [5]
+    at: "mostramos que es mayor de edad"
+  - lines: [7, 8, 9, 10]
+    at: "Con else"
+code: |-
+  int edad = 20;
+
+  if (edad >= 18)
+  {
+      Console.WriteLine("Mayor de edad");
+  }
+  else
+  {
+      Console.WriteLine("Menor de edad");
+  }
+```
+
+#### while: repetir mientras se cumpla
+
+El bloque while repite instrucciones mientras una condición sea verdadera. En este ejemplo, mientras el contador sea menor que tres, mostramos el valor y lo aumentamos en uno. Cuando llega a tres, la condición deja de cumplirse y el ciclo termina. Cuidado: si nunca dejara de cumplirse, el programa se quedaría repitiendo para siempre.
+
+```scene
+id: control-while
+type: code
+language: csharp
+focus:
+  - lines: [3]
+    at: "mientras el contador sea menor que tres"
+  - lines: [5]
+    at: "mostramos el valor"
+  - lines: [6]
+    at: "lo aumentamos en uno"
+  - lines: [3]
+    at: "la condición deja de cumplirse"
+code: |-
+  int contador = 0;
+
+  while (contador < 3)
+  {
+      Console.WriteLine(contador);
+      contador++;
+  }
+```
+
+#### for: repetir un número de veces
+
+El bloque for es una forma compacta de repetir cuando sabemos cuántas veces. Tiene tres partes: dónde empezamos, hasta cuándo seguimos y cómo avanzamos. Aquí empezamos en cero, seguimos mientras sea menor que tres y avanzamos de uno en uno. Hace lo mismo que el while anterior, pero en una sola línea. Ahora practica tú, aquí mismo en el navegador: completa la función que suma los números desde a hasta b. Se ejecuta como C# de verdad.
+
+```scene
+id: control-for
+type: code
+language: csharp
+focus:
+  - lines: [1]
+    at: "Tiene tres partes"
+  - lines: [1]
+    at: "empezamos en cero"
+  - lines: [3]
+    at: "Hace lo mismo"
+code: |-
+  for (int i = 0; i < 3; i++)
+  {
+      Console.WriteLine(i);
+  }
+```
+
+### 3. La clase
+
+```exercise
+id: oop-check
+type: multiple-choice
+prompt: "En una clase, ¿qué diferencia hay entre un atributo y un método?"
+choices:
+  - "El atributo contiene un dato; el método realiza una acción"
+  - "Ambos son nombres para una base de datos"
+  - "El método contiene datos y el atributo ejecuta acciones"
+answer: 0
+explanation: "La lista de nombres es un dato de la clase; agregar un nombre es una acción."
 ```
 
 #### La clase
@@ -150,7 +270,7 @@ code: |-
   }
 ```
 
-### 2. El código en VS Code
+### 4. El código en VS Code
 
 Así se vería esa clase en VS Code. A la izquierda está el explorador, con los archivos del proyecto. Arriba, la pestaña muestra el nombre del archivo: cada clase suele vivir en su propio archivo con extensión .cs, de C#. Y en el centro está el código.
 
@@ -184,7 +304,7 @@ code: |-
   }
 ```
 
-### 3. El inventario de nombres
+### 5. El inventario de nombres
 
 #### Una clase con sentido
 
@@ -314,9 +434,9 @@ code: |-
   // inventario.nombres no se puede usar desde aquí: es private
 ```
 
-### 4. Práctica: agrega un método para borrar
+### 6. Práctica: agrega un método para borrar
 
-Ahora te toca a ti. Nuestro inventario puede agregar, modificar y traer nombres, pero todavía no puede borrar. Agrega un método llamado Borrar, que reciba la posición del nombre y lo quite de la lista. Las listas ya traen un método para eso: se llama RemoveAt. Puedes pedirle ayuda a tu agente para crear un proyecto de consola y ejecutarlo, pero intenta escribir el método tú y comprueba que funciona.
+Ahora te toca a ti. Nuestro inventario puede agregar, modificar y traer nombres, pero todavía no puede borrar. Agrega un método llamado Borrar, que reciba la posición del nombre y lo quite de la lista. Las listas ya traen un método para eso: se llama RemoveAt. Escríbelo aquí mismo en el navegador y ejecuta las pruebas. Si quieres, después pídele a tu agente que lo pruebe también en un proyecto de consola.
 
 ```scene
 id: practica-borrar
@@ -343,12 +463,89 @@ code: |-
 
 ```exercise
 id: practica-borrar-check
-type: checkpoint
-prompt: "Agregué el método Borrar y comprobé que quita el nombre de la posición indicada."
-explanation: "Una solución posible: nombres.RemoveAt(posicion);"
+type: code-completion
+language: csharp
+prompt: "Completa el método Borrar para que quite el nombre de la posición indicada."
+starter: |-
+  public class InventarioNombres
+  {
+      private List<string> nombres = new();
+
+      public InventarioNombres(string primero)
+      {
+          nombres.Add(primero);
+      }
+
+      public void Agregar(string nombre)
+      {
+          nombres.Add(nombre);
+      }
+
+      public void Modificar(int posicion, string nuevo)
+      {
+          nombres[posicion] = nuevo;
+      }
+
+      public List<string> TraerTodos()
+      {
+          return nombres;
+      }
+
+      public void Borrar(int posicion)
+      {
+          // tu código aquí
+      }
+  }
+solution: |-
+  public class InventarioNombres
+  {
+      private List<string> nombres = new();
+
+      public InventarioNombres(string primero)
+      {
+          nombres.Add(primero);
+      }
+
+      public void Agregar(string nombre)
+      {
+          nombres.Add(nombre);
+      }
+
+      public void Modificar(int posicion, string nuevo)
+      {
+          nombres[posicion] = nuevo;
+      }
+
+      public List<string> TraerTodos()
+      {
+          return nombres;
+      }
+
+      public void Borrar(int posicion)
+      {
+          nombres.RemoveAt(posicion);
+      }
+  }
+tests:
+  - name: "Borrar quita el segundo nombre"
+    expression: |-
+      var inv = new InventarioNombres("Ana");
+      inv.Agregar("José");
+      inv.Agregar("Luis");
+      inv.Borrar(1);
+      Console.WriteLine(string.Join(", ", inv.TraerTodos()));
+    expected: "Ana, Luis"
+  - name: "Borrar el primer nombre"
+    expression: |-
+      var inv = new InventarioNombres("Ana");
+      inv.Agregar("Luis");
+      inv.Borrar(0);
+      Console.WriteLine(string.Join(", ", inv.TraerTodos()));
+    expected: "Luis"
+explanation: "Una solución: nombres.RemoveAt(posicion);"
 ```
 
-### 5. Un caso para pensar
+### 7. Un caso para pensar
 
 Veamos un caso. Creamos el inventario con Ana. Agregamos a José y a Luis. Luego borramos el segundo nombre. Después modificamos el primero para que sea Carlos, y agregamos a Jesús. Al final, mostramos todos los nombres. Antes de seguir, piensa: ¿qué crees que va a salir? Elige tu respuesta.
 
@@ -393,7 +590,7 @@ answer: 0
 explanation: "Borrar(1) quita a José, el segundo nombre, porque las posiciones empiezan en cero. Luis pasa a la posición 1. Modificar(0, ...) cambia a Ana por Carlos, y Jesús se agrega al final."
 ```
 
-### 6. ¿Qué ocurrió?
+### 8. ¿Qué ocurrió?
 
 Veamos qué ocurrió, paso a paso. Al crear el inventario con Ana, la lista tiene un solo nombre. Agregamos a José y luego a Luis, y quedan tres. Borrar quita la posición uno. Recuerda que las posiciones empiezan en cero, así que el segundo nombre es José, y Luis pasa a ocupar la posición uno. Después modificamos la posición cero: Ana se convierte en Carlos. Agregamos a Jesús al final. Y al traer todos, vemos Carlos, Luis y Jesús.
 
@@ -439,7 +636,7 @@ items:
     steps: [Carlos, Luis, Jesús]
 ```
 
-### 7. Errores: cuando algo sale mal
+### 9. Errores: cuando algo sale mal
 
 ```exercise
 id: errores-posicion
@@ -455,9 +652,105 @@ explanation: "Las posiciones empiezan en cero: 0, 1 y 2."
 
 ```exercise
 id: errores-validar
-type: checkpoint
-prompt: "Validé Modificar y Borrar, y comprobé que una posición inexistente ya no hace fallar el programa."
-explanation: "Ya tienes los bloques básicos: tipos, funciones, clases y cómo evitar errores. En la próxima lección veremos cómo se usa todo esto en un backend."
+type: code-completion
+language: csharp
+prompt: "Valida Modificar y Borrar: si la posición no existe, no deben hacer nada ni fallar."
+starter: |-
+  public class InventarioNombres
+  {
+      private List<string> nombres = new();
+
+      public InventarioNombres(string primero)
+      {
+          nombres.Add(primero);
+      }
+
+      public void Agregar(string nombre)
+      {
+          nombres.Add(nombre);
+      }
+
+      public void Modificar(int posicion, string nuevo)
+      {
+          nombres[posicion] = nuevo;
+      }
+
+      public List<string> TraerTodos()
+      {
+          return nombres;
+      }
+
+      public void Borrar(int posicion)
+      {
+          nombres.RemoveAt(posicion);
+      }
+  }
+solution: |-
+  public class InventarioNombres
+  {
+      private List<string> nombres = new();
+
+      public InventarioNombres(string primero)
+      {
+          nombres.Add(primero);
+      }
+
+      public void Agregar(string nombre)
+      {
+          nombres.Add(nombre);
+      }
+
+      public void Modificar(int posicion, string nuevo)
+      {
+          if (posicion < 0 || posicion >= nombres.Count)
+          {
+              return;
+          }
+
+          nombres[posicion] = nuevo;
+      }
+
+      public List<string> TraerTodos()
+      {
+          return nombres;
+      }
+
+      public void Borrar(int posicion)
+      {
+          if (posicion < 0 || posicion >= nombres.Count)
+          {
+              return;
+          }
+
+          nombres.RemoveAt(posicion);
+      }
+  }
+tests:
+  - name: "Modificar fuera de la lista no falla"
+    expression: |-
+      var inv = new InventarioNombres("Ana");
+      inv.Modificar(5, "Pedro");
+      Console.WriteLine(string.Join(", ", inv.TraerTodos()));
+    expected: "Ana"
+  - name: "Modificar una posición válida sigue funcionando"
+    expression: |-
+      var inv = new InventarioNombres("Ana");
+      inv.Modificar(0, "Carlos");
+      Console.WriteLine(string.Join(", ", inv.TraerTodos()));
+    expected: "Carlos"
+  - name: "Borrar fuera de la lista no falla"
+    expression: |-
+      var inv = new InventarioNombres("Ana");
+      inv.Borrar(9);
+      Console.WriteLine(string.Join(", ", inv.TraerTodos()));
+    expected: "Ana"
+  - name: "Borrar una posición negativa no falla"
+    expression: |-
+      var inv = new InventarioNombres("Ana");
+      inv.Borrar(-1);
+      Console.WriteLine(string.Join(", ", inv.TraerTodos()));
+    expected: "Ana"
+explanation: "Comprueba que la posición exista (que no sea negativa y sea menor que la cantidad de nombres) antes de actuar."
 ```
 
 #### El error
@@ -485,7 +778,7 @@ code: |-
 
 #### Validar antes de actuar
 
-La solución es validar antes de actuar. Antes de modificar, comprobamos que la posición exista: que no sea negativa y que sea menor que la cantidad de nombres. Si no existe, el método simplemente no hace nada. Ahora te toca: prueba modificar una posición que no existe y comprueba que tu programa ya no falla. Después haz lo mismo con Borrar.
+La solución es validar antes de actuar. Antes de modificar, comprobamos que la posición exista: que no sea negativa y que sea menor que la cantidad de nombres. Si no existe, el método simplemente no hace nada. Ahora te toca: en el ejercicio, agrega esa validación a Modificar y haz lo mismo con Borrar. Ejecuta las pruebas para comprobar que ya no fallan.
 
 ```scene
 id: validar-posicion
