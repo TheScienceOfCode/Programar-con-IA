@@ -16,4 +16,4 @@ Siempre que produzcas audio, indica la voz explícitamente:
 
 ## Duración de las lecciones
 
-La columna «Duración» de `lessons/INDEX.md` es la longitud del MP4 de cada lección. Después de renderizar (`render session-N --format mp4`), actualízala con `ffprobe -v error -show_entries format=duration -of csv=p=0 bin/autotorial/video/session-N.mp4`.
+En `lessons/INDEX.md` el título de cada lección ya renderizada lleva su duración, redondeada a minutos según la longitud del MP4 (`- N minutos`). Después de renderizar (`render session-N --format mp4`), actualízala con `ffprobe -v error -show_entries format=duration -of csv=p=0 bin/autotorial/video/session-N.mp4`. No agregues columnas a la tabla: la página de inicio usa la segunda celda como título y el resto como descripción.
