@@ -13,3 +13,7 @@ Siempre que produzcas audio, indica la voz explícitamente:
 - Nunca ejecutes `produce` sin `--voice kokoro --speaker em_alex`.
 - La voz es parte de la clave de caché: si la sesión 1 muestra `0 generated, N cached` con estos parámetros, la voz es la correcta. Si genera audio nuevo para la sesión 1, la voz está mal.
 - No modifiques ni regeneres las sesiones ya publicadas salvo que se pida.
+
+## Duración de las lecciones
+
+La columna «Duración» de `lessons/INDEX.md` es la longitud del MP4 de cada lección. Después de renderizar (`render session-N --format mp4`), actualízala con `ffprobe -v error -show_entries format=duration -of csv=p=0 bin/autotorial/video/session-N.mp4`.

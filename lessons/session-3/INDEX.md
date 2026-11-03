@@ -58,18 +58,18 @@ visual: task-board
 items:
   - icon: ⏳
     label: Pendiente
-    detail: Pending
+    detail: Estado.Pendiente
     steps:
       - Comprar café
       - Revisar el correo
   - icon: 🛠️
     label: En progreso
-    detail: InProgress
+    detail: Estado.EnProgreso
     steps:
       - Preparar la clase
   - icon: ✅
     label: Terminado
-    detail: Done
+    detail: Estado.Terminada
     steps:
       - Enviar la factura
 ```
@@ -360,7 +360,47 @@ answer: 1
 explanation: "PUT actualiza una tarea existente."
 ```
 
-### 7. Modelo de datos
+### 7. Clona y ejecuta el proyecto
+
+Antes de leer el código, vamos a tenerlo funcionando. Le vamos a pedir a tu agente de inteligencia artificial que clone el proyecto de ejemplo y lo ejecute con Docker. Copia esta instrucción, pégala en el chat de tu agente y espera a que termine. Cuando esté listo, abre Swagger en el navegador: ahí verás el backend en acción.
+
+```scene
+id: clonar-proyecto
+type: visual
+visual: timeline
+plain: true
+items:
+  - icon: 📥
+    label: Clonar el proyecto
+    detail: Rama Todo-IA
+    at: "clone el proyecto de ejemplo"
+  - icon: 🐳
+    label: Ejecutar con Docker
+    detail: build.sh y start.sh
+    at: "lo ejecute con Docker"
+  - icon: 🌐
+    label: Abrir Swagger
+    detail: localhost:5080/swagger
+    at: "abre Swagger"
+```
+
+```exercise
+id: clonar-proyecto-prompt
+type: prompt-copy
+prompt: "Copia esta instrucción y pégala en el chat de tu agente"
+buttonLabel: "Copiar instrucción"
+copyText: "Clona la rama Todo-IA del repositorio https://github.com/TheScienceOfCode/Ejemplos-IA en una carpeta nueva. Luego construye y ejecuta el proyecto con ./run/build.sh y ./run/start.sh (usa Docker o, si no hay, Podman) y comprueba que Swagger responde en http://localhost:5080/swagger. Al terminar, ejecuta ./run/test.sh para confirmar que la API funciona y dime la dirección para abrir Swagger en el navegador."
+explanation: "Instrucción copiada. Pégala en el chat de tu agente y espera a que termine."
+```
+
+```exercise
+id: clonar-proyecto-check
+type: checkpoint
+prompt: "Mi agente clonó y ejecutó el proyecto, y veo Swagger en http://localhost:5080/swagger"
+explanation: "Perfecto. Ahora sí, veamos el código del backend."
+```
+
+### 8. Modelo de datos
 
 #### El proyecto en VS Code
 
@@ -371,7 +411,7 @@ id: vscode-proyecto
 type: visual
 visual: vscode
 header: TareaApi
-focus: 5
+focus: 6
 stepAt:
   - "En el explorador"
   - "Abrimos el archivo"
@@ -387,34 +427,45 @@ items:
     label: TareasController.cs
     value: 2
   - icon: 📁
+    label: Migrations
+    value: 1
+  - icon: 📁
     label: Models
     value: 1
   - icon: 📄
-    label: Status.cs
+    label: Estado.cs
     value: 2
   - icon: 📄
     label: Tarea.cs
     value: 2
   - icon: 📄
+    label: appsettings.json
+    value: 1
+  - icon: 📄
     label: Program.cs
+    value: 1
+  - icon: 📄
+    label: TareaApi.csproj
     value: 1
   - icon: 📄
     label: TareaContext.cs
     value: 1
 code: |-
+  namespace TareaApi.Models;
+
   public class Tarea
   {
       public int Id { get; set; }
-      public string Title { get; set; } = "";
-      public string Description { get; set; } = "";
-      public Status Status { get; set; }
-      public DateTime? DueDate { get; set; }
+      public string Titulo { get; set; } = "";
+      public string Descripcion { get; set; } = "";
+      public Estado Estado { get; set; }
+      public DateTime? FechaLimite { get; set; }
   }
 ```
 
 #### El modelo de datos
 
-Nuestro backend está escrito en C#, un lenguaje orientado a objetos. La clase Tarea es el modelo de datos: describe lo que vamos a persistir, es decir, lo que se guardará en la base de datos. Status es un enumerado, un tipo que usamos cuando tenemos una cantidad predefinida de estados. En nuestro caso, una tarea puede estar pendiente, en progreso o terminada.
+Nuestro backend está escrito en C#, un lenguaje orientado a objetos. La clase Tarea es el modelo de datos: describe lo que vamos a persistir, es decir, lo que se guardará en la base de datos. Estado es un enumerado, un tipo que usamos cuando tenemos una cantidad predefinida de estados. En nuestro caso, una tarea puede estar pendiente, en progreso o terminada.
 
 ```scene
 id: oop-real-project
@@ -427,24 +478,24 @@ focus:
   - lines: [3, 4, 5, 6, 7]
     at: "describe lo que vamos a persistir"
   - lines: [10]
-    at: "Status es un enumerado"
+    at: "Estado es un enumerado"
   - lines: [12, 13, 14]
     at: "En nuestro caso, una tarea puede estar"
 code: |-
   public class Tarea
   {
       public int Id { get; set; }
-      public string Title { get; set; } = "";
-      public string Description { get; set; } = "";
-      public Status Status { get; set; }
-      public DateTime? DueDate { get; set; }
+      public string Titulo { get; set; } = "";
+      public string Descripcion { get; set; } = "";
+      public Estado Estado { get; set; }
+      public DateTime? FechaLimite { get; set; }
   }
 
-  public enum Status
+  public enum Estado
   {
-      Pending,
-      InProgress,
-      Done
+      Pendiente,
+      EnProgreso,
+      Terminada
   }
 ```
 
@@ -470,16 +521,16 @@ focus:
 code: |-
   var tarea = new Tarea
   {
-      Title = "Comprar café",
-      Description = "Para mañana",
-      Status = Status.Pending
+      Titulo = "Comprar café",
+      Descripcion = "Para mañana",
+      Estado = Estado.Pendiente
   };
 
-  tarea.Status = Status.InProgress;
-  tarea.Status = Status.Done;
+  tarea.Estado = Estado.EnProgreso;
+  tarea.Estado = Estado.Terminada;
 ```
 
-### 8. Inyección de dependencias
+### 9. Inyección de dependencias
 
 El controlador necesita acceso a la base de datos. En lugar de encargarse de construir esa herramienta, la recibe ya preparada cuando se crea. Eso se llama inyección de dependencias. En nuestro caso, la aplicación prepara un TareaContext y se lo entrega al constructor del controlador. Después el controlador lo utiliza para trabajar con las tareas.
 
@@ -504,29 +555,46 @@ code: |-
   }
 ```
 
-### 9. Entity Framework Core
+### 10. Entity Framework Core
 
-Ahora necesitamos trabajar con la base de datos. Para eso usamos Entity Framework Core, o EF Core. Nos permite consultar, agregar y modificar tareas usando código C#, sin escribir directamente las instrucciones SQL. SQL es el lenguaje de las bases de datos y lo aprenderemos en otras lecciones. Por ahora, EF Core hace ese trabajo por nosotros.
+Entity Framework Core, o EF Core, traduce llamadas de C# para interactuar con una base de datos SQL. Así no escribimos SQL a mano: trabajamos con objetos Tarea. Veamos un ejemplo. Fíjate que las operaciones con la base de datos usan await y sus nombres terminan en Async; enseguida veremos por qué. Para guardar, creamos una tarea y la agregamos a la lista de tareas de la base de datos; luego guardamos los cambios. Para editar, buscamos la tarea, cambiamos sus propiedades y volvemos a guardar los cambios. Para borrar, la quitamos de la lista y guardamos los cambios. Y para consultar, filtramos las tareas con una condición, por ejemplo, las que están pendientes.
 
 ```scene
 id: ef-intro
-type: visual
-visual: backend
-plain: true
-steps:
-  - "C#: objetos Tarea"
-  - "EF Core: traduce operaciones y administra los cambios"
-  - "SQLite: guarda las tareas en una tabla"
-items:
-  - icon: 📋
-    label: Objeto Tarea
-  - icon: 🔄
-    label: EF Core
-  - icon: 💾
-    label: Base de datos
+type: code
+language: csharp
+split: 10
+focus:
+  - lines: [2, 3, 4]
+    at: "Para guardar"
+  - lines: [7, 8, 9]
+    at: "Para editar"
+  - lines: [12, 13]
+    at: "Para borrar"
+  - lines: [16, 17, 18]
+    at: "Y para consultar"
+code: |-
+  // Guardar
+  var nueva = new Tarea { Titulo = "Comprar café" };
+  db.Tareas.Add(nueva);
+  await db.SaveChangesAsync();
+
+  // Editar
+  var tarea = await db.Tareas.FindAsync(1);
+  tarea.Estado = Estado.Terminada;
+  await db.SaveChangesAsync();
+
+  // Borrar
+  db.Tareas.Remove(tarea);
+  await db.SaveChangesAsync();
+
+  // Consultar
+  var pendientes = await db.Tareas
+      .Where(t => t.Estado == Estado.Pendiente)
+      .ToListAsync();
 ```
 
-### 10. ¿Por qué async?
+### 11. ¿Por qué async?
 
 En las consultas verás que los métodos terminan en Async y se usan con await. ¿Por qué? Consultar la base de datos toma tiempo, y mientras tanto el servidor no tiene nada más que hacer con esa petición. Sin async, el hilo que atiende la petición se queda esperando, bloqueado, y no puede atender a nadie más. Con async, ese hilo queda libre mientras espera y puede atender otras peticiones; cuando llega la respuesta de la base de datos, continúa donde se quedó. En términos de escalabilidad, significa que con los mismos recursos el servidor puede atender a muchas más personas al mismo tiempo.
 
@@ -549,7 +617,7 @@ items:
     detail: El hilo atiende a otros mientras espera
 ```
 
-### 11. Consultas y comandos
+### 12. Consultas y comandos
 
 Una consulta lee datos sin modificarlos. Podemos pedir todas las tareas o buscar una por su número. En cambio, cuando agregamos, actualizamos o borramos una tarea, estamos cambiando datos. En EF Core usamos métodos de C# para esas operaciones, y guardamos los cambios para que permanezcan en la base de datos.
 
@@ -582,9 +650,9 @@ answer: 0
 explanation: "SaveChangesAsync() confirma los cambios pendientes."
 ```
 
-### 12. Migraciones: cambiar la base de datos
+### 13. Migraciones: cambiar la base de datos
 
-¿Y si mañana queremos guardar una fecha de vencimiento para cada tarea? No basta con agregar ese dato al código: también necesitamos modificar la estructura de la base de datos. Para eso sirven las migraciones. Nuestro ejemplo ya tiene una que crea las tareas y otra que agrega la fecha, conservando los datos anteriores.
+¿Y si mañana queremos guardar una fecha de vencimiento para cada tarea? No basta con agregar ese dato al código: también necesitamos modificar la estructura de la base de datos. Para eso sirven las migraciones. Nuestro ejemplo ya tiene una que crea las tareas y otra que agrega la fecha, conservando los datos anteriores. Ahora te toca: abre la carpeta Migrations de tu proyecto y revisa sus archivos. Después consulta con tu agente cómo crear una migración nueva.
 
 ```scene
 id: ef-migrations
@@ -594,57 +662,227 @@ plain: true
 items:
   - icon: 📋
     label: InitialCreate
-    detail: "Crea Id, Title, Description y Status"
+    detail: "Crea Id, Titulo, Descripcion y Estado"
   - icon: 📅
-    label: AddDueDate
-    detail: "Agrega DueDate a la tabla existente"
+    label: AddFechaLimite
+    detail: "Agrega FechaLimite a la tabla existente"
   - icon: ✅
     label: Resultado
     detail: "La tabla evoluciona sin borrar las tareas"
 ```
 
-### 13. El controlador: la puerta de entrada
+```exercise
+id: migraciones-agente
+type: prompt-copy
+prompt: "Copia esta instrucción y pégala en el chat de tu agente"
+buttonLabel: "Copiar instrucción"
+copyText: "En el proyecto src/back/TareaApi, revisa la carpeta Migrations: explícame qué hace cada migración (InitialCreate y AddFechaLimite) y para qué sirven los archivos Designer y el Snapshot. Después explícame, paso a paso, cómo crear una migración nueva con EF Core, por ejemplo para agregar una propiedad Prioridad a Tarea, y qué comandos usaría en este proyecto. No cambies nada todavía: solo explícame."
+explanation: "Instrucción copiada. Pégala en el chat de tu agente y lee con calma su explicación."
+```
 
-Ya tenemos las piezas. El controlador es la puerta de entrada de nuestra API: recibe una petición HTTP, elige qué operación ejecutar y devuelve una respuesta. Como ya recibió el acceso a la base de datos mediante su constructor, puede consultar o modificar tareas sin encargarse de preparar la conexión.
+```exercise
+id: migraciones-check
+type: checkpoint
+prompt: "Revisé la carpeta Migrations y entiendo cómo se crea una migración nueva"
+explanation: "Muy bien. Más adelante practicarás creando una migración tuya."
+```
+
+### 14. El controlador: la puerta de entrada
+
+#### La clase del controlador
+
+Ya tenemos las piezas. El controlador es la puerta de entrada de nuestra API: recibe una petición HTTP, elige qué operación ejecutar y devuelve una respuesta. La ruta indica la dirección base de todos sus métodos. Y el constructor recibe el acceso a la base de datos, así puede consultar o modificar tareas sin encargarse de preparar la conexión.
 
 ```scene
 id: controller-entry
 type: code
 language: csharp
+focus:
+  - lines: [3]
+    at: "El controlador es la puerta de entrada"
+  - lines: [2]
+    at: "La ruta indica"
+  - lines: [5, 7, 8, 9, 10]
+    at: "el constructor recibe"
 code: |-
+  [ApiController]
   [Route("api/tareas")]
   public class TareasController : ControllerBase
   {
+      private readonly TareaContext _db;
+
       public TareasController(TareaContext db)
       {
           _db = db;
       }
 
-      [HttpGet]
-      // ...
-      [HttpPost]
-      // ...
-      [HttpPut("{id}")]
-      // ...
-      [HttpDelete("{id}")]
-      // ...
+      // ... los métodos, uno por cada operación
   }
-highlights: [1, 9, 11, 13, 15]
-source: repositorio
-show: "Mostrar la cabecera real de TareasController.cs y destacar por separado [Route], el constructor con _db, y los atributos [HttpGet], [HttpPost], [HttpPut], [HttpDelete]. Señalar que cada atributo conecta una petición HTTP con un método. No mostrar todavía las implementaciones completas."
-file: src/back/TareaApi/Controllers/TareasController.cs
-highlight:
-  - '[Route("api/tareas")]'
-  - "TareasController(TareaContext db)"
-  - "[HttpGet]"
-  - "[HttpPost]"
-  - '[HttpPut("{id}")]'
-  - '[HttpDelete("{id}")]'
 ```
 
-### 14. Consultar tareas: de Swagger a la respuesta
+#### GET: consultar
 
-Miremos una operación completa. Desde Swagger pedimos la lista de tareas. El controlador recibe esa petición, consulta la base de datos mediante EF Core y devuelve las tareas. Swagger nos muestra el resultado, como lo recibiría cualquier programa que utilice esta API.
+Para consultar usamos GET. El primer método devuelve la lista de tareas. El segundo busca una tarea por su identificador y, si no existe, responde que no se encontró.
+
+```scene
+id: controller-get
+type: code
+language: csharp
+focus:
+  - lines: [1, 2, 3, 4, 5]
+    at: "El primer método devuelve la lista"
+  - lines: [7, 8, 9, 10, 11, 12, 13]
+    at: "El segundo busca una tarea"
+  - lines: [11]
+    at: "responde que no se encontró"
+code: |-
+      [HttpGet]
+      public async Task<ActionResult<List<Tarea>>> GetAll()
+      {
+          return await _db.Tareas.ToListAsync();
+      }
+
+      [HttpGet("{id}")]
+      public async Task<ActionResult<Tarea>> Get(int id)
+      {
+          var tarea = await _db.Tareas.FindAsync(id);
+          if (tarea == null) return NotFound();
+          return tarea;
+      }
+```
+
+#### POST: crear
+
+Para crear usamos POST. El método recibe la tarea que viene en el cuerpo de la petición, la agrega a la base de datos, guarda los cambios y responde con el código 201, creado, junto con la tarea nueva.
+
+```scene
+id: controller-post
+type: code
+language: csharp
+focus:
+  - lines: [2]
+    at: "El método recibe la tarea"
+  - lines: [5]
+    at: "la agrega a la base de datos"
+  - lines: [6]
+    at: "guarda los cambios"
+  - lines: [7]
+    at: "responde con el código 201"
+code: |-
+      [HttpPost]
+      public async Task<ActionResult<Tarea>> Create(Tarea tarea)
+      {
+          tarea.Id = 0;
+          _db.Tareas.Add(tarea);
+          await _db.SaveChangesAsync();
+          return CreatedAtAction(nameof(Get), new { id = tarea.Id }, tarea);
+      }
+```
+
+#### PUT: actualizar
+
+Para actualizar usamos PUT, con el identificador de la tarea. Buscamos la tarea y, si no existe, respondemos que no se encontró. Si existe, copiamos los valores nuevos, guardamos los cambios y respondemos sin contenido.
+
+```scene
+id: controller-put
+type: code
+language: csharp
+focus:
+  - lines: [4]
+    at: "Buscamos la tarea"
+  - lines: [5]
+    at: "si no existe"
+  - lines: [7, 8, 9, 10]
+    at: "copiamos los valores nuevos"
+  - lines: [11]
+    at: "guardamos los cambios"
+  - lines: [12]
+    at: "respondemos sin contenido"
+code: |-
+      [HttpPut("{id}")]
+      public async Task<IActionResult> Update(int id, Tarea tarea)
+      {
+          var existing = await _db.Tareas.FindAsync(id);
+          if (existing == null) return NotFound();
+
+          existing.Titulo = tarea.Titulo;
+          existing.Descripcion = tarea.Descripcion;
+          existing.Estado = tarea.Estado;
+          existing.FechaLimite = tarea.FechaLimite;
+          await _db.SaveChangesAsync();
+          return NoContent();
+      }
+```
+
+#### DELETE: borrar
+
+Para borrar usamos DELETE. Buscamos la tarea y, si no existe, respondemos que no se encontró. Si existe, la quitamos de la base de datos, guardamos los cambios y respondemos sin contenido. Así, el controlador conecta cada petición HTTP con EF Core.
+
+```scene
+id: controller-delete
+type: code
+language: csharp
+focus:
+  - lines: [4]
+    at: "Buscamos la tarea"
+  - lines: [5]
+    at: "si no existe"
+  - lines: [7]
+    at: "la quitamos de la base de datos"
+  - lines: [8]
+    at: "guardamos los cambios"
+  - lines: [9]
+    at: "respondemos sin contenido"
+code: |-
+      [HttpDelete("{id}")]
+      public async Task<IActionResult> Delete(int id)
+      {
+          var tarea = await _db.Tareas.FindAsync(id);
+          if (tarea == null) return NotFound();
+
+          _db.Tareas.Remove(tarea);
+          await _db.SaveChangesAsync();
+          return NoContent();
+      }
+```
+
+### 15. Consultar tareas: de Swagger a la respuesta
+
+#### Del navegador a la base de datos
+
+Miremos una operación completa. Desde Swagger, que corre en el navegador, pedimos la lista de tareas. El controlador consulta la base de datos mediante EF Core, recibe los datos y los devuelve como respuesta. Swagger la muestra en pantalla.
+
+```scene
+id: swagger-get-flujo
+type: visual
+visual: request-flow
+steps:
+  - "Swagger envía una petición GET"
+  - "El controlador ejecuta GetAll() y consulta la base de datos"
+  - "La base de datos entrega las tareas"
+  - "El controlador devuelve la respuesta"
+  - "Swagger muestra el resultado"
+stepAt:
+  - "pedimos la lista de tareas"
+  - "El controlador consulta la base de datos"
+  - "recibe los datos"
+  - "los devuelve como respuesta"
+  - "Swagger la muestra"
+items:
+  - icon: 🌐
+    label: Navegador
+    detail: Swagger
+  - icon: 🎛️
+    label: Controlador
+    detail: GetAll()
+  - icon: 💾
+    label: Base de datos
+    detail: Tabla Tareas
+```
+
+#### La respuesta del servidor
+
+En Swagger pulsamos Execute. El servidor responde con el código 200, que significa que todo salió bien, y con las tareas en formato JSON, tal como lo recibiría cualquier programa que utilice esta API.
 
 ```scene
 id: swagger-get
@@ -652,7 +890,6 @@ type: visual
 visual: swagger-mock
 stage: request-response
 header: "GET /api/tareas"
-show: "Simular clic en GET → Try it out → Execute. Animar el viaje de petición hacia el método GetAll(), luego _db.Tareas.ToListAsync(), y volver a Swagger con 200 OK y una respuesta JSON de ejemplo. El JSON se ve en pantalla, no se lee en voz alta."
 request:
   method: GET
   path: /api/tareas
@@ -660,11 +897,48 @@ response:
   status: 200
   json: |-
     [
-      { "id": 1, "title": "Comprar café", "description": "", "status": "Pending", "dueDate": null }
+      {
+        "id": 1,
+        "titulo": "Comprar café",
+        "descripcion": "",
+        "estado": "Pendiente",
+        "fechaLimite": null
+      }
     ]
 ```
 
-### 15. Crear tareas: enviar datos
+#### ¿Qué es JSON?
+
+JSON es un formato de texto para representar datos, que entienden tanto las personas como los programas. Una lista va entre corchetes. Cada objeto va entre llaves, y está formado por pares: un nombre y su valor. Aquí tenemos una tarea con su identificador, su título, su descripción, su estado y su fecha límite, que por ahora no tiene valor.
+
+```scene
+id: json-explicado
+type: code
+language: json
+focus:
+  - lines: [1, 9]
+    at: "Una lista va entre corchetes"
+  - lines: [2, 8]
+    at: "Cada objeto va entre llaves"
+  - lines: [3]
+    at: "un nombre y su valor"
+  - lines: [3, 4, 5, 6]
+    at: "Aquí tenemos una tarea"
+  - lines: [7]
+    at: "que por ahora no tiene valor"
+code: |-
+  [
+    {
+      "id": 1,
+      "titulo": "Comprar café",
+      "descripcion": "",
+      "estado": "Pendiente",
+      "fechaLimite": null
+    }
+  ]
+```
+
+### 16. Crear tareas: enviar datos
 
 Ahora hagamos lo contrario: enviar información al backend. En Swagger escribimos el título, la descripción y el estado de una tarea nueva. Cuando ejecutamos POST, el controlador recibe esos datos, crea la tarea en la base de datos y devuelve la información de la tarea creada, incluido su identificador.
 
@@ -679,14 +953,14 @@ request:
   method: POST
   path: /api/tareas
   json: |-
-    { "title": "Comprar café", "description": "Para mañana", "status": "Pending" }
+    { "titulo": "Comprar café", "descripcion": "Para mañana", "estado": "Pendiente" }
 response:
   status: 201
   json: |-
-    { "id": 1, "title": "Comprar café", "description": "Para mañana", "status": "Pending", "dueDate": null }
+    { "id": 1, "titulo": "Comprar café", "descripcion": "Para mañana", "estado": "Pendiente", "fechaLimite": null }
 ```
 
-### 16. Cambiar el estado de una tarea
+### 17. Cambiar el estado de una tarea
 
 La tarea ya existe, pero ahora estamos trabajando en ella. Podemos enviar una petición PUT con el mismo identificador y cambiar su estado a en progreso. El controlador busca la tarea, modifica sus datos y guarda el cambio. Si volvemos a consultarla, veremos el nuevo estado.
 
@@ -696,12 +970,12 @@ type: visual
 visual: swagger-mock
 stage: request-response
 header: "PUT /api/tareas/1"
-show: "Simular seleccionar PUT, escribir id 1 y enviar el JSON. Mostrar la tarjeta de la tarea cambiando visualmente de Pending a InProgress. Swagger devuelve 204 No Content; después ejecutar GET /api/tareas/1 para verificar el nuevo estado."
+show: "Simular seleccionar PUT, escribir id 1 y enviar el JSON. Mostrar la tarjeta de la tarea cambiando visualmente de Pendiente a EnProgreso. Swagger devuelve 204 No Content; después ejecutar GET /api/tareas/1 para verificar el nuevo estado."
 request:
   method: PUT
   path: /api/tareas/1
   json: |-
-    { "title": "Comprar café", "description": "Para mañana", "status": "InProgress" }
+    { "titulo": "Comprar café", "descripcion": "Para mañana", "estado": "EnProgreso" }
 response:
   status: 204
 followup:
@@ -709,10 +983,10 @@ followup:
   path: /api/tareas/1
   status: 200
   json: |-
-    { "id": 1, "title": "Comprar café", "description": "Para mañana", "status": "InProgress", "dueDate": null }
+    { "id": 1, "titulo": "Comprar café", "descripcion": "Para mañana", "estado": "EnProgreso", "fechaLimite": null }
 ```
 
-### 17. Te toca: probar Swagger y modificar el código
+### 18. Te toca: probar Swagger y modificar el código
 
 Ahora vas a probar tú mismo las operaciones. Inicia la aplicación, abre Swagger y crea una tarea. Consúltala, cambia su estado y comprueba que quedó guardado. Después vamos a hacer dos cambios pequeños en el código: ordenar las tareas por título y agregar un nuevo estado. Puedes pedirle ayuda al agente, pero revisa qué cambió y verifica el resultado.
 
@@ -741,12 +1015,71 @@ explanation: "La API queda comprobada cuando las peticiones devuelven los datos 
 id: practice-sort
 type: checkpoint
 prompt: "Ordené las tareas alfabéticamente modificando GetAll() y comprobé el orden en Swagger."
-explanation: "Pista: puedes usar OrderBy(t => t.Title) antes de ToListAsync(). Prueba creando dos tareas en orden inverso al alfabético."
+explanation: "Pista: puedes usar OrderBy(t => t.Titulo) antes de ToListAsync(). Prueba creando dos tareas en orden inverso al alfabético."
 ```
 
 ```exercise
 id: practice-enum
 type: checkpoint
-prompt: "Agregué el estado Cancelled al enum Status y comprobé que puedo usarlo al actualizar una tarea."
-explanation: "Busca los estados existentes en Status.cs; luego prueba desde Swagger con el nuevo valor."
+prompt: "Agregué el estado Cancelada al enum Estado y comprobé que puedo usarlo al actualizar una tarea."
+explanation: "Busca los estados existentes en Estado.cs; luego prueba desde Swagger con el nuevo valor."
+```
+
+### 19. Reto: agrega un responsable a las tareas
+
+Ahora un reto de verdad. Queremos que cada tarea tenga un responsable: la persona encargada de ella. Para eso necesitamos una tabla nueva, Responsable, con un identificador y un nombre. Y necesitamos una relación entre las dos tablas: un responsable puede tener muchas tareas, y cada tarea pertenece a un responsable. Esto toca varias piezas: el modelo, el contexto, una migración y el controlador. No lo vas a escribir a mano: le vas a pedir a tu agente que lo haga y que te explique cada paso. Copia esta instrucción, pégala en el chat y revisa con calma qué archivos cambia, qué contiene la migración y qué pruebas ejecuta.
+
+```scene
+id: reto-responsable
+type: visual
+visual: table-relation
+steps:
+  - "Un responsable tiene muchas tareas"
+stepAt:
+  - "una relación entre las dos tablas"
+items:
+  - icon: 👤
+    label: Responsable
+    at: "una tabla nueva"
+    steps:
+      - "Id (PK)"
+      - "Nombre"
+  - icon: 📋
+    label: Tarea
+    at: "cada tarea pertenece"
+    steps:
+      - "Id (PK)"
+      - "Titulo"
+      - "Descripcion"
+      - "Estado"
+      - "FechaLimite"
+      - "ResponsableId (FK)"
+```
+
+```exercise
+id: reto-responsable-prompt
+type: prompt-copy
+prompt: "Copia esta instrucción y pégala en el chat de tu agente"
+buttonLabel: "Copiar instrucción"
+copyText: "Quiero que cada tarea tenga un responsable. Modifica la API de src/back/TareaApi así: (1) crea la clase Responsable con Id (entero) y Nombre (texto); (2) crea la relación: un responsable tiene muchas tareas y cada Tarea tiene un ResponsableId y una propiedad Responsable (el responsable debe ser opcional para no romper las tareas que ya existen); (3) agrega la tabla Responsables al contexto TareaContext y crea una migración nueva de EF Core llamada AddResponsable; (4) crea un ResponsablesController para listar y crear responsables, y haz que al crear o actualizar una tarea se pueda indicar su ResponsableId; (5) reconstruye con ./run/build.sh, inicia con ./run/start.sh y prueba el resultado: crea un responsable, asígnaselo a una tarea y consulta la tarea; ejecuta también ./run/test.sh. Explícame cada paso y por qué lo haces, muéstrame los archivos que cambiaste y qué contiene la migración."
+explanation: "Instrucción copiada. Pégala en el chat de tu agente y lee con calma su explicación mientras trabaja."
+```
+
+```exercise
+id: reto-responsable-clave
+type: multiple-choice
+prompt: "¿Qué columna enlaza una tarea con su responsable?"
+choices:
+  - "ResponsableId, una clave foránea en la tabla de tareas"
+  - "Un Id nuevo en la tabla de responsables"
+  - "El Nombre del responsable, copiado en cada tarea"
+answer: 0
+explanation: "La clave foránea ResponsableId, en Tarea, apunta al Id del Responsable. Así muchas tareas pueden compartir el mismo responsable."
+```
+
+```exercise
+id: reto-responsable-check
+type: checkpoint
+prompt: "Mi agente agregó la relación y la migración, y comprobé en Swagger que puedo asignar un responsable a una tarea."
+explanation: "Excelente: modificaste el modelo, la base de datos y la API con ayuda de tu agente, y lo verificaste tú mismo."
 ```

@@ -22,11 +22,62 @@ prerequisites:
 
 ## Partes
 
-### 1. Tipos y funciones
+### 1. Introducción
+
+En la lección anterior construimos una aplicación con ayuda de la inteligencia artificial. Para revisar ese código, y no depender solo de la suerte, necesitamos entender cómo está escrito. En esta lección veremos los bloques básicos: los tipos de datos, las funciones, los bloques de control y las clases. Al final vas a practicar escribiendo y probando tu propio código, aquí mismo en el navegador.
+
+```scene
+id: intro-leccion
+type: visual
+visual: timeline
+plain: true
+items:
+  - icon: 🔢
+    label: Tipos de datos
+    at: "los tipos de datos"
+  - icon: ⚙️
+    label: Funciones
+    at: "las funciones"
+  - icon: 🔀
+    label: Bloques de control
+    at: "los bloques de control"
+  - icon: 🧱
+    label: Clases
+    at: "las clases"
+  - icon: ✍️
+    label: Práctica
+    at: "Al final vas a practicar"
+```
+
+### 2. Tipos y funciones
+
+```exercise
+id: tipos-precio
+type: multiple-choice
+prompt: "¿Qué tipo usarías para guardar el precio de un producto, como 19.99?"
+choices:
+  - "decimal"
+  - "int"
+  - "char"
+answer: 0
+explanation: "decimal guarda números con decimales de forma exacta, ideal para dinero. int solo guarda enteros y char un único carácter."
+```
+
+```exercise
+id: funcion-parametros
+type: multiple-choice
+prompt: "En Sumar(int a, int b), ¿qué son a y b?"
+choices:
+  - "Los parámetros: los datos que recibe la función"
+  - "El resultado que devuelve la función"
+  - "El nombre de la función"
+answer: 0
+explanation: "Los parámetros son los datos de entrada. El resultado es lo que la función devuelve con return."
+```
 
 #### Los tipos nativos
 
-En esta lección nos vamos a acercar al código. Necesitamos unos bloques básicos, y los vamos a ver rápido hasta llegar a una clase. Después vas a practicar tú. Empecemos por los tipos nativos, que dicen qué clase de dato guardamos. Int es para números enteros. Float, double y decimal son para números con decimales: float y double los guardan con distinta precisión, y decimal es el más exacto, ideal para dinero. Char guarda un solo carácter, y string guarda texto.
+Empecemos por los tipos nativos, que dicen qué clase de dato guardamos. Int es para números enteros. Float, double y decimal son para números con decimales: float y double los guardan con distinta precisión, y decimal es el más exacto, ideal para dinero. Char guarda un solo carácter, y string guarda texto.
 
 ```scene
 id: tipos-nativos
@@ -80,7 +131,7 @@ code: |-
   int resultado = Sumar(2, 3);
 ```
 
-### 2. Bloques de control
+### 3. Bloques de control
 
 ```exercise
 id: control-suma
@@ -198,7 +249,7 @@ code: |-
   }
 ```
 
-### 3. La clase
+### 4. La clase
 
 ```exercise
 id: oop-check
@@ -270,7 +321,7 @@ code: |-
   }
 ```
 
-### 4. El código en VS Code
+### 5. El código en VS Code
 
 Así se vería esa clase en VS Code. A la izquierda está el explorador, con los archivos del proyecto. Arriba, la pestaña muestra el nombre del archivo: cada clase suele vivir en su propio archivo con extensión .cs, de C#. Y en el centro está el código.
 
@@ -304,11 +355,11 @@ code: |-
   }
 ```
 
-### 5. El inventario de nombres
+### 6. El inventario de nombres
 
-#### Una clase con sentido
+#### Un ejemplo: un inventario de nombres
 
-Ahora una clase con sentido: un inventario de nombres. Su dato principal es una lista de nombres, que es un atributo de la clase. Con ella podremos agregar nombres, modificarlos y traerlos todos.
+Ahora un ejemplo: supongamos que necesitamos guardar una lista de nombres, a modo de inventario. Su dato principal es la lista de nombres, que es un atributo de la clase. Con ella podremos agregar nombres, modificarlos y traerlos todos.
 
 ```scene
 id: oop-inventario
@@ -316,9 +367,9 @@ type: code
 language: csharp
 focus:
   - lines: [1]
-    at: "Ahora una clase con sentido"
+    at: "Ahora un ejemplo"
   - lines: [3]
-    at: "una lista de nombres"
+    at: "Su dato principal"
 code: |-
   public class InventarioNombres
   {
@@ -434,7 +485,7 @@ code: |-
   // inventario.nombres no se puede usar desde aquí: es private
 ```
 
-### 6. Práctica: agrega un método para borrar
+### 7. Práctica: agrega un método para borrar
 
 Ahora te toca a ti. Nuestro inventario puede agregar, modificar y traer nombres, pero todavía no puede borrar. Agrega un método llamado Borrar, que reciba la posición del nombre y lo quite de la lista. Las listas ya traen un método para eso: se llama RemoveAt. Escríbelo aquí mismo en el navegador y ejecuta las pruebas. Si quieres, después pídele a tu agente que lo pruebe también en un proyecto de consola.
 
@@ -545,7 +596,7 @@ tests:
 explanation: "Una solución: nombres.RemoveAt(posicion);"
 ```
 
-### 7. Un caso para pensar
+### 8. Un caso para pensar
 
 Veamos un caso. Creamos el inventario con Ana. Agregamos a José y a Luis. Luego borramos el segundo nombre. Después modificamos el primero para que sea Carlos, y agregamos a Jesús. Al final, mostramos todos los nombres. Antes de seguir, piensa: ¿qué crees que va a salir? Elige tu respuesta.
 
@@ -590,7 +641,7 @@ answer: 0
 explanation: "Borrar(1) quita a José, el segundo nombre, porque las posiciones empiezan en cero. Luis pasa a la posición 1. Modificar(0, ...) cambia a Ana por Carlos, y Jesús se agrega al final."
 ```
 
-### 8. ¿Qué ocurrió?
+### 9. ¿Qué ocurrió?
 
 Veamos qué ocurrió, paso a paso. Al crear el inventario con Ana, la lista tiene un solo nombre. Agregamos a José y luego a Luis, y quedan tres. Borrar quita la posición uno. Recuerda que las posiciones empiezan en cero, así que el segundo nombre es José, y Luis pasa a ocupar la posición uno. Después modificamos la posición cero: Ana se convierte en Carlos. Agregamos a Jesús al final. Y al traer todos, vemos Carlos, Luis y Jesús.
 
@@ -636,7 +687,7 @@ items:
     steps: [Carlos, Luis, Jesús]
 ```
 
-### 9. Errores: cuando algo sale mal
+### 10. Errores: cuando algo sale mal
 
 ```exercise
 id: errores-posicion
