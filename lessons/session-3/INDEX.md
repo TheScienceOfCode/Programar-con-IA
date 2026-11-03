@@ -1,5 +1,5 @@
 ---
-title: "Lección 3: Entiende el backend de una API"
+title: "Lección 3: Backend en ASP Core"
 courseTitle: "Aprende a\nProgramar con IA"
 language: es
 objectives:
@@ -11,7 +11,7 @@ prerequisites:
   - Docker y un editor de código
 ---
 
-# Lección 3 — Entiende el backend de una API
+# Lección 3 — Backend en ASP Core
 
 **Código:** https://github.com/TheScienceOfCode/Ejemplos-IA/tree/Todo-IA
 
