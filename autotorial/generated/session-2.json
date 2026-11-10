@@ -772,6 +772,7 @@
       "id": "control-suma",
       "afterScene": "control-for",
       "type": "code-completion",
+      "title": "Sumar desde a hasta b",
       "language": "csharp",
       "prompt": "Completa la función Sumar(a, b): debe devolver la suma de todos los números desde a hasta b, incluidos los dos. Usa un for.",
       "starter": "int Sumar(int a, int b)\n{\n    int total = 0;\n    // recorre desde a hasta b con un for\n    // y suma cada número a total\n    return total;\n}",
@@ -812,6 +813,7 @@
       "id": "practica-borrar-check",
       "afterScene": "practica-borrar",
       "type": "code-completion",
+      "title": "Completa Borrar",
       "language": "csharp",
       "prompt": "Completa el método Borrar para que quite el nombre de la posición indicada.",
       "starter": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n\n    public InventarioNombres(string primero)\n    {\n        nombres.Add(primero);\n    }\n\n    public void Agregar(string nombre)\n    {\n        nombres.Add(nombre);\n    }\n\n    public void Modificar(int posicion, string nuevo)\n    {\n        nombres[posicion] = nuevo;\n    }\n\n    public List<string> TraerTodos()\n    {\n        return nombres;\n    }\n\n    public void Borrar(int posicion)\n    {\n        // tu código aquí\n    }\n}",
@@ -861,6 +863,7 @@
       "id": "errores-validar",
       "afterScene": "validar-posicion",
       "type": "code-completion",
+      "title": "Valida las posiciones",
       "language": "csharp",
       "prompt": "Valida Modificar y Borrar: si la posición no existe, no deben hacer nada ni fallar.",
       "starter": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n\n    public InventarioNombres(string primero)\n    {\n        nombres.Add(primero);\n    }\n\n    public void Agregar(string nombre)\n    {\n        nombres.Add(nombre);\n    }\n\n    public void Modificar(int posicion, string nuevo)\n    {\n        nombres[posicion] = nuevo;\n    }\n\n    public List<string> TraerTodos()\n    {\n        return nombres;\n    }\n\n    public void Borrar(int posicion)\n    {\n        nombres.RemoveAt(posicion);\n    }\n}",
@@ -890,8 +893,8 @@
       "explanation": "Comprueba que la posición exista (que no sea negativa y sea menor que la cantidad de nombres) antes de actuar."
     }
   ],
-  "producedAt": "2026-11-03T19:48:41.799Z",
-  "sourceHash": "619ef0d00596fd90c2efe440c653946c8d757505b97ae997c2a4c1a21d73fbca",
+  "producedAt": "2026-11-09T16:30:55.465Z",
+  "sourceHash": "6879873768426ff6714c646013362730c84c3e4fa4c6da55e7fcd503d8dfd62d",
   "audio": [
     {
       "sceneId": "intro-leccion",

@@ -1,23 +1,23 @@
 {
-  "savedAt": "2026-11-03T19:49:02.061Z",
+  "savedAt": "2026-11-10T15:44:47.964Z",
   "source": {
     "branch": "main",
-    "commit": "3eef89f"
+    "commit": "6f228f4"
   },
   "lessons": [
     {
       "slug": "session-1",
       "title": "Lección 1: Tu primera aplicación con IA",
       "sourceHash": "4a66df61a87797b94c0ebaeb555bc19e02be8f16bc5f7cfcc76c20cba2e1f8d1",
-      "producedAt": "2026-11-03T19:48:41.959Z",
+      "producedAt": "2026-11-10T15:34:41.310Z",
       "scenes": 21,
       "narration": "kokoro"
     },
     {
       "slug": "session-2",
       "title": "Lección 2: Acercándonos al código",
-      "sourceHash": "619ef0d00596fd90c2efe440c653946c8d757505b97ae997c2a4c1a21d73fbca",
-      "producedAt": "2026-11-03T19:48:41.799Z",
+      "sourceHash": "6879873768426ff6714c646013362730c84c3e4fa4c6da55e7fcd503d8dfd62d",
+      "producedAt": "2026-11-09T16:30:55.465Z",
       "scenes": 18,
       "narration": "kokoro"
     },
@@ -25,8 +25,16 @@
       "slug": "session-3",
       "title": "Lección 3: Backend en ASP Core",
       "sourceHash": "d675761c5474057ce69892b04f28c50c1f00c07553d3566d7efd38e4e4cca592",
-      "producedAt": "2026-11-03T19:48:41.639Z",
+      "producedAt": "2026-11-05T16:50:21.102Z",
       "scenes": 31,
+      "narration": "kokoro"
+    },
+    {
+      "slug": "session-4",
+      "title": "Lección 4: Frontend en ReactJS",
+      "sourceHash": "e8b2b9245c976e9b0fc4e3139940ebb96aadb3d4a9932891a835ac1506d0a108",
+      "producedAt": "2026-11-10T15:34:41.048Z",
+      "scenes": 35,
       "narration": "kokoro"
     }
   ],
@@ -37,11 +45,15 @@
     },
     {
       "path": "autotorial/generated/session-2.json",
-      "bytes": 37869
+      "bytes": 37983
     },
     {
       "path": "autotorial/generated/session-3.json",
       "bytes": 59024
+    },
+    {
+      "path": "autotorial/generated/session-4.json",
+      "bytes": 96708
     },
     {
       "path": "autotorial/public/audio/0125d71ba6a0233bf57f386887e71399a08c4c42ed987dda71e9c561dbce90c1.wav",
@@ -52,8 +64,20 @@
       "bytes": 1466412
     },
     {
+      "path": "autotorial/public/audio/080ef214060260c32b08c341ad4939aeb6448e0aa01704fda2458624c981760e.wav",
+      "bytes": 1149996
+    },
+    {
       "path": "autotorial/public/audio/08e12399be0a1efe86dc91ae095e265a6640653a8ae20e7aa0f8dcdfd6b12dc0.wav",
       "bytes": 628780
+    },
+    {
+      "path": "autotorial/public/audio/0964b698b54e8ff17c28e8a17c13ae78605c58e3aff9076fd603fba90b480cba.wav",
+      "bytes": 1011756
+    },
+    {
+      "path": "autotorial/public/audio/0b4693af0bf2abf50d8d8817f32d6d9665fb0b983b8ca211d32d8dbed36a6a0c.wav",
+      "bytes": 825388
     },
     {
       "path": "autotorial/public/audio/0c7f3987460e3a4524f2756f8d5a69bab1df5c662ab2326fc852f48a498515c2.wav",
@@ -80,8 +104,20 @@
       "bytes": 830508
     },
     {
+      "path": "autotorial/public/audio/14742a2eb344efdeb9d9f1ba2369d78741c203376edb723ba40dd6b34c5a0ad8.wav",
+      "bytes": 863276
+    },
+    {
       "path": "autotorial/public/audio/188585771f89bd4222c227a13ed6b503392ed9e35e06970bc1f17fa57cdc317c.wav",
       "bytes": 869420
+    },
+    {
+      "path": "autotorial/public/audio/19449cdadb895b6d1216e71027d86d1b453a7be46fb251f3f64186ed0b0192b0.wav",
+      "bytes": 1198124
+    },
+    {
+      "path": "autotorial/public/audio/1d704298bf63b55a62519acb6a2f610a34f2c612549bbb0433e8996168581b5b.wav",
+      "bytes": 1134636
     },
     {
       "path": "autotorial/public/audio/1eb835fc656ef6f6e23d02b4b1a67e69ec7c2d03b28495a97873986ea1eb010c.wav",
@@ -92,8 +128,16 @@
       "bytes": 858156
     },
     {
+      "path": "autotorial/public/audio/234cc8eb2cb528f59d8d3751bad37fb49c9ac0759b13f50f1a3a218955f932ba.wav",
+      "bytes": 965676
+    },
+    {
       "path": "autotorial/public/audio/238d4e9d56476ed5ad8062851ee8faab8c022680e6e809ad8b87b09dc17f6687.wav",
       "bytes": 960556
+    },
+    {
+      "path": "autotorial/public/audio/2609f5c4f0f236b14c5f9ebe275f24d837587a730713a5ce1eb93020cfa8b60a.wav",
+      "bytes": 1706028
     },
     {
       "path": "autotorial/public/audio/274b1dc8459fe8ff2e92501b4a08ec00ae55e2a504242a83a15448bc4d462102.wav",
@@ -112,6 +156,10 @@
       "bytes": 1533996
     },
     {
+      "path": "autotorial/public/audio/29fc1caef3566cc10ad454be15bea55400bfa38c26e806ce3e363bb0bb223d7b.wav",
+      "bytes": 777260
+    },
+    {
       "path": "autotorial/public/audio/2c38492f23d314e285ad403d0a1b99d8ae7689e6627ef78a621293bf020c555d.wav",
       "bytes": 269356
     },
@@ -122,6 +170,14 @@
     {
       "path": "autotorial/public/audio/305095d08b2f7db76829bec5d3a2aa2b9c73fdfe9ec987159bc4f4c33342dd62.wav",
       "bytes": 684076
+    },
+    {
+      "path": "autotorial/public/audio/308976fad0c2422d887bf0760c9f838993317316f4172d158a94958cd7f21c90.wav",
+      "bytes": 951340
+    },
+    {
+      "path": "autotorial/public/audio/3654b38a61b1d67451e74b64565773e5d9bac78bfc5cb0f2ef4a7f7f51a05b02.wav",
+      "bytes": 1130540
     },
     {
       "path": "autotorial/public/audio/3b42b90692a60c3cf53b147cfb33471831039491f172de1b0c39195a04381af7.wav",
@@ -148,12 +204,24 @@
       "bytes": 579628
     },
     {
+      "path": "autotorial/public/audio/4cdc063396190e4989d728a326ed7b054fc520f0f373ce01666a9d3c68112303.wav",
+      "bytes": 972844
+    },
+    {
+      "path": "autotorial/public/audio/4fb676bb33ea2fcbfce8494619bf9647faf568ca1be1bb0efe1db58dc1604d89.wav",
+      "bytes": 1296428
+    },
+    {
       "path": "autotorial/public/audio/51d60e23ecae0306350e4d6f4f850f89f67805f8172faac524b35e6520e1e341.wav",
       "bytes": 597036
     },
     {
       "path": "autotorial/public/audio/54119100c3cadec9a0555f2ec5985d6cdabd0ddd91aad391a26d309677959347.wav",
       "bytes": 715820
+    },
+    {
+      "path": "autotorial/public/audio/55cb4e909d788cc9a09f17a58b1e88020c0ed23a013661e97b54266d1ad8f0aa.wav",
+      "bytes": 661548
     },
     {
       "path": "autotorial/public/audio/589873c9e86e28ebc4eff086f64f60463b8a27237b32b2176f991832a760b3ed.wav",
@@ -168,12 +236,20 @@
       "bytes": 666668
     },
     {
+      "path": "autotorial/public/audio/5a298746eb3bf6c90440b41b90cd126a1b7abce225bdf3fea9cd119a8d29b276.wav",
+      "bytes": 586796
+    },
+    {
       "path": "autotorial/public/audio/5a2b38ec36168ccdcca311c63418ff2398fbb095cee9f8f2987a29653169341d.wav",
       "bytes": 836652
     },
     {
       "path": "autotorial/public/audio/5abdadbf68d4dc3c6f52dc9939e7a838871860b4ac03cd3fce485bff8a915633.wav",
       "bytes": 813100
+    },
+    {
+      "path": "autotorial/public/audio/5c55cb84dba89ea27e74a05fd671073a6cba0addc59464bd3cc64ecc08cffb0c.wav",
+      "bytes": 934956
     },
     {
       "path": "autotorial/public/audio/5c95f064d42526b35a729bac7fae611af24bd5c7224dfef06579efa93a4b33ba.wav",
@@ -184,8 +260,20 @@
       "bytes": 1044524
     },
     {
+      "path": "autotorial/public/audio/66736b3383a26c17ec3aabb9908a1582c2db4a6f7c63c33013ffe6f2d2b009f3.wav",
+      "bytes": 1698860
+    },
+    {
       "path": "autotorial/public/audio/6808523b7d89142ad1e9a543a24009b3e207245358da9e5c36e299b4d0a2a595.wav",
       "bytes": 767020
+    },
+    {
+      "path": "autotorial/public/audio/6a357dd646dee42c7132ad615ddbe26a43f426910389271c3f023e0dcb22cd0d.wav",
+      "bytes": 864300
+    },
+    {
+      "path": "autotorial/public/audio/70ac599d1ff9f28110dafbbed02c13e6f55353a2e4b6a565f9db8573315b0aea.wav",
+      "bytes": 955436
     },
     {
       "path": "autotorial/public/audio/729fb29978abba3876e03805b15a8aa0eff5ad49a566d147dd2b76ac1c1188e6.wav",
@@ -194,6 +282,10 @@
     {
       "path": "autotorial/public/audio/76670dc3fedaf682ae16353a0932a5bae92f06aa5d92fbac8ca30d206a8f4853.wav",
       "bytes": 826412
+    },
+    {
+      "path": "autotorial/public/audio/7691907f0a6b0aab0b2ae074aba54c7b9d5ecdc3d5daf6f03c94c6c4e8c1cf2c.wav",
+      "bytes": 908332
     },
     {
       "path": "autotorial/public/audio/7ac136d5b883e60613b1dc987d87e4202e075c51c9f516d46cb76c38a29f1168.wav",
@@ -220,6 +312,10 @@
       "bytes": 675884
     },
     {
+      "path": "autotorial/public/audio/84c51b488ef24bad3df0027d4c95619fe880e67932bdb9c60e2595d5604911f2.wav",
+      "bytes": 799788
+    },
+    {
       "path": "autotorial/public/audio/86d509795ed6d3e2b41e983f55ec06d7114dcb05c052123624a3c95bfa5f8aa5.wav",
       "bytes": 1059884
     },
@@ -232,12 +328,28 @@
       "bytes": 933932
     },
     {
+      "path": "autotorial/public/audio/96ef0d19ab44decdebeaa6325273d952b8164ed9a62fe96d0e9acbb5a7acdcb4.wav",
+      "bytes": 1389612
+    },
+    {
       "path": "autotorial/public/audio/97e51c2e9ae3f026089b709b9495b92471d7ad3602f909f169db99ee9d5ca037.wav",
       "bytes": 497708
     },
     {
+      "path": "autotorial/public/audio/9f8a7e955689fcb69eddf2bba4d279ed5db2be95de0451e667e6bd368aa5fd30.wav",
+      "bytes": 965676
+    },
+    {
+      "path": "autotorial/public/audio/a2d1967d39b220816585139d4acf8e96ddc892555b7b8c8f610254b4e05faf4f.wav",
+      "bytes": 1021996
+    },
+    {
       "path": "autotorial/public/audio/a3c120577570c0ccd0b573dfddbc28dd8b6fe6e2390805a9f93df1c8fb23cec7.wav",
       "bytes": 951340
+    },
+    {
+      "path": "autotorial/public/audio/a46c0877788fa4c5d8ac02d7cab035ed5802ddda2dd29b143384280308d3bf5f.wav",
+      "bytes": 1549356
     },
     {
       "path": "autotorial/public/audio/a5f3f5499b18d3342a97186fabf8442ef8ecc8aae8db8d7ce644b57f7b01062e.wav",
@@ -264,6 +376,14 @@
       "bytes": 1111084
     },
     {
+      "path": "autotorial/public/audio/bc4d2ceb19ae127033355cf2e791875e51279ba87e4e906f22210eb2026c9bda.wav",
+      "bytes": 912428
+    },
+    {
+      "path": "autotorial/public/audio/c043802ef1beb23ab34dc2f891cb17c1e58047ebdb2bd6590908c76413269747.wav",
+      "bytes": 1421356
+    },
+    {
       "path": "autotorial/public/audio/c6619f0d0351c48d2f46c7587fd30706690a6521d71d0d7166138d8d82c6edd1.wav",
       "bytes": 685100
     },
@@ -278,6 +398,14 @@
     {
       "path": "autotorial/public/audio/cbf39c7fd37c190d4897bb408b81d34dabc1de934d7a1dfe1a5fea6e2fc5b93d.wav",
       "bytes": 1233964
+    },
+    {
+      "path": "autotorial/public/audio/cd7f7fa26e539702562ceb0412be597d91aeae29a01d90383d14fd1cae8d96fd.wav",
+      "bytes": 1296428
+    },
+    {
+      "path": "autotorial/public/audio/ce6fe5aabe4191daca90ed897e11604121741c9ebeef9008c12eda75fb302633.wav",
+      "bytes": 1120300
     },
     {
       "path": "autotorial/public/audio/d04500be1d9383f04fd766ae430da567ad9973b0145bc23fbcf970567a7413fd.wav",
@@ -304,12 +432,20 @@
       "bytes": 925740
     },
     {
+      "path": "autotorial/public/audio/e244a4016319e63f3487af5f8bfefe4bf1e0bcd812b7f1f4662277706be70e59.wav",
+      "bytes": 931884
+    },
+    {
       "path": "autotorial/public/audio/e5c3bd7f7b7fbe38168611aeaa60f5397f47a48e4c5f3be23513f71522205947.wav",
       "bytes": 731180
     },
     {
       "path": "autotorial/public/audio/e9e831de1815b11304691cd3231b9453c941b05b39764f3c6884f147cc94ddbd.wav",
       "bytes": 905260
+    },
+    {
+      "path": "autotorial/public/audio/ec6abf48b57fd9517494c526a6ca24c53a2518bbccbf212ce0b1cd1b7045a0a1.wav",
+      "bytes": 890924
     },
     {
       "path": "autotorial/public/audio/ee67d41a8ab788507d9ae80f5ce06df96551d2896224fbe19b6d363658e9e8b9.wav",
@@ -320,8 +456,24 @@
       "bytes": 1212460
     },
     {
+      "path": "autotorial/public/audio/f8cdc14ce4497809b4371538363c828a42d8bd0876d3d2aa38b792a36dc9996f.wav",
+      "bytes": 933932
+    },
+    {
+      "path": "autotorial/public/audio/fb29706f16160b46bca705413c75b18ae3c20f8e5c93c81f2e34df9e48dbad07.wav",
+      "bytes": 2053164
+    },
+    {
       "path": "autotorial/public/audio/fcfe208045ea82978c728eaab9c156b0c4557dd1596e4a7dbc6526537903b12d.wav",
       "bytes": 605228
+    },
+    {
+      "path": "autotorial/public/audio/fe2c5024b0342a9ecd14be3d535df37e6738f4b4d9262b78ac59cf6999b622da.wav",
+      "bytes": 923692
+    },
+    {
+      "path": "autotorial/public/audio/feb056e18913f9b4531504f4e7639cb567ada437965c76739d806e35bb33deac.wav",
+      "bytes": 591916
     },
     {
       "path": "autotorial/video/session-1.mp4",
@@ -334,6 +486,10 @@
     {
       "path": "autotorial/video/session-3.mp4",
       "bytes": 32200711
+    },
+    {
+      "path": "autotorial/video/session-4.mp4",
+      "bytes": 41794939
     }
   ]
 }
