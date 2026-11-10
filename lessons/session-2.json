@@ -1,0 +1,1027 @@
+{
+  "schemaVersion": 1,
+  "slug": "session-2",
+  "title": "Lección 2: Acercándonos al código",
+  "courseTitle": "Aprende a\nProgramar con IA",
+  "language": "es",
+  "objectives": [
+    "Reconocer los tipos nativos y las funciones",
+    "[object Object]",
+    "Leer y escribir métodos de una clase",
+    "Predecir la ejecución de un programa y evitar errores comunes"
+  ],
+  "prerequisites": [
+    "Lección 1",
+    "Editor con agente de programación"
+  ],
+  "scenes": [
+    {
+      "id": "intro-leccion",
+      "type": "visual",
+      "title": "Introducción",
+      "visual": "timeline",
+      "plain": true,
+      "items": [
+        {
+          "icon": "🔢",
+          "label": "Tipos de datos",
+          "at": "los tipos de datos"
+        },
+        {
+          "icon": "⚙️",
+          "label": "Funciones",
+          "at": "las funciones"
+        },
+        {
+          "icon": "🔀",
+          "label": "Bloques de control",
+          "at": "los bloques de control"
+        },
+        {
+          "icon": "🧱",
+          "label": "Clases",
+          "at": "las clases"
+        },
+        {
+          "icon": "✍️",
+          "label": "Práctica",
+          "at": "Al final vas a practicar"
+        }
+      ],
+      "narration": "En la lección anterior construimos una aplicación con ayuda de la inteligencia artificial. Para revisar ese código, y no depender solo de la suerte, necesitamos entender cómo está escrito. En esta lección veremos los bloques básicos: los tipos de datos, las funciones, los bloques de control y las clases. Al final vas a practicar escribiendo y probando tu propio código, aquí mismo en el navegador.",
+      "duration": 22.860000000000003
+    },
+    {
+      "id": "tipos-nativos",
+      "type": "code",
+      "title": "Los tipos nativos",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "Int es para números enteros"
+        },
+        {
+          "lines": [
+            2,
+            3,
+            4
+          ],
+          "at": "Float, double y decimal"
+        },
+        {
+          "lines": [
+            4
+          ],
+          "at": "decimal es el más exacto"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "Char guarda un solo carácter"
+        },
+        {
+          "lines": [
+            6
+          ],
+          "at": "string guarda texto"
+        }
+      ],
+      "code": "int edad = 30;                 // número entero\nfloat altura = 1.75f;          // decimal, poca precisión\ndouble distancia = 384400.5;   // decimal, más precisión\ndecimal precio = 19.99m;       // decimal exacto, ideal para dinero\nchar letra = 'A';              // un solo carácter\nstring nombre = \"Ana\";         // texto",
+      "group": "tipos-y-funciones",
+      "groupTitle": "Tipos y funciones",
+      "narration": "Empecemos por los tipos nativos, que dicen qué clase de dato guardamos. Int es para números enteros. Float, double y decimal son para números con decimales: float y double los guardan con distinta precisión, y decimal es el más exacto, ideal para dinero. Char guarda un solo carácter, y string guarda texto.",
+      "duration": 18.529333333333334
+    },
+    {
+      "id": "funcion-sumar",
+      "type": "code",
+      "title": "Funciones y métodos",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "at": "Una función agrupa instrucciones"
+        },
+        {
+          "lines": [
+            1
+          ],
+          "at": "Recibe datos de entrada"
+        },
+        {
+          "lines": [
+            3
+          ],
+          "at": "puede devolver un resultado"
+        },
+        {
+          "lines": [
+            1,
+            3
+          ],
+          "at": "Por ejemplo, sumar"
+        },
+        {
+          "lines": [
+            6
+          ],
+          "at": "Después la llamamos"
+        }
+      ],
+      "code": "int Sumar(int a, int b)\n{\n    return a + b;\n}\n\nint resultado = Sumar(2, 3);",
+      "group": "tipos-y-funciones",
+      "groupTitle": "Tipos y funciones",
+      "narration": "Luego están las funciones, también llamadas métodos. Una función agrupa instrucciones bajo un nombre. Recibe datos de entrada, que llamamos parámetros, y puede devolver un resultado. Por ejemplo, sumar recibe dos números, a y b, y devuelve su suma. Después la llamamos con valores concretos y obtenemos el resultado.",
+      "duration": 18.977333333333334
+    },
+    {
+      "id": "control-if",
+      "type": "code",
+      "title": "if: tomar decisiones",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            3
+          ],
+          "at": "El primero es if"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "mostramos que es mayor de edad"
+        },
+        {
+          "lines": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "at": "Con else"
+        }
+      ],
+      "code": "int edad = 20;\n\nif (edad >= 18)\n{\n    Console.WriteLine(\"Mayor de edad\");\n}\nelse\n{\n    Console.WriteLine(\"Menor de edad\");\n}",
+      "group": "bloques-de-control",
+      "groupTitle": "Bloques de control",
+      "narration": "Los bloques de control deciden qué se ejecuta y cuántas veces. El primero es if: ejecuta unas instrucciones solo si se cumple una condición. Aquí, si la edad es mayor o igual a dieciocho, mostramos que es mayor de edad. Con else decimos qué hacer en caso contrario.",
+      "duration": 16.012
+    },
+    {
+      "id": "control-while",
+      "type": "code",
+      "title": "while: repetir mientras se cumpla",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            3
+          ],
+          "at": "mientras el contador sea menor que tres"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "mostramos el valor"
+        },
+        {
+          "lines": [
+            6
+          ],
+          "at": "lo aumentamos en uno"
+        },
+        {
+          "lines": [
+            3
+          ],
+          "at": "la condición deja de cumplirse"
+        }
+      ],
+      "code": "int contador = 0;\n\nwhile (contador < 3)\n{\n    Console.WriteLine(contador);\n    contador++;\n}",
+      "group": "bloques-de-control",
+      "groupTitle": "Bloques de control",
+      "narration": "El bloque while repite instrucciones mientras una condición sea verdadera. En este ejemplo, mientras el contador sea menor que tres, mostramos el valor y lo aumentamos en uno. Cuando llega a tres, la condición deja de cumplirse y el ciclo termina. Cuidado: si nunca dejara de cumplirse, el programa se quedaría repitiendo para siempre.",
+      "duration": 19.66
+    },
+    {
+      "id": "control-for",
+      "type": "code",
+      "title": "for: repetir un número de veces",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "Tiene tres partes"
+        },
+        {
+          "lines": [
+            1
+          ],
+          "at": "empezamos en cero"
+        },
+        {
+          "lines": [
+            3
+          ],
+          "at": "Hace lo mismo"
+        }
+      ],
+      "code": "for (int i = 0; i < 3; i++)\n{\n    Console.WriteLine(i);\n}",
+      "group": "bloques-de-control",
+      "groupTitle": "Bloques de control",
+      "narration": "El bloque for es una forma compacta de repetir cuando sabemos cuántas veces. Tiene tres partes: dónde empezamos, hasta cuándo seguimos y cómo avanzamos. Aquí empezamos en cero, seguimos mientras sea menor que tres y avanzamos de uno en uno. Hace lo mismo que el while anterior, pero en una sola línea. Ahora practica tú, aquí mismo en el navegador: completa la función que suma los números desde a hasta b. Se ejecuta como C# de verdad.",
+      "duration": 23.948
+    },
+    {
+      "id": "clase-operacion-suma",
+      "type": "code",
+      "title": "La clase",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1,
+            2,
+            10
+          ],
+          "at": "Ahora juntamos datos y funciones"
+        },
+        {
+          "lines": [
+            3,
+            4
+          ],
+          "at": "tiene dos datos"
+        },
+        {
+          "lines": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "at": "y una función, Sumar"
+        }
+      ],
+      "code": "public class OperacionSuma\n{\n    public int A { get; set; }\n    public int B { get; set; }\n\n    public int Sumar()\n    {\n        return A + B;\n    }\n}",
+      "group": "la-clase",
+      "groupTitle": "La clase",
+      "narration": "Ahora juntamos datos y funciones en una clase. Una clase no es más que datos y funciones agrupados. Aquí, la clase OperacionSuma tiene dos datos, A y B, que llamamos atributos o propiedades, y una función, Sumar, que usa esos datos y devuelve el resultado.",
+      "duration": 16.054666666666666
+    },
+    {
+      "id": "public-get-set",
+      "type": "code",
+      "title": "Public, get y set",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1,
+            3,
+            4,
+            6
+          ],
+          "at": "Public significa que se puede acceder"
+        },
+        {
+          "lines": [
+            3,
+            4
+          ],
+          "at": "get y set indican"
+        },
+        {
+          "lines": [
+            3
+          ],
+          "at": "get permite leer su valor"
+        },
+        {
+          "lines": [
+            4
+          ],
+          "at": "set permite cambiarlo"
+        }
+      ],
+      "code": "public class OperacionSuma     // public: accesible desde cualquier parte\n{\n    public int A { get; set; } // get: leer el valor, set: cambiarlo\n    public int B { get; set; }\n\n    public int Sumar()\n    {\n        return A + B;\n    }\n}",
+      "group": "la-clase",
+      "groupTitle": "La clase",
+      "narration": "Veamos dos detalles de la sintaxis. Public significa que se puede acceder desde cualquier parte de la aplicación. Si hubiese algo que queremos ocultar del resto de la aplicación, lo marcaríamos como private, pero son temas de diseño que veremos más adelante. Y get y set indican cómo se usa una propiedad: get permite leer su valor, y set permite cambiarlo.",
+      "duration": 20.918666666666667
+    },
+    {
+      "id": "vscode-ejemplo",
+      "type": "visual",
+      "title": "El código en VS Code",
+      "visual": "vscode",
+      "header": "MiProyecto",
+      "focus": 1,
+      "stepAt": [
+        "A la izquierda",
+        "Arriba, la pestaña",
+        "en el centro"
+      ],
+      "items": [
+        {
+          "icon": "📁",
+          "label": "MiProyecto",
+          "value": 0
+        },
+        {
+          "icon": "📄",
+          "label": "OperacionSuma.cs",
+          "value": 1
+        }
+      ],
+      "code": "public class OperacionSuma\n{\n    public int A { get; set; }\n    public int B { get; set; }\n\n    public int Sumar()\n    {\n        return A + B;\n    }\n}",
+      "narration": "Así se vería esa clase en VS Code. A la izquierda está el explorador, con los archivos del proyecto. Arriba, la pestaña muestra el nombre del archivo: cada clase suele vivir en su propio archivo con extensión .cs, de C#. Y en el centro está el código.",
+      "duration": 16.332
+    },
+    {
+      "id": "oop-inventario",
+      "type": "code",
+      "title": "Un ejemplo: un inventario de nombres",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "Ahora un ejemplo"
+        },
+        {
+          "lines": [
+            3
+          ],
+          "at": "Su dato principal"
+        }
+      ],
+      "code": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n}",
+      "group": "el-inventario-de-nombres",
+      "groupTitle": "El inventario de nombres",
+      "narration": "Ahora un ejemplo: supongamos que necesitamos guardar una lista de nombres, a modo de inventario. Su dato principal es la lista de nombres, que es un atributo de la clase. Con ella podremos agregar nombres, modificarlos y traerlos todos.",
+      "duration": 14.198666666666666
+    },
+    {
+      "id": "oop-constructor",
+      "type": "code",
+      "title": "El constructor",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "at": "Un constructor es"
+        },
+        {
+          "lines": [
+            1,
+            5
+          ],
+          "at": "Se llama igual que la clase"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "puede recibir datos"
+        },
+        {
+          "lines": [
+            7
+          ],
+          "at": "Aquí recibe el primer nombre"
+        }
+      ],
+      "code": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n\n    public InventarioNombres(string primero)\n    {\n        nombres.Add(primero);\n    }\n}",
+      "group": "el-inventario-de-nombres",
+      "groupTitle": "El inventario de nombres",
+      "narration": "Un constructor es un código especial que prepara el objeto cuando lo creamos. Se llama igual que la clase, puede recibir datos y deja el objeto listo para usar. Aquí recibe el primer nombre y lo agrega a la lista.",
+      "duration": 13.132
+    },
+    {
+      "id": "oop-metodos",
+      "type": "code",
+      "title": "Los métodos",
+      "language": "csharp",
+      "split": 14,
+      "focus": [
+        {
+          "lines": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "at": "Un método es una acción"
+        },
+        {
+          "lines": [
+            10
+          ],
+          "at": "agregar un nombre"
+        },
+        {
+          "lines": [
+            15
+          ],
+          "at": "modificar uno existente"
+        },
+        {
+          "lines": [
+            20
+          ],
+          "at": "traer todos"
+        },
+        {
+          "lines": [
+            20
+          ],
+          "at": "Primero va public"
+        },
+        {
+          "lines": [
+            21,
+            22,
+            23
+          ],
+          "at": "Dentro de las llaves"
+        }
+      ],
+      "code": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n\n    public InventarioNombres(string primero)\n    {\n        nombres.Add(primero);\n    }\n\n    public void Agregar(string nombre)\n    {\n        nombres.Add(nombre);\n    }\n\n    public void Modificar(int posicion, string nuevo)\n    {\n        nombres[posicion] = nuevo;\n    }\n\n    public List<string> TraerTodos()\n    {\n        return nombres;\n    }\n}",
+      "group": "el-inventario-de-nombres",
+      "groupTitle": "El inventario de nombres",
+      "narration": "Un método es una acción que un objeto puede realizar. Nuestro inventario tiene tres: agregar un nombre, modificar uno existente y traer todos. Primero va public, luego lo que devuelve, después el nombre y los paréntesis. Dentro de las llaves está lo que hace.",
+      "duration": 15.457333333333333
+    },
+    {
+      "id": "oop-use",
+      "type": "code",
+      "title": "Usar los objetos desde afuera",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "creamos un objeto con new"
+        },
+        {
+          "lines": [
+            2
+          ],
+          "at": "agregamos un nombre"
+        },
+        {
+          "lines": [
+            3
+          ],
+          "at": "modificamos otro"
+        },
+        {
+          "lines": [
+            4
+          ],
+          "at": "y traemos todos"
+        },
+        {
+          "lines": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "at": "Como son public"
+        },
+        {
+          "lines": [
+            6
+          ],
+          "at": "es private"
+        }
+      ],
+      "code": "var inventario = new InventarioNombres(\"Ana\");\ninventario.Agregar(\"Luis\");\ninventario.Modificar(0, \"Ana María\");\nvar todos = inventario.TraerTodos();\n\n// inventario.nombres no se puede usar desde aquí: es private",
+      "group": "el-inventario-de-nombres",
+      "groupTitle": "El inventario de nombres",
+      "narration": "Desde fuera de la clase, creamos un objeto con new, que llama al constructor. Después usamos sus métodos con un punto: agregamos un nombre, modificamos otro y traemos todos. Como son public, podemos usarlos desde aquí. En cambio, la lista de nombres es private, así que queda oculta para el resto de la aplicación.",
+      "duration": 18.529333333333334
+    },
+    {
+      "id": "practica-borrar",
+      "type": "code",
+      "title": "Práctica: agrega un método para borrar",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            5
+          ],
+          "at": "Agrega un método llamado Borrar"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "que reciba la posición del nombre"
+        },
+        {
+          "lines": [
+            7
+          ],
+          "at": "Las listas ya traen un método"
+        }
+      ],
+      "code": "public class InventarioNombres\n{\n    // ... lo que ya tenemos\n\n    public void Borrar(int posicion)\n    {\n        // tu código aquí\n    }\n}",
+      "narration": "Ahora te toca a ti. Nuestro inventario puede agregar, modificar y traer nombres, pero todavía no puede borrar. Agrega un método llamado Borrar, que reciba la posición del nombre y lo quite de la lista. Las listas ya traen un método para eso: se llama RemoveAt. Escríbelo aquí mismo en el navegador y ejecuta las pruebas. Si quieres, después pídele a tu agente que lo pruebe también en un proyecto de consola.",
+      "duration": 22.689333333333334
+    },
+    {
+      "id": "caso-inventario",
+      "type": "code",
+      "title": "Un caso para pensar",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "Creamos el inventario con Ana"
+        },
+        {
+          "lines": [
+            2,
+            3
+          ],
+          "at": "Agregamos a José y a Luis"
+        },
+        {
+          "lines": [
+            4
+          ],
+          "at": "borramos el segundo nombre"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "modificamos el primero"
+        },
+        {
+          "lines": [
+            6
+          ],
+          "at": "agregamos a Jesús"
+        },
+        {
+          "lines": [
+            8
+          ],
+          "at": "mostramos todos los nombres"
+        }
+      ],
+      "code": "var inventario = new InventarioNombres(\"Ana\");\ninventario.Agregar(\"José\");\ninventario.Agregar(\"Luis\");\ninventario.Borrar(1);\ninventario.Modificar(0, \"Carlos\");\ninventario.Agregar(\"Jesús\");\n\nConsole.WriteLine(string.Join(\", \", inventario.TraerTodos()));",
+      "narration": "Veamos un caso. Creamos el inventario con Ana. Agregamos a José y a Luis. Luego borramos el segundo nombre. Después modificamos el primero para que sea Carlos, y agregamos a Jesús. Al final, mostramos todos los nombres. Antes de seguir, piensa: ¿qué crees que va a salir? Elige tu respuesta.",
+      "duration": 18.017333333333333
+    },
+    {
+      "id": "caso-ejecucion",
+      "type": "visual",
+      "title": "¿Qué ocurrió?",
+      "visual": "memory-list",
+      "items": [
+        {
+          "icon": "🆕",
+          "label": "new InventarioNombres(\"Ana\")",
+          "detail": "Crea el inventario",
+          "at": "Al crear el inventario con Ana",
+          "steps": [
+            "Ana"
+          ]
+        },
+        {
+          "icon": "➕",
+          "label": "Agregar(\"José\")",
+          "detail": "Agrega a José",
+          "at": "Agregamos a José",
+          "steps": [
+            "Ana",
+            "José"
+          ]
+        },
+        {
+          "icon": "➕",
+          "label": "Agregar(\"Luis\")",
+          "detail": "Agrega a Luis",
+          "at": "y luego a Luis",
+          "steps": [
+            "Ana",
+            "José",
+            "Luis"
+          ]
+        },
+        {
+          "icon": "🗑️",
+          "label": "Borrar(1)",
+          "detail": "Quita la posición 1",
+          "at": "Borrar quita la posición uno",
+          "steps": [
+            "Ana",
+            "Luis"
+          ]
+        },
+        {
+          "icon": "✏️",
+          "label": "Modificar(0, \"Carlos\")",
+          "detail": "Cambia la posición 0",
+          "at": "Después modificamos la posición cero",
+          "steps": [
+            "Carlos",
+            "Luis"
+          ]
+        },
+        {
+          "icon": "➕",
+          "label": "Agregar(\"Jesús\")",
+          "detail": "Agrega a Jesús al final",
+          "at": "Agregamos a Jesús al final",
+          "steps": [
+            "Carlos",
+            "Luis",
+            "Jesús"
+          ]
+        },
+        {
+          "icon": "📥",
+          "label": "TraerTodos()",
+          "detail": "Devuelve la lista completa",
+          "at": "Y al traer todos",
+          "steps": [
+            "Carlos",
+            "Luis",
+            "Jesús"
+          ]
+        }
+      ],
+      "narration": "Veamos qué ocurrió, paso a paso. Al crear el inventario con Ana, la lista tiene un solo nombre. Agregamos a José y luego a Luis, y quedan tres. Borrar quita la posición uno. Recuerda que las posiciones empiezan en cero, así que el segundo nombre es José, y Luis pasa a ocupar la posición uno. Después modificamos la posición cero: Ana se convierte en Carlos. Agregamos a Jesús al final. Y al traer todos, vemos Carlos, Luis y Jesús.",
+      "duration": 24.673333333333336
+    },
+    {
+      "id": "error-posicion",
+      "type": "code",
+      "title": "El error",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            1
+          ],
+          "at": "Un último tema: los errores"
+        },
+        {
+          "lines": [
+            2
+          ],
+          "at": "modificar la posición cinco"
+        },
+        {
+          "lines": [
+            4,
+            5
+          ],
+          "at": "el programa falla con un error"
+        }
+      ],
+      "code": "// La lista tiene 3 nombres: posiciones 0, 1 y 2\ninventario.Modificar(5, \"Pedro\");\n\n// Error: ArgumentOutOfRangeException\n// La posición 5 no existe",
+      "group": "errores-cuando-algo-sale-mal",
+      "groupTitle": "Errores: cuando algo sale mal",
+      "narration": "Un último tema: los errores. ¿Qué pasa si pedimos modificar la posición cinco, y la lista solo tiene tres nombres? Esa posición no existe, y el programa falla con un error. Los errores son normales, y es importante que nuestro código sepa evitarlos.",
+      "duration": 15.372
+    },
+    {
+      "id": "validar-posicion",
+      "type": "code",
+      "title": "Validar antes de actuar",
+      "language": "csharp",
+      "focus": [
+        {
+          "lines": [
+            3
+          ],
+          "at": "comprobamos que la posición exista"
+        },
+        {
+          "lines": [
+            5
+          ],
+          "at": "no hace nada"
+        }
+      ],
+      "code": "public void Modificar(int posicion, string nuevo)\n{\n    if (posicion < 0 || posicion >= nombres.Count)\n    {\n        return;\n    }\n\n    nombres[posicion] = nuevo;\n}",
+      "group": "errores-cuando-algo-sale-mal",
+      "groupTitle": "Errores: cuando algo sale mal",
+      "narration": "La solución es validar antes de actuar. Antes de modificar, comprobamos que la posición exista: que no sea negativa y que sea menor que la cantidad de nombres. Si no existe, el método simplemente no hace nada. Ahora te toca: en el ejercicio, agrega esa validación a Modificar y haz lo mismo con Borrar. Ejecuta las pruebas para comprobar que ya no fallan.",
+      "duration": 20.556
+    }
+  ],
+  "exercises": [
+    {
+      "id": "tipos-precio",
+      "afterScene": "funcion-sumar",
+      "type": "multiple-choice",
+      "prompt": "¿Qué tipo usarías para guardar el precio de un producto, como 19.99?",
+      "choices": [
+        "decimal",
+        "int",
+        "char"
+      ],
+      "answer": 0,
+      "explanation": "decimal guarda números con decimales de forma exacta, ideal para dinero. int solo guarda enteros y char un único carácter."
+    },
+    {
+      "id": "funcion-parametros",
+      "afterScene": "funcion-sumar",
+      "type": "multiple-choice",
+      "prompt": "En Sumar(int a, int b), ¿qué son a y b?",
+      "choices": [
+        "Los parámetros: los datos que recibe la función",
+        "El resultado que devuelve la función",
+        "El nombre de la función"
+      ],
+      "answer": 0,
+      "explanation": "Los parámetros son los datos de entrada. El resultado es lo que la función devuelve con return."
+    },
+    {
+      "id": "control-suma",
+      "afterScene": "control-for",
+      "type": "code-completion",
+      "title": "Sumar desde a hasta b",
+      "language": "csharp",
+      "prompt": "Completa la función Sumar(a, b): debe devolver la suma de todos los números desde a hasta b, incluidos los dos. Usa un for.",
+      "starter": "int Sumar(int a, int b)\n{\n    int total = 0;\n    // recorre desde a hasta b con un for\n    // y suma cada número a total\n    return total;\n}",
+      "solution": "int Sumar(int a, int b)\n{\n    int total = 0;\n    for (int i = a; i <= b; i++)\n    {\n        total += i;\n    }\n    return total;\n}",
+      "tests": [
+        {
+          "name": "de 1 a 4 suma 10",
+          "expression": "Console.WriteLine(Sumar(1, 4));",
+          "expected": "10"
+        },
+        {
+          "name": "de 3 a 5 suma 12",
+          "expression": "Console.WriteLine(Sumar(3, 5));",
+          "expected": "12"
+        },
+        {
+          "name": "de 5 a 5 suma 5",
+          "expression": "Console.WriteLine(Sumar(5, 5));",
+          "expected": "5"
+        }
+      ],
+      "explanation": "El for recorre los números desde a hasta b y total va acumulando la suma."
+    },
+    {
+      "id": "oop-check",
+      "afterScene": "public-get-set",
+      "type": "multiple-choice",
+      "prompt": "En una clase, ¿qué diferencia hay entre un atributo y un método?",
+      "choices": [
+        "El atributo contiene un dato; el método realiza una acción",
+        "Ambos son nombres para una base de datos",
+        "El método contiene datos y el atributo ejecuta acciones"
+      ],
+      "answer": 0,
+      "explanation": "La lista de nombres es un dato de la clase; agregar un nombre es una acción."
+    },
+    {
+      "id": "practica-borrar-check",
+      "afterScene": "practica-borrar",
+      "type": "code-completion",
+      "title": "Completa Borrar",
+      "language": "csharp",
+      "prompt": "Completa el método Borrar para que quite el nombre de la posición indicada.",
+      "starter": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n\n    public InventarioNombres(string primero)\n    {\n        nombres.Add(primero);\n    }\n\n    public void Agregar(string nombre)\n    {\n        nombres.Add(nombre);\n    }\n\n    public void Modificar(int posicion, string nuevo)\n    {\n        nombres[posicion] = nuevo;\n    }\n\n    public List<string> TraerTodos()\n    {\n        return nombres;\n    }\n\n    public void Borrar(int posicion)\n    {\n        // tu código aquí\n    }\n}",
+      "solution": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n\n    public InventarioNombres(string primero)\n    {\n        nombres.Add(primero);\n    }\n\n    public void Agregar(string nombre)\n    {\n        nombres.Add(nombre);\n    }\n\n    public void Modificar(int posicion, string nuevo)\n    {\n        nombres[posicion] = nuevo;\n    }\n\n    public List<string> TraerTodos()\n    {\n        return nombres;\n    }\n\n    public void Borrar(int posicion)\n    {\n        nombres.RemoveAt(posicion);\n    }\n}",
+      "tests": [
+        {
+          "name": "Borrar quita el segundo nombre",
+          "expression": "var inv = new InventarioNombres(\"Ana\");\ninv.Agregar(\"José\");\ninv.Agregar(\"Luis\");\ninv.Borrar(1);\nConsole.WriteLine(string.Join(\", \", inv.TraerTodos()));",
+          "expected": "Ana, Luis"
+        },
+        {
+          "name": "Borrar el primer nombre",
+          "expression": "var inv = new InventarioNombres(\"Ana\");\ninv.Agregar(\"Luis\");\ninv.Borrar(0);\nConsole.WriteLine(string.Join(\", \", inv.TraerTodos()));",
+          "expected": "Luis"
+        }
+      ],
+      "explanation": "Una solución: nombres.RemoveAt(posicion);"
+    },
+    {
+      "id": "caso-inventario-salida",
+      "afterScene": "caso-inventario",
+      "type": "output-prediction",
+      "prompt": "¿Qué imprime este programa?",
+      "choices": [
+        "Carlos, Luis, Jesús",
+        "Carlos, José, Luis, Jesús",
+        "Ana, Luis, Jesús",
+        "Carlos, José, Jesús"
+      ],
+      "answer": 0,
+      "explanation": "Borrar(1) quita a José, el segundo nombre, porque las posiciones empiezan en cero. Luis pasa a la posición 1. Modificar(0, ...) cambia a Ana por Carlos, y Jesús se agrega al final."
+    },
+    {
+      "id": "errores-posicion",
+      "afterScene": "validar-posicion",
+      "type": "multiple-choice",
+      "prompt": "Si la lista tiene 3 nombres, ¿cuál es la última posición válida?",
+      "choices": [
+        "2",
+        "3",
+        "1"
+      ],
+      "answer": 0,
+      "explanation": "Las posiciones empiezan en cero: 0, 1 y 2."
+    },
+    {
+      "id": "errores-validar",
+      "afterScene": "validar-posicion",
+      "type": "code-completion",
+      "title": "Valida las posiciones",
+      "language": "csharp",
+      "prompt": "Valida Modificar y Borrar: si la posición no existe, no deben hacer nada ni fallar.",
+      "starter": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n\n    public InventarioNombres(string primero)\n    {\n        nombres.Add(primero);\n    }\n\n    public void Agregar(string nombre)\n    {\n        nombres.Add(nombre);\n    }\n\n    public void Modificar(int posicion, string nuevo)\n    {\n        nombres[posicion] = nuevo;\n    }\n\n    public List<string> TraerTodos()\n    {\n        return nombres;\n    }\n\n    public void Borrar(int posicion)\n    {\n        nombres.RemoveAt(posicion);\n    }\n}",
+      "solution": "public class InventarioNombres\n{\n    private List<string> nombres = new();\n\n    public InventarioNombres(string primero)\n    {\n        nombres.Add(primero);\n    }\n\n    public void Agregar(string nombre)\n    {\n        nombres.Add(nombre);\n    }\n\n    public void Modificar(int posicion, string nuevo)\n    {\n        if (posicion < 0 || posicion >= nombres.Count)\n        {\n            return;\n        }\n\n        nombres[posicion] = nuevo;\n    }\n\n    public List<string> TraerTodos()\n    {\n        return nombres;\n    }\n\n    public void Borrar(int posicion)\n    {\n        if (posicion < 0 || posicion >= nombres.Count)\n        {\n            return;\n        }\n\n        nombres.RemoveAt(posicion);\n    }\n}",
+      "tests": [
+        {
+          "name": "Modificar fuera de la lista no falla",
+          "expression": "var inv = new InventarioNombres(\"Ana\");\ninv.Modificar(5, \"Pedro\");\nConsole.WriteLine(string.Join(\", \", inv.TraerTodos()));",
+          "expected": "Ana"
+        },
+        {
+          "name": "Modificar una posición válida sigue funcionando",
+          "expression": "var inv = new InventarioNombres(\"Ana\");\ninv.Modificar(0, \"Carlos\");\nConsole.WriteLine(string.Join(\", \", inv.TraerTodos()));",
+          "expected": "Carlos"
+        },
+        {
+          "name": "Borrar fuera de la lista no falla",
+          "expression": "var inv = new InventarioNombres(\"Ana\");\ninv.Borrar(9);\nConsole.WriteLine(string.Join(\", \", inv.TraerTodos()));",
+          "expected": "Ana"
+        },
+        {
+          "name": "Borrar una posición negativa no falla",
+          "expression": "var inv = new InventarioNombres(\"Ana\");\ninv.Borrar(-1);\nConsole.WriteLine(string.Join(\", \", inv.TraerTodos()));",
+          "expected": "Ana"
+        }
+      ],
+      "explanation": "Comprueba que la posición exista (que no sea negativa y sea menor que la cantidad de nombres) antes de actuar."
+    }
+  ],
+  "producedAt": "2026-11-09T16:30:55.465Z",
+  "sourceHash": "6879873768426ff6714c646013362730c84c3e4fa4c6da55e7fcd503d8dfd62d",
+  "audio": [
+    {
+      "sceneId": "intro-leccion",
+      "src": "audio/611666abcc7cc6e9459dc81cf7309705bc3c8f2b6e5bee0b01aa36aa5e3ecd96.wav",
+      "duration": 21.76,
+      "provider": "kokoro",
+      "cacheKey": "611666abcc7cc6e9459dc81cf7309705bc3c8f2b6e5bee0b01aa36aa5e3ecd96"
+    },
+    {
+      "sceneId": "tipos-nativos",
+      "src": "audio/5a2b38ec36168ccdcca311c63418ff2398fbb095cee9f8f2987a29653169341d.wav",
+      "duration": 17.429333333333332,
+      "provider": "kokoro",
+      "cacheKey": "5a2b38ec36168ccdcca311c63418ff2398fbb095cee9f8f2987a29653169341d"
+    },
+    {
+      "sceneId": "funcion-sumar",
+      "src": "audio/222f769fb11b87da728b6ec6f942493670a16deb4bccc6d6733d5b187016860b.wav",
+      "duration": 17.877333333333333,
+      "provider": "kokoro",
+      "cacheKey": "222f769fb11b87da728b6ec6f942493670a16deb4bccc6d6733d5b187016860b"
+    },
+    {
+      "sceneId": "control-if",
+      "src": "audio/54119100c3cadec9a0555f2ec5985d6cdabd0ddd91aad391a26d309677959347.wav",
+      "duration": 14.912,
+      "provider": "kokoro",
+      "cacheKey": "54119100c3cadec9a0555f2ec5985d6cdabd0ddd91aad391a26d309677959347"
+    },
+    {
+      "sceneId": "control-while",
+      "src": "audio/729fb29978abba3876e03805b15a8aa0eff5ad49a566d147dd2b76ac1c1188e6.wav",
+      "duration": 18.56,
+      "provider": "kokoro",
+      "cacheKey": "729fb29978abba3876e03805b15a8aa0eff5ad49a566d147dd2b76ac1c1188e6"
+    },
+    {
+      "sceneId": "control-for",
+      "src": "audio/a5f3f5499b18d3342a97186fabf8442ef8ecc8aae8db8d7ce644b57f7b01062e.wav",
+      "duration": 22.848,
+      "provider": "kokoro",
+      "cacheKey": "a5f3f5499b18d3342a97186fabf8442ef8ecc8aae8db8d7ce644b57f7b01062e"
+    },
+    {
+      "sceneId": "clase-operacion-suma",
+      "src": "audio/274b1dc8459fe8ff2e92501b4a08ec00ae55e2a504242a83a15448bc4d462102.wav",
+      "duration": 14.954666666666666,
+      "provider": "kokoro",
+      "cacheKey": "274b1dc8459fe8ff2e92501b4a08ec00ae55e2a504242a83a15448bc4d462102"
+    },
+    {
+      "sceneId": "public-get-set",
+      "src": "audio/dd0eb9e05d627a3ce2492eb962c1862495286614cdd4295060dbbb34cea0d28b.wav",
+      "duration": 19.818666666666665,
+      "provider": "kokoro",
+      "cacheKey": "dd0eb9e05d627a3ce2492eb962c1862495286614cdd4295060dbbb34cea0d28b"
+    },
+    {
+      "sceneId": "vscode-ejemplo",
+      "src": "audio/e5c3bd7f7b7fbe38168611aeaa60f5397f47a48e4c5f3be23513f71522205947.wav",
+      "duration": 15.232,
+      "provider": "kokoro",
+      "cacheKey": "e5c3bd7f7b7fbe38168611aeaa60f5397f47a48e4c5f3be23513f71522205947"
+    },
+    {
+      "sceneId": "oop-inventario",
+      "src": "audio/08e12399be0a1efe86dc91ae095e265a6640653a8ae20e7aa0f8dcdfd6b12dc0.wav",
+      "duration": 13.098666666666666,
+      "provider": "kokoro",
+      "cacheKey": "08e12399be0a1efe86dc91ae095e265a6640653a8ae20e7aa0f8dcdfd6b12dc0"
+    },
+    {
+      "sceneId": "oop-constructor",
+      "src": "audio/ee67d41a8ab788507d9ae80f5ce06df96551d2896224fbe19b6d363658e9e8b9.wav",
+      "duration": 12.032,
+      "provider": "kokoro",
+      "cacheKey": "ee67d41a8ab788507d9ae80f5ce06df96551d2896224fbe19b6d363658e9e8b9"
+    },
+    {
+      "sceneId": "oop-metodos",
+      "src": "audio/27dda02094231a2d5a81f0dccd528ad4d783ec55bda841cbc9c904b28bdf32f3.wav",
+      "duration": 14.357333333333333,
+      "provider": "kokoro",
+      "cacheKey": "27dda02094231a2d5a81f0dccd528ad4d783ec55bda841cbc9c904b28bdf32f3"
+    },
+    {
+      "sceneId": "oop-use",
+      "src": "audio/b3b5595b6c6c86dc953e254edf1ba1e095a9990adc442ddca9180fda393ea30a.wav",
+      "duration": 17.429333333333332,
+      "provider": "kokoro",
+      "cacheKey": "b3b5595b6c6c86dc953e254edf1ba1e095a9990adc442ddca9180fda393ea30a"
+    },
+    {
+      "sceneId": "practica-borrar",
+      "src": "audio/4367fb0dc7057eba05968538c7d70a9984af961d86a06efe094305e7887249f3.wav",
+      "duration": 21.589333333333332,
+      "provider": "kokoro",
+      "cacheKey": "4367fb0dc7057eba05968538c7d70a9984af961d86a06efe094305e7887249f3"
+    },
+    {
+      "sceneId": "caso-inventario",
+      "src": "audio/1eb835fc656ef6f6e23d02b4b1a67e69ec7c2d03b28495a97873986ea1eb010c.wav",
+      "duration": 16.917333333333332,
+      "provider": "kokoro",
+      "cacheKey": "1eb835fc656ef6f6e23d02b4b1a67e69ec7c2d03b28495a97873986ea1eb010c"
+    },
+    {
+      "sceneId": "caso-ejecucion",
+      "src": "audio/dd0722beab6af645c27d8ad3b1c903a5a91f7a0491fddd0dc12869bbb58ab280.wav",
+      "duration": 23.573333333333334,
+      "provider": "kokoro",
+      "cacheKey": "dd0722beab6af645c27d8ad3b1c903a5a91f7a0491fddd0dc12869bbb58ab280"
+    },
+    {
+      "sceneId": "error-posicion",
+      "src": "audio/c6619f0d0351c48d2f46c7587fd30706690a6521d71d0d7166138d8d82c6edd1.wav",
+      "duration": 14.272,
+      "provider": "kokoro",
+      "cacheKey": "c6619f0d0351c48d2f46c7587fd30706690a6521d71d0d7166138d8d82c6edd1"
+    },
+    {
+      "sceneId": "validar-posicion",
+      "src": "audio/8eb59d36e4b04a26451e3e09bb103cf49b141eb6d506a80f1e2b4bbca32a6b04.wav",
+      "duration": 19.456,
+      "provider": "kokoro",
+      "cacheKey": "8eb59d36e4b04a26451e3e09bb103cf49b141eb6d506a80f1e2b4bbca32a6b04"
+    }
+  ],
+  "totalDuration": 335.9173333333334
+}
