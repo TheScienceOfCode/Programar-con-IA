@@ -11,7 +11,7 @@ Tabla de contenidos del curso. La fila N es la lección de `lessons/session-N/`;
 | 1 | Tu primera aplicación con IA - 6 minutos | Introducción a la computación y la IA. VS Code, agentes y herramientas. Construir una biblioteca de videojuegos con frontend, backend, base de datos y Docker. Verificar su funcionamiento en el navegador. |
 | 2 | Acercándonos al código - 6 minutos | Tipos nativos, funciones y clases: datos y funciones agrupados. `public`, `get` y `set`. Un inventario de nombres, práctica de escritura, predicción de la ejecución y manejo de errores. |
 | 3 | Backend en ASP Core - 10 minutos | APIs, HTTP y REST. Controladores, modelo de datos, inyección de dependencias, EF Core, async y migraciones en C#. Leer, modificar y probar un controlador real. |
-| 4 | Frontend en ReactJS | React, componentes, interacción y comunicación con el backend. |
+| 4 | Frontend en ReactJS - 14 minutos | Diferencias entre C# y JavaScript. React: componentes, JSX, props, estado, hooks, eventos y Context API. fetch para hablar con la API y CSS con variables. Un tablero Kanban de tareas y el ejercicio final de responsables. |
 | 5 | Pruebas automatizadas | Validaciones con clics, entradas y aserciones. Detección y corrección de errores con IA. |
 | 6 | Seguridad del software | Autenticación, autorización, vulnerabilidades y análisis de seguridad con IA. |
 | 7 | Patrones de backend | Arquitectura, responsabilidades, organización y buenas prácticas. |

@@ -136,6 +136,7 @@ code: |-
 ```exercise
 id: control-suma
 type: code-completion
+title: "Sumar desde a hasta b"
 language: csharp
 prompt: "Completa la función Sumar(a, b): debe devolver la suma de todos los números desde a hasta b, incluidos los dos. Usa un for."
 starter: |-
@@ -515,6 +516,7 @@ code: |-
 ```exercise
 id: practica-borrar-check
 type: code-completion
+title: "Completa Borrar"
 language: csharp
 prompt: "Completa el método Borrar para que quite el nombre de la posición indicada."
 starter: |-
@@ -704,6 +706,7 @@ explanation: "Las posiciones empiezan en cero: 0, 1 y 2."
 ```exercise
 id: errores-validar
 type: code-completion
+title: "Valida las posiciones"
 language: csharp
 prompt: "Valida Modificar y Borrar: si la posición no existe, no deben hacer nada ni fallar."
 starter: |-
